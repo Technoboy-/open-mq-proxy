@@ -1,6 +1,7 @@
 package com.owl.rocketmq.client.consumer;
 
 
+import com.owl.kafka.client.serializer.Serializer;
 import com.owl.rocketmq.client.util.Preconditions;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.*;
@@ -15,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * @Author: Tboy
  */
-public class DefaultRocketMQConsumerImpl {
+public class DefaultRocketMQConsumerImpl<V> {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRocketMQConsumerImpl.class);
 
@@ -23,6 +24,7 @@ public class DefaultRocketMQConsumerImpl {
 
     private final DefaultMQPushConsumer consumer;
     private final ConsumerConfig consumerConfig;
+    private final Serializer serializer;
     private MessageListener messageListener;
 
     public DefaultRocketMQConsumerImpl(ConsumerConfig consumerConfig){
@@ -38,12 +40,14 @@ public class DefaultRocketMQConsumerImpl {
             LOG.error("DefaultRocketMQConsumerImpl subscribe error!", ex);
             throw new RuntimeException(ex);
         }
+        this.serializer = consumerConfig.getSerializer();
     }
 
 
     public void start() {
 
         Preconditions.checkArgument(messageListener != null, "messageListener should not be null");
+        Preconditions.checkArgument(serializer != null, "serializer should not be null");
 
         if(start.compareAndSet(false, true)){
             try {
@@ -80,10 +84,12 @@ public class DefaultRocketMQConsumerImpl {
         }
     }
 
-    private List<RocketMQMessage> convert(List<MessageExt> msgs){
-        List<RocketMQMessage> messages = new ArrayList<>();
+    private List<RocketMQMessage<V>> convert(List<MessageExt> msgs){
+        List<RocketMQMessage<V>> messages = new ArrayList<>();
         for(MessageExt ext : msgs){
-            messages.add(new RocketMQMessage(ext));
+            RocketMQMessage rmqMessage = new RocketMQMessage(ext);
+            rmqMessage.setBody((V)serializer.deserialize(ext.getBody(), Object.class));
+            messages.add(rmqMessage);
         }
         return messages;
     }

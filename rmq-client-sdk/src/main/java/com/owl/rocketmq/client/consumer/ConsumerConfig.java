@@ -1,5 +1,6 @@
 package com.owl.rocketmq.client.consumer;
 
+import com.owl.kafka.client.serializer.Serializer;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 
@@ -66,6 +67,16 @@ public class ConsumerConfig{
      * Max consumer thread number
      */
     private int consumeThreadMax = 64;
+
+    private Serializer serializer;
+
+    public Serializer getSerializer() {
+        return serializer;
+    }
+
+    public void setSerializer(Serializer serializer) {
+        this.serializer = serializer;
+    }
 
     public int getConsumeThreadMin() {
         return consumeThreadMin;

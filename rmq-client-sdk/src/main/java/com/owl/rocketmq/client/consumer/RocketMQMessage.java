@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @Author: Tboy
  */
-public class RocketMQMessage implements Serializable {
+public class RocketMQMessage<V> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,13 +17,12 @@ public class RocketMQMessage implements Serializable {
 
     private String tags;
 
-    private byte[] body;
+    private V body;
 
     public RocketMQMessage(MessageExt ext) {
         this.mqId = ext.getMsgId();
         this.topic = ext.getTopic();
         this.tags = ext.getTags();
-        this.body = ext.getBody();
     }
 
 
@@ -53,11 +52,11 @@ public class RocketMQMessage implements Serializable {
         this.tags = tags;
     }
 
-    public byte[] getBody() {
+    public V getBody() {
         return body;
     }
 
-    public void setBody(byte[] body) {
+    public void setBody(V body) {
         this.body = body;
     }
 
