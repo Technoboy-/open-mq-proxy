@@ -1,7 +1,7 @@
 package com.owl.mq.server.bo;
 
 import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.util.SystemClock;
+import com.owl.mq.client.util.SystemClock;
 
 import java.util.Objects;
 

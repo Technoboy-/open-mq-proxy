@@ -10,7 +10,7 @@ import com.owl.mq.server.bo.ServerConfigs;
 import com.owl.mq.server.push.service.MessageHolder;
 import com.owl.mq.server.push.service.RepushPolicy;
 import com.owl.mq.server.service.InstanceHolder;
-import com.owl.mq.util.SystemClock;
+import com.owl.mq.client.util.SystemClock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

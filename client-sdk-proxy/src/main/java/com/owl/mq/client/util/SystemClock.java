@@ -1,4 +1,4 @@
-package com.owl.mq.util;
+package com.owl.mq.client.util;
 
 
 
