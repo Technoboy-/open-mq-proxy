@@ -1,7 +1,8 @@
 package com.owl.kafka.client.producer;
 
 
-import com.owl.kafka.client.serializer.Serializer;
+
+import com.owl.client.common.serializer.Serializer;
 
 import java.util.HashMap;
 

@@ -1,3 +1,5 @@
+import com.owl.client.common.serializer.SerializerImpl;
+import com.owl.client.common.util.NamedThreadFactory;
 import com.owl.kafka.client.OwlKafkaClient;
 import com.owl.kafka.client.consumer.ConsumerConfig;
 import com.owl.kafka.client.consumer.KafkaConsumer;
@@ -10,8 +12,6 @@ import com.owl.kafka.client.producer.Callback;
 import com.owl.kafka.client.producer.KafkaProducer;
 import com.owl.kafka.client.producer.ProducerConfig;
 import com.owl.kafka.client.producer.SendResult;
-import com.owl.kafka.client.serializer.SerializerImpl;
-import com.owl.kafka.client.util.NamedThreadFactory;
 import io.netty.util.HashedWheelTimer;
 import io.netty.util.Timeout;
 import io.netty.util.TimerTask;

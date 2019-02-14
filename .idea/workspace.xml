@@ -1,0 +1,1879 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e2a535e8-65b6-4fa8-9b83-34c04df8f8b8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-common/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-common/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-common/src/main/resources/META-INF/spiconfig/com.owl.client.common.serializer.Serializer" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-proxy/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/DefaultPullMessageImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/OffsetQueue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/PullMessageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/NettyClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/PongMessageHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/ViewMessageHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/util/ChannelUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/proxy/DefaultPullMessageImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/proxy/PullMessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/ConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/ConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/DefaultKafkaConsumerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/DefaultKafkaConsumerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/CommonAcknowledgeMessageListenerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/CommonAcknowledgeMessageListenerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/ConcurrentAutoCommitMessageListenerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/ConcurrentAutoCommitMessageListenerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/MessageListenerServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/MessageListenerServiceRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/PullAcknowledgeMessageListenerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/PullAcknowledgeMessageListenerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/metric/Collector.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/metric/Collector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/producer/DefaultKafkaProducerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/producer/DefaultKafkaProducerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/producer/ProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/producer/ProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/ClientConfigs.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/ClientConfigs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/ConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/ConfigLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/DefaultPullMessageImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/DefaultPullMessageImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/DefaultPushMessageImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/DefaultPushMessageImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/DefaultRetryPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/DefaultRetryPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/IdService.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/IdService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/InvokeCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/InvokeCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/InvokerPromise.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/InvokerPromise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/LoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/LoadBalance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/OffsetQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/OffsetQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/OffsetStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/OffsetStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/PullCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/PullCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/PullMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/KafkaPullMessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/PullStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/PullStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/RegisterMetadata.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/RegisterMetadata.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/RegistryListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/RegistryListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/RegistryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/RegistryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/RetryPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/RetryPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/TopicPartitionOffset.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/service/TopicPartitionOffset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/ConnectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/ConnectionWatchDog.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/ConnectionWatchDog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/NettyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/KafkaNettyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/NettyConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/NettyConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/alloc/ByteBufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/ByteBufferPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/alloc/NettyByteBufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/NettyByteBufferPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/alloc/PoolArena.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/PoolArena.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/alloc/PoolChunk.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/PoolChunk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/alloc/SimpleByteBufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/SimpleByteBufferPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/alloc/SimpleEnhancedByteBufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/SimpleEnhancedByteBufferPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/codec/PacketDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/codec/PacketDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/codec/PacketEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/codec/PacketEncoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/exceptions/ChannelInactiveException.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/exceptions/ChannelInactiveException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/exceptions/RemotingException.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/exceptions/RemotingException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/CommonMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/CommonMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/IdleStateTrigger.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/IdleStateTrigger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/MessageDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/MessageDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/MessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/MessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/PongMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/PongMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/PullRespMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/PullRespMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/PushMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/PushMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/ViewMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/ViewMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/message/Header.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/message/Header.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/message/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/protocol/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/protocol/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/protocol/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/protocol/Packet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/protocol/PacketHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/protocol/PacketHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/util/MessageCodec.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/util/MessageCodec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/util/Packets.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/util/Packets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/zookeeper/KafkaZookeeperConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/zookeeper/KafkaZookeeperConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/zookeeper/ZookeeperClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/zookeeper/ZookeeperClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/serializer/ByteArraySerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/ByteArraySerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/serializer/FastJsonSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/FastJsonSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/serializer/HessianSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/HessianSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/serializer/JacksonSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/JacksonSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/serializer/ProtoStuffSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/ProtoStuffSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/serializer/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/Serializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/serializer/SerializerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/SerializerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/serializer/StringSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/StringSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/spi/MonitorLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/spi/MonitorLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/spi/SPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/spi/SPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/spi/SPILoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/spi/SPILoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/spi/SerializerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer/spi/SerializerLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/util/CallerWaitPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util/CallerWaitPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/util/CollectionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util/CollectionUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/util/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/util/NamedThreadFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util/NamedThreadFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/util/NetUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/util/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util/Pair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/util/Preconditions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/util/StringUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/main/resources/META-INF/spiconfig/com.owl.kafka.client.serializer.Serializer" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka-client-sdk/src/test/java/KafkaClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/kafka-client-sdk/src/test/java/KafkaClientTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/BizExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/BizExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/NettyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/NettyServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/PullRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/PullRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/ResendPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/ResendPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/ServerConfigs.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/ServerConfigs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/file/MappedFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/file/MappedFileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/pull/PullCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/pull/PullCenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/pull/PullServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/pull/PullServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/push/PushCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/push/PushCenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/push/PushServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/push/PushServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/ClientRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/ClientRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/RegistryCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/RegistryCenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/ServerRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/ServerRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DLQService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DLQService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DefaultFixedTimeRepushPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DefaultFixedTimeRepushPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DefaultFlowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DefaultFlowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedPullRequestHoldService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedPullRequestHoldService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedV2PullRequestHoldService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedV2PullRequestHoldService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/InstanceHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/InstanceHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/MessageHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/MessageHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/PullRequestHoldService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/PullRequestHoldService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/RepushPolicy.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/RepushPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/RoundRobinLoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/RoundRobinLoadBalance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/SystemClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/SystemClock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/DLQConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/DLQConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/ProxyConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/ProxyConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/AckMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/AckMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/PingMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/PingMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/PullReqMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/PullReqMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/SendBackMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/SendBackMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/UnregisterMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/UnregisterMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ViewReqMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ViewReqMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rmq-client-sdk/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/consumer/ConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/consumer/ConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/consumer/DefaultRocketMQConsumerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/consumer/DefaultRocketMQConsumerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/producer/DefaultRocketMQProducerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/producer/DefaultRocketMQProducerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/producer/ProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/producer/ProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/util/NetUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util/NetUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/util/Preconditions.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util/Preconditions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/util/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util/StringUtils.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/kafka-client-sdk/target/" />
+    <ignored path="$PROJECT_DIR$/kakfa-proxy-server/target/" />
+    <ignored path="$PROJECT_DIR$/rmq-proxy-server/target/" />
+    <ignored path="$PROJECT_DIR$/rmq-client-sdk/target/" />
+    <ignored path="$PROJECT_DIR$/common/target/" />
+    <ignored path="$PROJECT_DIR$/common-client-sdk/target/" />
+    <ignored path="$PROJECT_DIR$/client-sdk-serializer/target/" />
+    <ignored path="$PROJECT_DIR$/client-sdk-common/target/" />
+    <ignored path="$PROJECT_DIR$/client-sdk-proxy/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-372430262">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="10" />
+          <entry key="xml" value="6" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="10" />
+          <entry key="XML" value="6" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="xml" value="23" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="XML" value="23" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="876853680">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="2" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="Monitor" value="3" />
+          <entry key="Serializer" value="6" />
+          <entry key="class" value="2" />
+          <entry key="dtd" value="1" />
+          <entry key="java" value="551" />
+          <entry key="kafka-test" value="2" />
+          <entry key="log" value="3" />
+          <entry key="properties" value="2" />
+          <entry key="xml" value="60" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="2" />
+          <entry key="DTD" value="1" />
+          <entry key="JAVA" value="551" />
+          <entry key="PLAIN_TEXT" value="14" />
+          <entry key="Properties" value="2" />
+          <entry key="XML" value="60" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="Serializer" value="7" />
+          <entry key="dummy" value="54" />
+          <entry key="java" value="3340" />
+          <entry key="properties" value="1" />
+          <entry key="txt" value="12" />
+          <entry key="xml" value="191" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="3340" />
+          <entry key="PLAIN_TEXT" value="73" />
+          <entry key="Properties" value="1" />
+          <entry key="XML" value="191" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/SendBackMessageHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="205">
+              <caret line="30" column="86" lean-forward="true" selection-start-line="30" selection-start-column="86" selection-end-line="30" selection-end-column="86" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ServerHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="40" column="79" selection-start-line="40" selection-start-column="79" selection-end-line="40" selection-end-column="79" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ViewReqMessageHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="318">
+              <caret line="35" column="32" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/SystemClock.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="33" column="100" selection-start-line="33" selection-start-column="100" selection-end-line="33" selection-end-column="100" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/push/PushServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/NettyServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="78" column="25" lean-forward="true" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/BizExecutor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedV2PullRequestHoldService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="91" column="42" selection-start-line="91" selection-start-column="42" selection-end-line="91" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/PullRequestHoldService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedPullRequestHoldService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="205">
+              <caret line="84" column="46" lean-forward="true" selection-start-line="84" selection-start-column="46" selection-end-line="84" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>scribe</find>
+      <find>clear</find>
+      <find>clone</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/UnregisterMessageHandler.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/ClientRegistry.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/RegistryCenter.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/registry/ServerRegistry.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/ServerConfigs.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/PullRequest.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/InstanceHolder.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/pull/PullCenter.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DLQService.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/ResendPacket.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DefaultFlowController.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/DefaultFixedTimeRepushPolicy.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/RepushPolicy.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/push/PushCenter.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/RoundRobinLoadBalance.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/MessageHolder.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/pull/PullServer.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/file/MappedFileManager.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/DLQConsumer.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/ProxyConsumer.java" />
+        <option value="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/util/Packets.java" />
+        <option value="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/IdleStateTrigger.java" />
+        <option value="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/codec/PacketEncoder.java" />
+        <option value="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/SimpleEnhancedByteBufferPool.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/OffsetStore.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/metric/Collector.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/DefaultKafkaConsumerImpl.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/DefaultPullMessageImpl.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/DefaultPushMessageImpl.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/PushMessageHandler.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/producer/DefaultKafkaProducerImpl.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/CommonAcknowledgeMessageListenerService.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/ConcurrentAutoCommitMessageListenerService.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/PullAcknowledgeMessageListenerService.java" />
+        <option value="$PROJECT_DIR$/kafka-client-sdk/src/test/java/KafkaClientTest.java" />
+        <option value="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/consumer/DefaultRocketMQConsumerImpl.java" />
+        <option value="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/producer/DefaultRocketMQProducerImpl.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/PingMessageHandler.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/AckMessageHandler.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/PullReqMessageHandler.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/SendBackMessageHandler.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ServerHandler.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ViewReqMessageHandler.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/SystemClock.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/push/PushServer.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/NettyServer.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/BizExecutor.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedV2PullRequestHoldService.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/PullRequestHoldService.java" />
+        <option value="$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedPullRequestHoldService.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Android</id>
+          </State>
+          <State>
+            <id>Ant</id>
+          </State>
+          <State>
+            <id>Application Servers</id>
+          </State>
+          <State>
+            <id>BashSupport</id>
+          </State>
+          <State>
+            <id>Control flow issuesJava</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>CorrectnessLintAndroid</id>
+          </State>
+          <State>
+            <id>Declaration redundancyJava</id>
+          </State>
+          <State>
+            <id>Django</id>
+          </State>
+          <State>
+            <id>Faces Model</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>Hibernate</id>
+          </State>
+          <State>
+            <id>IconsUsabilityLintAndroid</id>
+          </State>
+          <State>
+            <id>InitializationJava</id>
+          </State>
+          <State>
+            <id>InternationalizationJava</id>
+          </State>
+          <State>
+            <id>JBoss Seam</id>
+          </State>
+          <State>
+            <id>JPA</id>
+          </State>
+          <State>
+            <id>JSON and JSON5</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java EE</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript validity issuesJavaScript</id>
+          </State>
+          <State>
+            <id>LintAndroid</id>
+          </State>
+          <State>
+            <id>Mako</id>
+          </State>
+          <State>
+            <id>Maven</id>
+          </State>
+          <State>
+            <id>Plugin DevKit</id>
+          </State>
+          <State>
+            <id>Probable bugsJava</id>
+          </State>
+          <State>
+            <id>Properties Files</id>
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+          <State>
+            <id>RegExp</id>
+          </State>
+          <State>
+            <id>SQL</id>
+          </State>
+          <State>
+            <id>Spring</id>
+          </State>
+          <State>
+            <id>Spring CoreSpring</id>
+          </State>
+          <State>
+            <id>Struts</id>
+          </State>
+          <State>
+            <id>Struts 1Struts</id>
+          </State>
+          <State>
+            <id>TestNGJava</id>
+          </State>
+          <State>
+            <id>UI Form</id>
+          </State>
+          <State>
+            <id>UsabilityLintAndroid</id>
+          </State>
+          <State>
+            <id>Validity issuesGroovy</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+          <State>
+            <id>XMLSpring CoreSpring</id>
+          </State>
+          <State>
+            <id>XSLT</id>
+          </State>
+          <State>
+            <id>YAML</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Duplicates</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="client-sdk-proxy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="client-sdk-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="client-sdk-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="client-sdk-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="client-sdk-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="client-sdk-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="transport" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="client-sdk-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="transport" type="462c0819:PsiDirectoryNode" />
+              <item name="handler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="client-sdk-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="consumer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="consumer" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="producer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="transport" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kafka-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="transport" type="462c0819:PsiDirectoryNode" />
+              <item name="handler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="biz" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="biz" type="462c0819:PsiDirectoryNode" />
+              <item name="bo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="biz" type="462c0819:PsiDirectoryNode" />
+              <item name="file" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="biz" type="462c0819:PsiDirectoryNode" />
+              <item name="pull" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="biz" type="462c0819:PsiDirectoryNode" />
+              <item name="registry" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="biz" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="boostrap" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="consumer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="transport" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="kakfa-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="transport" type="462c0819:PsiDirectoryNode" />
+              <item name="handler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-client-sdk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-client-sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-proxy-server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="open-mq-proxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="open-mq-proxy" type="462c0819:PsiDirectoryNode" />
+              <item name="rmq-proxy-server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/momo/tboy/workspace_github/open-mq-proxy/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/DefaultKafkaConsumerImpl.java" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550137448068" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.1521739" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.owl.client.proxy.transport.handler.kafka" />
+      <recent name="com.owl.client.common" />
+      <recent name="com.owl.client.sdk.common" />
+      <recent name="com.owl.rocketmq.client.producer" />
+      <recent name="com.owl.rocketmq.client.consumer" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.owl.kafka.client.proxy.service" />
+      <recent name="com.owl.kafka.client.proxy.transport" />
+      <recent name="com.owl.client.proxy.util" />
+      <recent name="com.owl.client.sdk.common.service" />
+      <recent name="com.owl.rocketmq.client.proxy" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/kafka" />
+      <recent name="$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy" />
+      <recent name="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/util" />
+      <recent name="$PROJECT_DIR$/client-sdk-common/src/main/resources" />
+      <recent name="$PROJECT_DIR$/client-sdk-common/src/main/java/com/owl/client/common/serializer" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Test">
+    <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.owl.kafka.proxy.server.boostrap.Bootstrap" />
+      <module name="kakfa-proxy-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.owl.kafka.proxy.server.boostrap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OutputLog4j2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.owl.kafka.client.metric.OutputLog4j2" />
+      <module name="kafka-client-sdk" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.owl.kafka.client.metric.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.owl.rocketmq.client.consumer.Test" />
+      <module name="rmq-client-sdk" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.owl.rocketmq.client.consumer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KafkaClientTest.testProxyAcknowledgment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kafka-client-sdk" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="KafkaClientTest" />
+      <option name="METHOD_NAME" value="testProxyAcknowledgment" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KafkaClientTest.testSyncProducer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="kafka-client-sdk" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="KafkaClientTest" />
+      <option name="METHOD_NAME" value="testSyncProducer" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Twisted Trial">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Bootstrap" />
+      <item itemvalue="JUnit.KafkaClientTest.testProxyAcknowledgment" />
+      <item itemvalue="JUnit.KafkaClientTest.testSyncProducer" />
+      <item itemvalue="Application.OutputLog4j2" />
+      <item itemvalue="Application.Test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.OutputLog4j2" />
+        <item itemvalue="JUnit.KafkaClientTest.testSyncProducer" />
+        <item itemvalue="JUnit.KafkaClientTest.testProxyAcknowledgment" />
+        <item itemvalue="Application.Bootstrap" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e2a535e8-65b6-4fa8-9b83-34c04df8f8b8" name="Default Changelist" comment="" />
+      <created>1548994591280</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1548994591280</updated>
+      <workItem from="1548994593058" duration="383000" />
+      <workItem from="1548995029229" duration="229000" />
+      <workItem from="1549001875917" duration="852000" />
+      <workItem from="1549002984757" duration="1464000" />
+      <workItem from="1549004730776" duration="10192000" />
+      <workItem from="1549852973072" duration="33834000" />
+    </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1549018802393</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1549018802393</updated>
+    </task>
+    <task id="LOCAL-00002" summary="init rmq">
+      <created>1549877401326</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1549877401326</updated>
+    </task>
+    <task id="LOCAL-00003" summary="init rmq">
+      <created>1549941122587</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1549941122587</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="KafkaClientTest_testProxyAcknowledgment - 2019.02.01 at 14h 59m 51s.xml">
+      <configuration name="KafkaClientTest.testProxyAcknowledgment" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="KafkaClientTest_testSyncProducer - 2019.02.01 at 15h 00m 53s.xml">
+      <configuration name="KafkaClientTest.testSyncProducer" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="46954000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24320458" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35180724" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32891566" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.19036144" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Messages" order="11" visible="true" weight="0.35301206" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="SciView" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="Maven Projects" order="9" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <MESSAGE value="init rmq" />
+    <option name="LAST_COMMIT_MESSAGE" value="init rmq" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/metric/OutputLog4j2.java</url>
+          <line>33</line>
+          <properties />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/2.11.1/log4j-core-2.11.1-sources.jar!/org/apache/logging/log4j/core/appender/RollingFileAppender.java</url>
+          <line>105</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/FlowController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/pull/PullServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="31" column="19" lean-forward="true" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/file/MappedFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/file/MappedFileManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="113" column="70" lean-forward="true" selection-start-line="113" selection-start-column="70" selection-end-line="113" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/ControlResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/FastResendMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/bo/ManyPullRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/boostrap/Bootstrap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/AcknowledgeMessageListenerPullService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/AcknowledgeMessageListenerPushService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/DLQConsumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-328">
+          <caret line="61" column="43" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/consumer/ProxyConsumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1721">
+          <caret line="173" column="60" selection-start-line="173" selection-start-column="60" selection-end-line="173" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/util/Packets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="20" column="75" lean-forward="true" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="75" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/util/Packets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="129" column="5" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/IdleStateTrigger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/PullRespMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/handler/PongMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/codec/PacketEncoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="12" column="60" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/codec/PacketDecoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/SimpleEnhancedByteBufferPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/ByteBufferPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/NettyByteBufferPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/PoolArena.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client-sdk-proxy/src/main/java/com/owl/client/proxy/transport/alloc/PoolChunk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/service/OffsetStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/metric/Collector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="76" lean-forward="true" selection-start-line="20" selection-start-column="76" selection-end-line="20" selection-end-column="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/DefaultKafkaConsumerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2550">
+          <caret line="170" column="34" selection-start-line="170" selection-start-column="34" selection-end-line="170" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/DefaultPullMessageImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="733">
+          <caret line="86" column="51" lean-forward="true" selection-start-line="86" selection-start-column="51" selection-end-line="86" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/DefaultPushMessageImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="80" column="51" lean-forward="true" selection-start-line="80" selection-start-column="51" selection-end-line="80" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/proxy/transport/handler/PushMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="40" lean-forward="true" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/producer/DefaultKafkaProducerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-692">
+          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/CommonAcknowledgeMessageListenerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="23" column="123" lean-forward="true" selection-start-line="23" selection-start-column="123" selection-end-line="23" selection-end-column="123" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/MessageListenerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/ConcurrentAutoCommitMessageListenerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="32" column="29" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/main/java/com/owl/kafka/client/consumer/service/PullAcknowledgeMessageListenerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kafka-client-sdk/src/test/java/KafkaClientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="39" column="64" selection-start-line="39" selection-start-column="64" selection-end-line="39" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/consumer/DefaultRocketMQConsumerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-492">
+          <caret line="48" column="17" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rmq-client-sdk/src/main/java/com/owl/rocketmq/client/producer/DefaultRocketMQProducerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/PingMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/AckMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-193">
+          <caret line="52" column="29" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/PullReqMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-20">
+          <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/SendBackMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="30" column="86" lean-forward="true" selection-start-line="30" selection-start-column="86" selection-end-line="30" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ServerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="40" column="79" selection-start-line="40" selection-start-column="79" selection-end-line="40" selection-end-column="79" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/transport/handler/ViewReqMessageHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="35" column="32" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/SystemClock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="33" column="100" selection-start-line="33" selection-start-column="100" selection-end-line="33" selection-end-column="100" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/push/PushServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/NettyServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="78" column="25" lean-forward="true" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/BizExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedV2PullRequestHoldService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="91" column="42" selection-start-line="91" selection-start-column="42" selection-end-line="91" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/PullRequestHoldService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kakfa-proxy-server/src/main/java/com/owl/kafka/proxy/server/biz/service/EnhancedPullRequestHoldService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="84" column="46" lean-forward="true" selection-start-line="84" selection-start-column="46" selection-end-line="84" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Bundled Protobuf Distribution</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>client-sdk-serializer</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.alibaba:fastjson:1.2.51</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

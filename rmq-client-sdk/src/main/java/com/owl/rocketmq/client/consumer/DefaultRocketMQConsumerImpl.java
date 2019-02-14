@@ -1,8 +1,8 @@
 package com.owl.rocketmq.client.consumer;
 
 
-import com.owl.kafka.client.serializer.Serializer;
-import com.owl.rocketmq.client.util.Preconditions;
+import com.owl.client.common.serializer.Serializer;
+import com.owl.client.common.util.Preconditions;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.*;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -51,27 +51,32 @@ public class DefaultRocketMQConsumerImpl<V> {
 
         if(start.compareAndSet(false, true)){
             try {
-                if(messageListener instanceof ConcurrentMessageListener){
-                    ConcurrentMessageListener concurrentMessageListener = (ConcurrentMessageListener)messageListener;
-                    consumer.registerMessageListener(new MessageListenerConcurrently() {
-                        public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                                                                        ConsumeConcurrentlyContext context) {
-                            boolean ret = concurrentMessageListener.onMessage(convert(msgs));
-                            return ret ? ConsumeConcurrentlyStatus.CONSUME_SUCCESS : ConsumeConcurrentlyStatus.RECONSUME_LATER;
-                        }
-                    });
-                } else if(messageListener instanceof OrderlyMessageListener){
-                    OrderlyMessageListener orderlyMessageListener = (OrderlyMessageListener)messageListener;
-                    consumer.registerMessageListener(new MessageListenerOrderly() {
+                if(consumerConfig.isUseProxy()){
 
-                        @Override
-                        public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
-                            boolean ret = orderlyMessageListener.onMessage(convert(msgs));
-                            return ret ? ConsumeOrderlyStatus.SUCCESS : ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
-                        }
-                    });
+
+                } else{
+                    if(messageListener instanceof ConcurrentMessageListener){
+                        ConcurrentMessageListener concurrentMessageListener = (ConcurrentMessageListener)messageListener;
+                        consumer.registerMessageListener(new MessageListenerConcurrently() {
+                            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
+                                                                            ConsumeConcurrentlyContext context) {
+                                boolean ret = concurrentMessageListener.onMessage(convert(msgs));
+                                return ret ? ConsumeConcurrentlyStatus.CONSUME_SUCCESS : ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                            }
+                        });
+                    } else if(messageListener instanceof OrderlyMessageListener){
+                        OrderlyMessageListener orderlyMessageListener = (OrderlyMessageListener)messageListener;
+                        consumer.registerMessageListener(new MessageListenerOrderly() {
+
+                            @Override
+                            public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
+                                boolean ret = orderlyMessageListener.onMessage(convert(msgs));
+                                return ret ? ConsumeOrderlyStatus.SUCCESS : ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+                            }
+                        });
+                    }
+                    consumer.start();
                 }
-                consumer.start();
 
                 Runtime.getRuntime().addShutdownHook(new Thread(() -> close()));
 

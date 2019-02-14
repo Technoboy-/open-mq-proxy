@@ -13,6 +13,8 @@
         <module>kafka-client-sdk</module>
         <module>rmq-proxy-server</module>
         <module>rmq-client-sdk</module>
+        <module>client-sdk-common</module>
+        <module>client-sdk-proxy</module>
     </modules>
 
     <properties>

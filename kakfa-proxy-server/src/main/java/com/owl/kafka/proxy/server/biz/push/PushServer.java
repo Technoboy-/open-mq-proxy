@@ -1,9 +1,9 @@
 package com.owl.kafka.proxy.server.biz.push;
 
+import com.owl.client.common.util.StringUtils;
 import com.owl.kafka.client.consumer.ConsumerConfig;
 import com.owl.kafka.client.consumer.service.MessageListenerService;
 import com.owl.kafka.client.proxy.zookeeper.KafkaZookeeperConfig;
-import com.owl.kafka.client.util.StringUtils;
 import com.owl.kafka.proxy.server.biz.NettyServer;
 import com.owl.kafka.proxy.server.biz.bo.ServerConfigs;
 import com.owl.kafka.proxy.server.biz.registry.RegistryCenter;

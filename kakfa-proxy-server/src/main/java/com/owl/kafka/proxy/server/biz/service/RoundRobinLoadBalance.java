@@ -1,7 +1,8 @@
 package com.owl.kafka.proxy.server.biz.service;
 
-import com.owl.kafka.client.proxy.service.LoadBalance;
-import com.owl.kafka.client.proxy.transport.Connection;
+
+import com.owl.client.proxy.service.LoadBalance;
+import com.owl.client.proxy.transport.Connection;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;

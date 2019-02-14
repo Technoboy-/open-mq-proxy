@@ -1,13 +1,13 @@
 package com.owl.kafka.proxy.server.consumer;
 
+import com.owl.client.common.util.CollectionUtils;
+import com.owl.client.common.util.Preconditions;
+import com.owl.client.common.util.StringUtils;
 import com.owl.kafka.client.consumer.ConsumerConfig;
 import com.owl.kafka.client.consumer.exceptions.TopicNotExistException;
 import com.owl.kafka.client.consumer.service.MessageListenerService;
 import com.owl.kafka.client.metric.MonitorImpl;
 import com.owl.kafka.client.proxy.zookeeper.KafkaZookeeperConfig;
-import com.owl.kafka.client.util.CollectionUtils;
-import com.owl.kafka.client.util.Preconditions;
-import com.owl.kafka.client.util.StringUtils;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;

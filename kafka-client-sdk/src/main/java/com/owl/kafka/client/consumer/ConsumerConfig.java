@@ -1,6 +1,7 @@
 package com.owl.kafka.client.consumer;
 
-import com.owl.kafka.client.serializer.Serializer;
+
+import com.owl.client.common.serializer.Serializer;
 
 import java.util.Collection;
 import java.util.HashMap;

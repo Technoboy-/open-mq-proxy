@@ -6,11 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="client-sdk-common" />
+        <module name="client-sdk-proxy" />
         <module name="kafka-client-sdk" />
         <module name="kakfa-proxy-server" />
         <module name="rmq-client-sdk" />
         <module name="rmq-proxy-server" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="client-sdk-serializer" target="1.8" />
+      <module name="common-client-sdk" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

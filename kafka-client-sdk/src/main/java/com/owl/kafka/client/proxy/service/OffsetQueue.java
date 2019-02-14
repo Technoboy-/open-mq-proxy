@@ -1,6 +1,7 @@
 package com.owl.kafka.client.proxy.service;
 
-import com.owl.kafka.client.proxy.transport.message.Message;
+import com.owl.client.proxy.service.TopicPartitionOffset;
+import com.owl.client.proxy.transport.message.Message;
 
 import java.util.List;
 import java.util.TreeSet;

@@ -1,13 +1,14 @@
 package com.owl.kafka.client.consumer.service;
 
+import com.owl.client.common.util.CollectionUtils;
+import com.owl.client.common.util.Constants;
 import com.owl.kafka.client.consumer.ConsumerConfig;
 import com.owl.kafka.client.consumer.DefaultKafkaConsumerImpl;
 import com.owl.kafka.client.consumer.listener.AcknowledgeMessageListener;
 import com.owl.kafka.client.consumer.listener.AutoCommitMessageListener;
 import com.owl.kafka.client.consumer.listener.BatchAcknowledgeMessageListener;
 import com.owl.kafka.client.consumer.listener.MessageListener;
-import com.owl.kafka.client.util.CollectionUtils;
-import com.owl.kafka.client.util.Constants;
+
 
 import java.lang.reflect.Constructor;
 

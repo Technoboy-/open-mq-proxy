@@ -1,0 +1,6 @@
+jackson=com.owl.client.common.serializer.JacksonSerializer
+hessian=com.owl.client.common.serializer.HessianSerializer
+bytearray=com.owl.client.common.serializer.ByteArraySerializer
+string=com.owl.client.common.serializer.StringSerializer
+fastjson=com.owl.client.common.serializer.FastJsonSerializer
+protostuff=com.owl.client.common.serializer.ProtoStuffSerializer

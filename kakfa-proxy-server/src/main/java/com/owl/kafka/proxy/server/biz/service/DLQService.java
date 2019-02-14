@@ -1,10 +1,10 @@
 package com.owl.kafka.proxy.server.biz.service;
 
+import com.owl.client.common.util.Preconditions;
+import com.owl.client.proxy.transport.message.Message;
+import com.owl.client.proxy.transport.protocol.Packet;
+import com.owl.client.proxy.util.MessageCodec;
 import com.owl.kafka.client.consumer.Record;
-import com.owl.kafka.client.proxy.transport.message.Message;
-import com.owl.kafka.client.proxy.transport.protocol.Packet;
-import com.owl.kafka.client.proxy.util.MessageCodec;
-import com.owl.kafka.client.util.Preconditions;
 import com.owl.kafka.proxy.server.biz.bo.ResendPacket;
 import com.owl.kafka.proxy.server.biz.bo.ServerConfigs;
 import com.owl.kafka.proxy.server.consumer.DLQConsumer;

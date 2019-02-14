@@ -1,7 +1,7 @@
 package com.owl.rocketmq.client.producer;
 
-import com.owl.kafka.client.serializer.FastJsonSerializer;
-import com.owl.kafka.client.serializer.Serializer;
+
+import com.owl.client.common.serializer.Serializer;
 
 /**
  * http://kafka.apache.org/0110/documentation.html#producerconfigs

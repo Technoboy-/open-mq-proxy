@@ -1,7 +1,8 @@
 package com.owl.kafka.client.proxy.zookeeper;
 
-import com.owl.kafka.client.serializer.SerializerImpl;
-import com.owl.kafka.client.util.StringUtils;
+import com.owl.client.common.serializer.SerializerImpl;
+import com.owl.client.common.util.StringUtils;
+import com.owl.client.proxy.zookeeper.ZookeeperClient;
 
 import java.io.Serializable;
 import java.util.List;

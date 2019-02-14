@@ -1,19 +1,23 @@
 package com.owl.kafka.client.proxy;
 
+import com.owl.client.proxy.ClientConfigs;
+import com.owl.client.proxy.ConfigLoader;
+import com.owl.client.proxy.service.InvokerPromise;
+import com.owl.client.proxy.service.PullMessageService;
+import com.owl.client.proxy.service.RegistryListener;
+import com.owl.client.proxy.service.RegistryService;
+import com.owl.client.proxy.transport.Address;
+import com.owl.client.proxy.transport.Connection;
+import com.owl.client.proxy.transport.NettyClient;
+import com.owl.client.proxy.transport.message.Message;
+import com.owl.client.proxy.transport.protocol.Packet;
+import com.owl.client.proxy.util.MessageCodec;
+import com.owl.client.proxy.util.Packets;
+import com.owl.client.proxy.zookeeper.ZookeeperClient;
 import com.owl.kafka.client.consumer.Record;
 import com.owl.kafka.client.consumer.service.MessageListenerService;
-import com.owl.kafka.client.proxy.service.InvokerPromise;
-import com.owl.kafka.client.proxy.service.PullMessageService;
-import com.owl.kafka.client.proxy.service.RegistryListener;
-import com.owl.kafka.client.proxy.service.RegistryService;
-import com.owl.kafka.client.proxy.transport.Address;
-import com.owl.kafka.client.proxy.transport.Connection;
-import com.owl.kafka.client.proxy.transport.NettyClient;
-import com.owl.kafka.client.proxy.transport.message.Message;
-import com.owl.kafka.client.proxy.transport.protocol.Packet;
-import com.owl.kafka.client.proxy.util.MessageCodec;
-import com.owl.kafka.client.proxy.util.Packets;
-import com.owl.kafka.client.proxy.zookeeper.ZookeeperClient;
+import com.owl.kafka.client.proxy.service.KafkaPullMessageService;
+import com.owl.kafka.client.proxy.transport.KafkaNettyClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,8 +45,8 @@ public class DefaultPullMessageImpl {
     private final int connectionTimeoutMs = ClientConfigs.I.getZookeeperConnectionTimeoutMs();
 
     public DefaultPullMessageImpl(MessageListenerService messageListenerService){
-        this.nettyClient = new NettyClient(messageListenerService);
-        this.pullMessageService = new PullMessageService(nettyClient);
+        this.nettyClient = new KafkaNettyClient(messageListenerService);
+        this.pullMessageService = new KafkaPullMessageService(nettyClient);
         this.zookeeperClient = new ZookeeperClient(serverList, sessionTimeoutMs, connectionTimeoutMs);
         this.registryService = new RegistryService(zookeeperClient);
         this.registryService.addListener(new RegistryListener() {

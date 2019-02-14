@@ -1,6 +1,6 @@
 package com.owl.rocketmq.client.consumer;
 
-import com.owl.kafka.client.serializer.Serializer;
+import com.owl.client.common.serializer.Serializer;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 
@@ -72,6 +72,16 @@ public class ConsumerConfig{
 
     public Serializer getSerializer() {
         return serializer;
+    }
+
+    private boolean useProxy = false;
+
+    public boolean isUseProxy() {
+        return useProxy;
+    }
+
+    public void setUseProxy(boolean useProxy) {
+        this.useProxy = useProxy;
     }
 
     public void setSerializer(Serializer serializer) {

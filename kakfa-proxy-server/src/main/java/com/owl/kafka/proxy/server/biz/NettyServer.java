@@ -1,9 +1,9 @@
 package com.owl.kafka.proxy.server.biz;
 
-import com.owl.kafka.client.proxy.transport.codec.PacketDecoder;
-import com.owl.kafka.client.proxy.transport.codec.PacketEncoder;
-import com.owl.kafka.client.proxy.transport.handler.MessageDispatcher;
-import com.owl.kafka.client.proxy.transport.protocol.Command;
+import com.owl.client.proxy.transport.codec.PacketDecoder;
+import com.owl.client.proxy.transport.codec.PacketEncoder;
+import com.owl.client.proxy.transport.handler.MessageDispatcher;
+import com.owl.client.proxy.transport.protocol.Command;
 import com.owl.kafka.proxy.server.biz.bo.ServerConfigs;
 import com.owl.kafka.proxy.server.biz.service.InstanceHolder;
 import com.owl.kafka.proxy.server.consumer.ProxyConsumer;

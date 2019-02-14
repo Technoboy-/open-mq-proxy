@@ -1,7 +1,7 @@
 package com.owl.rocketmq.client.producer;
 
-import com.owl.kafka.client.serializer.Serializer;
-import com.owl.rocketmq.client.util.Preconditions;
+import com.owl.client.common.serializer.Serializer;
+import com.owl.client.common.util.Preconditions;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.common.message.Message;

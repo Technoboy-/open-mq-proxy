@@ -1,9 +1,9 @@
 package com.owl.kafka.proxy.server.biz.registry;
 
-import com.owl.kafka.client.proxy.service.RegisterMetadata;
-import com.owl.kafka.client.proxy.service.RegistryService;
-import com.owl.kafka.client.proxy.transport.Address;
-import com.owl.kafka.client.proxy.transport.Connection;
+import com.owl.client.proxy.service.RegisterMetadata;
+import com.owl.client.proxy.service.RegistryService;
+import com.owl.client.proxy.transport.Address;
+import com.owl.client.proxy.transport.Connection;
 import com.owl.kafka.proxy.server.biz.bo.ServerConfigs;
 
 import java.net.InetSocketAddress;
