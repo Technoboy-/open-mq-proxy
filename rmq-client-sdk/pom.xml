@@ -16,7 +16,7 @@
 
         <dependency>
             <groupId>com.owl</groupId>
-            <artifactId>kafka-client-sdk</artifactId>
+            <artifactId>client-sdk-proxy</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

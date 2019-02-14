@@ -1,7 +1,7 @@
 package com.owl.kafka.proxy.server.consumer;
 
 import com.owl.kafka.client.consumer.service.RebalanceMessageListenerService;
-import com.owl.kafka.proxy.server.biz.pull.PullCenter;
+import com.owl.kafka.proxy.server.pull.KafkaPullCenter;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 /**
@@ -12,7 +12,7 @@ public class AcknowledgeMessageListenerPullService<K, V> extends RebalanceMessag
     @Override
     public void onMessage(ConsumerRecord<byte[], byte[]> record) {
         try {
-            PullCenter.I.putMessage(record);
+            KafkaPullCenter.I.putMessage(record);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -20,7 +20,7 @@ public class AcknowledgeMessageListenerPullService<K, V> extends RebalanceMessag
 
     @Override
     public void close() {
-        PullCenter.I.close();
+        KafkaPullCenter.I.close();
     }
 
 }

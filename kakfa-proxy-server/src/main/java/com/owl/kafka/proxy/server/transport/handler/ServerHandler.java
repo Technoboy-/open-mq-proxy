@@ -1,10 +1,11 @@
 package com.owl.kafka.proxy.server.transport.handler;
 
-import com.owl.client.proxy.transport.Connection;
-import com.owl.client.proxy.transport.NettyConnection;
-import com.owl.client.proxy.transport.handler.MessageDispatcher;
-import com.owl.client.proxy.transport.protocol.Packet;
-import com.owl.kafka.proxy.server.biz.service.InstanceHolder;
+import com.owl.mq.client.transport.Connection;
+import com.owl.mq.client.transport.NettyConnection;
+import com.owl.mq.client.transport.handler.MessageDispatcher;
+import com.owl.mq.client.transport.protocol.Packet;
+import com.owl.mq.server.registry.RegistryCenter;
+import com.owl.mq.server.service.InstanceHolder;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -32,7 +33,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Connection connnection = NettyConnection.attachChannel(ctx.channel());
-        InstanceHolder.I.getRegistryCenter().getClientRegistry().unregister(connnection);
+        InstanceHolder.I.get(RegistryCenter.class).getClientRegistry().unregister(connnection);
         connnection.close();
     }
 

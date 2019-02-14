@@ -1,7 +1,7 @@
 package com.owl.kafka.proxy.server.consumer;
 
 import com.owl.kafka.client.consumer.service.RebalanceMessageListenerService;
-import com.owl.kafka.proxy.server.biz.push.PushCenter;
+import com.owl.mq.server.push.AbstractPushCenter;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 /**
@@ -9,9 +9,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
  */
 public class AcknowledgeMessageListenerPushService<K, V> extends RebalanceMessageListenerService<K, V> {
 
-    private final PushCenter pushCenter;
+    private final AbstractPushCenter pushCenter;
 
-    public AcknowledgeMessageListenerPushService(PushCenter pushCenter){
+    public AcknowledgeMessageListenerPushService(AbstractPushCenter pushCenter){
         this.pushCenter = pushCenter;
     }
 

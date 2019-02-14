@@ -1,7 +1,7 @@
 package com.owl.kafka.proxy.server.boostrap;
 
-import com.owl.kafka.proxy.server.biz.pull.PullServer;
-import com.owl.kafka.proxy.server.biz.push.PushServer;
+import com.owl.kafka.proxy.server.pull.PullServer;
+import com.owl.kafka.proxy.server.push.PushServer;
 
 /**
  * @Author: Tboy
@@ -9,7 +9,7 @@ import com.owl.kafka.proxy.server.biz.push.PushServer;
 public class Bootstrap {
 
     public static void main(String[] args) {
-//        System.setProperty("io.netty.leakDetection.level", "advanced");
+//        System.setProperty("io.transport.leakDetection.level", "advanced");
 
         startPullServer();
 //        startPushServer();

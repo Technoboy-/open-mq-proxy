@@ -1,15 +1,16 @@
 package com.owl.kafka.proxy.server.transport.handler;
 
-import com.owl.client.proxy.transport.Connection;
-import com.owl.client.proxy.transport.handler.CommonMessageHandler;
-import com.owl.client.proxy.transport.message.Header;
-import com.owl.client.proxy.transport.message.Message;
-import com.owl.client.proxy.transport.protocol.Packet;
-import com.owl.client.proxy.util.ChannelUtils;
-import com.owl.client.proxy.util.MessageCodec;
-import com.owl.kafka.proxy.server.biz.bo.ServerConfigs;
-import com.owl.kafka.proxy.server.biz.pull.PullCenter;
-import com.owl.kafka.proxy.server.biz.service.InstanceHolder;
+import com.owl.kafka.proxy.server.pull.KafkaPullCenter;
+import com.owl.kafka.proxy.server.push.service.DLQService;
+import com.owl.mq.client.transport.Connection;
+import com.owl.mq.client.transport.handler.CommonMessageHandler;
+import com.owl.mq.client.transport.message.Header;
+import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.protocol.Packet;
+import com.owl.mq.client.util.ChannelUtils;
+import com.owl.mq.client.util.MessageCodec;
+import com.owl.mq.server.bo.ServerConfigs;
+import com.owl.mq.server.service.InstanceHolder;
 import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +32,12 @@ public class SendBackMessageHandler extends CommonMessageHandler {
             LOGGER.debug("received sendback message : {}, from : {}", header, ChannelUtils.getRemoteAddress(connection.getChannel()));
         }
         if(header.getRepost() >= repostCount){
-            InstanceHolder.I.getDLQService().write(header.getMsgId(), packet);
+            InstanceHolder.I.get(DLQService.class).write(header.getMsgId(), packet);
         } else{
             header.setRepost((byte)(header.getRepost() + 1));
             ByteBuf buffer = MessageCodec.encode(message);
             packet.setBody(buffer);
-            PullCenter.I.reputMessage(packet);
+            KafkaPullCenter.I.reputMessage(packet);
         }
 
     }

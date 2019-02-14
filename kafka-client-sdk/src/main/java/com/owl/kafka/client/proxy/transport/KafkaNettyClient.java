@@ -1,14 +1,12 @@
 package com.owl.kafka.client.proxy.transport;
 
 import com.owl.client.common.util.Constants;
-import com.owl.client.proxy.transport.NettyClient;
-import com.owl.client.proxy.transport.handler.MessageDispatcher;
-import com.owl.client.proxy.transport.protocol.Command;
+import com.owl.mq.client.transport.NettyClient;
+import com.owl.mq.client.transport.handler.MessageDispatcher;
+import com.owl.mq.client.transport.protocol.Command;
 import com.owl.kafka.client.consumer.ConsumerConfig;
 import com.owl.kafka.client.consumer.service.MessageListenerService;
 import com.owl.kafka.client.proxy.transport.handler.*;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**
  * @Author: Tboy

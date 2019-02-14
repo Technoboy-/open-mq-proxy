@@ -1,11 +1,13 @@
 package com.owl.kafka.proxy.server.consumer;
 
 import com.owl.client.common.util.NetUtils;
-import com.owl.client.proxy.service.RegisterMetadata;
-import com.owl.client.proxy.transport.Address;
-import com.owl.kafka.proxy.server.biz.bo.ServerConfigs;
-import com.owl.kafka.proxy.server.biz.service.InstanceHolder;
-import com.owl.kafka.proxy.server.biz.service.LeaderElectionService;
+import com.owl.mq.client.registry.RegisterMetadata;
+import com.owl.mq.client.transport.Address;
+import com.owl.kafka.proxy.server.push.service.LeaderElectionService;
+import com.owl.mq.client.zookeeper.ZookeeperClient;
+import com.owl.mq.server.bo.ServerConfigs;
+import com.owl.mq.server.registry.RegistryCenter;
+import com.owl.mq.server.service.InstanceHolder;
 import org.apache.curator.framework.recipes.leader.LeaderLatchListener;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -50,7 +52,7 @@ public class DLQConsumer implements LeaderLatchListener, Runnable {
         this.supervisor.setDaemon(true);
         //
         final String zkPath = "/" + topic + "/leader";
-        this.leaderElectionService = new LeaderElectionService(InstanceHolder.I.getZookeeperClient().getClient(), zkPath, this);
+        this.leaderElectionService = new LeaderElectionService(InstanceHolder.I.get(ZookeeperClient.class).getClient(), zkPath, this);
         this.isRunning.compareAndSet(false, true);
         this.supervisor.start();
     }
@@ -62,7 +64,7 @@ public class DLQConsumer implements LeaderLatchListener, Runnable {
         Address address = new Address(NetUtils.getLocalIp(), ServerConfigs.I.getServerPort());
         metadata.setPath(String.format(ServerConfigs.I.ZOOKEEPER_CONSUMERS, this.topic));
         metadata.setAddress(address);
-        InstanceHolder.I.getRegistryCenter().getServerRegistry().register(metadata);
+        InstanceHolder.I.get(RegistryCenter.class).getServerRegistry().register(metadata);
         //
         Map<String, Object> consumerConfigs = new HashMap<>();
         consumerConfigs.put("bootstrap.servers", bootstrapServers);
@@ -102,7 +104,7 @@ public class DLQConsumer implements LeaderLatchListener, Runnable {
         Address address = new Address(NetUtils.getLocalIp(), ServerConfigs.I.getServerPort());
         metadata.setPath(String.format(ServerConfigs.I.ZOOKEEPER_CONSUMERS, this.topic));
         metadata.setAddress(address);
-        InstanceHolder.I.getRegistryCenter().getServerRegistry().unregister(metadata);
+        InstanceHolder.I.get(RegistryCenter.class).getServerRegistry().unregister(metadata);
         //
         if(this.consumer != null){
             this.consumer.close();

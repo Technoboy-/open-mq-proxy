@@ -1,14 +1,14 @@
 package com.owl.kafka.proxy.server.transport.handler;
 
 
-import com.owl.client.proxy.transport.Connection;
-import com.owl.client.proxy.transport.exceptions.ChannelInactiveException;
-import com.owl.client.proxy.transport.handler.CommonMessageHandler;
-import com.owl.client.proxy.transport.protocol.Command;
-import com.owl.client.proxy.transport.protocol.Packet;
-import com.owl.client.proxy.util.ChannelUtils;
-import com.owl.kafka.proxy.server.biz.bo.PullRequest;
-import com.owl.kafka.proxy.server.biz.pull.PullCenter;
+import com.owl.kafka.proxy.server.pull.KafkaPullCenter;
+import com.owl.mq.client.transport.Connection;
+import com.owl.mq.client.transport.exceptions.ChannelInactiveException;
+import com.owl.mq.client.transport.handler.CommonMessageHandler;
+import com.owl.mq.client.transport.protocol.Command;
+import com.owl.mq.client.transport.protocol.Packet;
+import com.owl.mq.client.util.ChannelUtils;
+import com.owl.mq.server.bo.PullRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,13 +26,13 @@ public class PullReqMessageHandler extends CommonMessageHandler {
         }
         packet.setCmd(Command.PULL_RESP.getCmd());
         PullRequest pullRequest = new PullRequest(connection, packet, 15 * 1000);
-        Packet result = PullCenter.I.pull(pullRequest, true);
+        Packet result = KafkaPullCenter.I.pull(pullRequest, true);
         //
         if(!result.isBodyEmtpy()){
             try {
                 connection.send(result);
             } catch (ChannelInactiveException ex){
-                PullCenter.I.reputMessage(result);
+                KafkaPullCenter.I.reputMessage(result);
             }
         }
     }

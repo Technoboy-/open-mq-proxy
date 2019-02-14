@@ -1,10 +1,10 @@
 package com.owl.kafka.client.proxy.service;
 
 import com.owl.client.common.util.NamedThreadFactory;
-import com.owl.client.proxy.service.TopicPartitionOffset;
-import com.owl.client.proxy.transport.Connection;
-import com.owl.client.proxy.transport.message.Message;
-import com.owl.client.proxy.util.Packets;
+import com.owl.mq.client.service.TopicPartitionOffset;
+import com.owl.mq.client.transport.Connection;
+import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.util.Packets;
 import org.apache.kafka.common.TopicPartition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
