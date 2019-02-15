@@ -1,7 +1,7 @@
 package com.owl.kafka.proxy.server.push.service;
 
 import com.owl.client.common.util.Preconditions;
-import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.message.KafkaMessage;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.client.util.MessageCodec;
 import com.owl.kafka.client.consumer.Record;
@@ -79,9 +79,9 @@ public class DLQService {
         Preconditions.checkArgument(resendPacket.getRepost() >= ServerConfigs.I.getServerMessageRepostTimes(), "resendPacket must repost more than " + ServerConfigs.I.getServerMessageRepostTimes() + " times");
         try {
             Packet packet = resendPacket.getPacket();
-            Message message = MessageCodec.decode(packet.getBody());
+            KafkaMessage kafkaMessage = MessageCodec.decode(packet.getBody());
             String dlp = String.format(this.topic + DLQ_DATA_PATH, resendPacket.getMsgId());
-            ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(this.topic, 0, message.getKey(), message.getValue());
+            ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(this.topic, 0, kafkaMessage.getKey(), kafkaMessage.getValue());
             this.producer.send(record, new Callback() {
 
                 @Override
@@ -105,8 +105,8 @@ public class DLQService {
     public void write(long msgId, Packet packet){
         try {
             String dlp = String.format(this.topic + DLQ_DATA_PATH, msgId);
-            Message message = MessageCodec.decode(packet.getBody());
-            ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(this.topic, 0, message.getKey(), message.getValue());
+            KafkaMessage kafkaMessage = MessageCodec.decode(packet.getBody());
+            ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(this.topic, 0, kafkaMessage.getKey(), kafkaMessage.getValue());
             this.producer.send(record, new Callback() {
 
                 @Override

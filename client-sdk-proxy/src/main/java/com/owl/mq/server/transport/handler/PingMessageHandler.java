@@ -4,7 +4,7 @@ import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.handler.CommonMessageHandler;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.client.util.ChannelUtils;
-import com.owl.mq.client.util.Packets;
+import com.owl.mq.client.util.KafkaPackets;
 import com.owl.mq.server.registry.RegistryCenter;
 import com.owl.mq.server.service.InstanceHolder;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class PingMessageHandler extends CommonMessageHandler {
         if(LOGGER.isDebugEnabled()){
             LOGGER.debug("received ping : {}, from : {}", packet, ChannelUtils.getRemoteAddress(connection.getChannel()));
         }
-        connection.send(Packets.pong());
+        connection.send(KafkaPackets.pong());
         InstanceHolder.I.get(RegistryCenter.class).getClientRegistry().register(connection);
     }
 

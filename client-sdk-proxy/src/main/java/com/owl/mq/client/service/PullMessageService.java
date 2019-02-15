@@ -9,7 +9,7 @@ import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.NettyClient;
 import com.owl.mq.client.transport.exceptions.ChannelInactiveException;
 import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.Packets;
+import com.owl.mq.client.util.KafkaPackets;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import org.slf4j.Logger;
@@ -85,7 +85,7 @@ public abstract class PullMessageService {
             }
         };
         try {
-            connection.send(Packets.pullReq(opaque), new ChannelFutureListener() {
+            connection.send(KafkaPackets.pullReq(opaque), new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
                     Throwable ex = future.cause();

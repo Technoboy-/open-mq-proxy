@@ -1,9 +1,9 @@
 package com.owl.kafka.client.consumer.service;
 
+import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.util.NamedThreadFactory;
 import com.owl.kafka.client.consumer.DefaultKafkaConsumerImpl;
 import com.owl.kafka.client.consumer.Record;
-import com.owl.kafka.client.metric.MonitorImpl;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.slf4j.Logger;

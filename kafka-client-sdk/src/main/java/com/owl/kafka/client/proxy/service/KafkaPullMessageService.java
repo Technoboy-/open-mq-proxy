@@ -24,8 +24,11 @@ public class KafkaPullMessageService extends PullMessageService {
 
     @Override
     public boolean checkIfPullImmediately(Address address) {
-        LOGGER.warn("flow control, pull later : {} for process queue count : {} , more than config  : {}",
-                new Object[]{address, offsetStore.getCount(), processQueueSize});
-        return false;
+        if(offsetStore.getCount() > processQueueSize){
+            LOGGER.warn("flow control, pull later : {} for process queue count : {} , more than config  : {}",
+                    new Object[]{address, offsetStore.getCount(), processQueueSize});
+            return false;
+        }
+        return true;
     }
 }

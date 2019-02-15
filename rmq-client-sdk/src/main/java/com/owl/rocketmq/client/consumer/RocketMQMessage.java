@@ -25,6 +25,10 @@ public class RocketMQMessage<V> implements Serializable {
         this.tags = ext.getTags();
     }
 
+    public RocketMQMessage(){
+
+    }
+
 
     public String getMqId() {
         return mqId;

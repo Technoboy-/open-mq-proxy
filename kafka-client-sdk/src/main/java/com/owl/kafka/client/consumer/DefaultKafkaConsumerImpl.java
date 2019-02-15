@@ -1,5 +1,6 @@
 package com.owl.kafka.client.consumer;
 
+import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.serializer.Serializer;
 import com.owl.client.common.util.CollectionUtils;
 import com.owl.client.common.util.Constants;
@@ -13,7 +14,6 @@ import com.owl.kafka.client.consumer.listener.MessageListener;
 import com.owl.kafka.client.consumer.service.BatchAcknowledgeMessageListenerService;
 import com.owl.kafka.client.consumer.service.MessageListenerService;
 import com.owl.kafka.client.consumer.service.MessageListenerServiceRegistry;
-import com.owl.kafka.client.metric.MonitorImpl;
 import com.owl.kafka.client.proxy.DefaultPullMessageImpl;
 import com.owl.kafka.client.proxy.DefaultPushMessageImpl;
 import com.owl.kafka.client.proxy.zookeeper.KafkaZookeeperConfig;

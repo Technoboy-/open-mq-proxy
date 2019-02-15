@@ -5,12 +5,12 @@ import com.owl.kafka.proxy.server.push.service.DLQService;
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.alloc.ByteBufferPool;
 import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.message.Header;
-import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.message.KafkaHeader;
+import com.owl.mq.client.transport.message.KafkaMessage;
 import com.owl.mq.client.transport.protocol.Command;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.client.util.MessageCodec;
-import com.owl.mq.client.util.Packets;
+import com.owl.mq.client.util.KafkaPackets;
 import com.owl.kafka.client.consumer.Record;
 
 import com.owl.mq.server.service.InstanceHolder;
@@ -27,14 +27,14 @@ public class ViewReqMessageHandler extends CommonMessageHandler {
 
     @Override
     public void handle(Connection connection, Packet packet) throws Exception {
-        LOGGER.debug("received view message : {}", packet);
-        Message message = MessageCodec.decode(packet.getBody());
-        Header header = message.getHeader();
-        Record<byte[], byte[]> record = InstanceHolder.I.get(DLQService.class).view(header.getMsgId());
+        LOGGER.debug("received view kafkaMessage : {}", packet);
+        KafkaMessage kafkaMessage = MessageCodec.decode(packet.getBody());
+        KafkaHeader kafkaHeader = kafkaMessage.getHeader();
+        Record<byte[], byte[]> record = InstanceHolder.I.get(DLQService.class).view(kafkaHeader.getMsgId());
         if(record != null){
-            connection.send(viewResp(packet.getOpaque(), header.getMsgId(), record));
+            connection.send(viewResp(packet.getOpaque(), kafkaHeader.getMsgId(), record));
         } else{
-            connection.send(Packets.noViewMsgResp(packet.getOpaque()));
+            connection.send(KafkaPackets.noViewMsgResp(packet.getOpaque()));
         }
     }
 
@@ -43,8 +43,8 @@ public class ViewReqMessageHandler extends CommonMessageHandler {
         viewResp.setCmd(Command.VIEW_RESP.getCmd());
         viewResp.setOpaque(opaque);
         //
-        Header header = new Header(record.getTopic(), record.getPartition(), record.getOffset(), msgId);
-        byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(header);
+        KafkaHeader kafkaHeader = new KafkaHeader(record.getTopic(), record.getPartition(), record.getOffset(), msgId);
+        byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
 
         ByteBuf buffer = ByteBufferPool.DEFAULT.allocate(4 + headerInBytes.length + 4 + record.getKey().length + 4 + record.getValue().length);
         buffer.writeInt(headerInBytes.length);

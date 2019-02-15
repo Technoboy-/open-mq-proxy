@@ -2,7 +2,7 @@ package com.owl.kafka.proxy.server.push;
 
 import com.owl.client.common.serializer.SerializerImpl;
 import com.owl.mq.client.service.IdService;
-import com.owl.mq.client.transport.message.Header;
+import com.owl.mq.client.transport.message.KafkaHeader;
 import com.owl.mq.client.transport.protocol.Command;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.server.push.AbstractPushCenter;
@@ -25,9 +25,9 @@ public class KafkaPushCenter extends AbstractPushCenter<ConsumerRecord<byte[], b
             packet.setCmd(Command.PUSH.getCmd());
             packet.setOpaque(IdService.I.getId());
 
-            Header header = new Header(record.topic(), record.partition(), record.offset(), IdService.I.getId());
-            header.setSign(Header.Sign.PUSH.getSign());
-            byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(header);
+            KafkaHeader kafkaHeader = new KafkaHeader(record.topic(), record.partition(), record.offset(), IdService.I.getId());
+            kafkaHeader.setSign(KafkaHeader.Sign.PUSH.getSign());
+            byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
             //
             ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4 + record.key().length + 4 + record.value().length);
             buffer.writeInt(headerInBytes.length);

@@ -3,6 +3,9 @@ package com.owl.rocketmq.client.consumer;
 
 import com.owl.client.common.serializer.Serializer;
 import com.owl.client.common.util.Preconditions;
+import com.owl.rocketmq.client.consumer.listener.ConcurrentMessageListener;
+import com.owl.rocketmq.client.consumer.listener.MessageListener;
+import com.owl.rocketmq.client.consumer.listener.OrderlyMessageListener;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.*;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -25,7 +28,7 @@ public class DefaultRocketMQConsumerImpl<V> {
     private final DefaultMQPushConsumer consumer;
     private final ConsumerConfig consumerConfig;
     private final Serializer serializer;
-    private MessageListener messageListener;
+    private com.owl.rocketmq.client.consumer.listener.MessageListener messageListener;
 
     public DefaultRocketMQConsumerImpl(ConsumerConfig consumerConfig){
         this.consumerConfig = consumerConfig;
@@ -103,6 +106,7 @@ public class DefaultRocketMQConsumerImpl<V> {
         if(this.messageListener != null){
             throw new IllegalArgumentException("messageListener has already set");
         }
+
         this.messageListener = messageListener;
     }
 

@@ -2,8 +2,8 @@ package com.owl.mq.client.util;
 
 
 import com.owl.client.common.serializer.SerializerImpl;
-import com.owl.mq.client.transport.message.Header;
-import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.message.KafkaHeader;
+import com.owl.mq.client.transport.message.KafkaMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -16,22 +16,22 @@ import java.util.List;
  */
 public class MessageCodec {
 
-    public static ByteBuf encode(Message message){
-        Header header = message.getHeader();
-        byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(header);
-        message.setHeaderInBytes(headerInBytes);
-        ByteBuf buffer = Unpooled.buffer(4 + 4 + 4 + message.getLength());
+    public static ByteBuf encode(KafkaMessage kafkaMessage){
+        KafkaHeader kafkaHeader = kafkaMessage.getHeader();
+        byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
+        kafkaMessage.setHeaderInBytes(headerInBytes);
+        ByteBuf buffer = Unpooled.buffer(4 + 4 + 4 + kafkaMessage.getLength());
         buffer.writeInt(headerInBytes.length);
         buffer.writeBytes(headerInBytes);
-        buffer.writeInt(message.getKey().length);
-        buffer.writeBytes(message.getKey());
-        buffer.writeInt(message.getValue().length);
-        buffer.writeBytes(message.getValue());
+        buffer.writeInt(kafkaMessage.getKey().length);
+        buffer.writeBytes(kafkaMessage.getKey());
+        buffer.writeInt(kafkaMessage.getValue().length);
+        buffer.writeBytes(kafkaMessage.getValue());
         return buffer;
     }
 
-//    public static ByteBuffer encode(Message message){
-//        Header header = message.getHeader();
+//    public static ByteBuffer encode(KafkaMessage message){
+//        KafkaHeader header = message.getKafkaHeader();
 //        byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(header);
 //        message.setHeaderInBytes(headerInBytes);
 //        ByteBuffer buffer = ByteBuffer.allocate(4 + 4 + 4 + message.getLength());
@@ -44,117 +44,117 @@ public class MessageCodec {
 //        return buffer;
 //    }
 
-    public static Message decode(byte[] body){
+    public static KafkaMessage decode(byte[] body){
         ByteBuffer buffer = ByteBuffer.wrap(body);
         return decode(buffer);
     }
 
-    public static Message decode(ByteBuffer buffer){
-        Message message = new Message();
+    public static KafkaMessage decode(ByteBuffer buffer){
+        KafkaMessage kafkaMessage = new KafkaMessage();
 
         //
         int headerLength = buffer.getInt();
         byte[] headerInBytes = new byte[headerLength];
         buffer.get(headerInBytes, 0, headerLength);
-        Header header = (Header) SerializerImpl.getFastJsonSerializer().deserialize(headerInBytes, Header.class);
-        message.setHeader(header);
-        message.setHeaderInBytes(headerInBytes);
+        KafkaHeader kafkaHeader = (KafkaHeader) SerializerImpl.getFastJsonSerializer().deserialize(headerInBytes, KafkaHeader.class);
+        kafkaMessage.setHeader(kafkaHeader);
+        kafkaMessage.setHeaderInBytes(headerInBytes);
         //
         int keyLength = buffer.getInt();
         byte[] key = new byte[keyLength];
         buffer.get(key, 0, keyLength);
-        message.setKey(key);
+        kafkaMessage.setKey(key);
         //
         int valueLength = buffer.getInt();
         byte[] value = new byte[valueLength];
         buffer.get(value, 0, valueLength);
-        message.setValue(value);
+        kafkaMessage.setValue(value);
 
-        return message;
+        return kafkaMessage;
     }
 
-    public static Message decode(ByteBuf buffer){
-        Message message = new Message();
+    public static KafkaMessage decode(ByteBuf buffer){
+        KafkaMessage kafkaMessage = new KafkaMessage();
 
         //
         int headerLength = buffer.readInt();
         byte[] headerInBytes = new byte[headerLength];
         buffer.readBytes(headerInBytes, 0, headerLength);
-        Header header = (Header) SerializerImpl.getFastJsonSerializer().deserialize(headerInBytes, Header.class);
-        message.setHeader(header);
-        message.setHeaderInBytes(headerInBytes);
+        KafkaHeader kafkaHeader = (KafkaHeader) SerializerImpl.getFastJsonSerializer().deserialize(headerInBytes, KafkaHeader.class);
+        kafkaMessage.setHeader(kafkaHeader);
+        kafkaMessage.setHeaderInBytes(headerInBytes);
         //
         int keyLength = buffer.readInt();
         byte[] key = new byte[keyLength];
         buffer.readBytes(key, 0, keyLength);
-        message.setKey(key);
+        kafkaMessage.setKey(key);
         //
         int valueLength = buffer.readInt();
         byte[] value = new byte[valueLength];
         buffer.readBytes(value, 0, valueLength);
-        message.setValue(value);
+        kafkaMessage.setValue(value);
 
-        return message;
+        return kafkaMessage;
     }
 
-    public static List<Message> decodes(byte[] body){
+    public static List<KafkaMessage> decodes(byte[] body){
         ByteBuffer buffer = ByteBuffer.wrap(body);
         return decodes(buffer);
     }
 
-    public static List<Message> decodes(ByteBuffer buffer){
-        List<Message> messages = new ArrayList<>();
+    public static List<KafkaMessage> decodes(ByteBuffer buffer){
+        List<KafkaMessage> kafkaMessages = new ArrayList<>();
         //
         while(buffer.hasRemaining()){
-            Message message = new Message();
+            KafkaMessage kafkaMessage = new KafkaMessage();
             //
             int headerLength = buffer.getInt();
             byte[] headerInBytes = new byte[headerLength];
             buffer.get(headerInBytes, 0, headerLength);
-            Header header = (Header) SerializerImpl.getFastJsonSerializer().deserialize(headerInBytes, Header.class);
-            message.setHeader(header);
-            message.setHeaderInBytes(headerInBytes);
+            KafkaHeader kafkaHeader = (KafkaHeader) SerializerImpl.getFastJsonSerializer().deserialize(headerInBytes, KafkaHeader.class);
+            kafkaMessage.setHeader(kafkaHeader);
+            kafkaMessage.setHeaderInBytes(headerInBytes);
             //
             int keyLength = buffer.getInt();
             byte[] key = new byte[keyLength];
             buffer.get(key, 0, keyLength);
-            message.setKey(key);
+            kafkaMessage.setKey(key);
             //
             int valueLength = buffer.getInt();
             byte[] value = new byte[valueLength];
             buffer.get(value, 0, valueLength);
-            message.setValue(value);
+            kafkaMessage.setValue(value);
             //
-            messages.add(message);
+            kafkaMessages.add(kafkaMessage);
         }
-        return messages;
+        return kafkaMessages;
     }
 
-    public static List<Message> decodes(ByteBuf buffer){
-        List<Message> messages = new ArrayList<>();
+    public static List<KafkaMessage> decodes(ByteBuf buffer){
+        List<KafkaMessage> kafkaMessages = new ArrayList<>();
         //
         while(buffer.readableBytes() > 0){
-            Message message = new Message();
+            KafkaMessage kafkaMessage = new KafkaMessage();
             //
             int headerLength = buffer.readInt();
             byte[] headerInBytes = new byte[headerLength];
             buffer.readBytes(headerInBytes, 0, headerLength);
-            Header header = (Header) SerializerImpl.getFastJsonSerializer().deserialize(headerInBytes, Header.class);
-            message.setHeader(header);
-            message.setHeaderInBytes(headerInBytes);
+            KafkaHeader kafkaHeader = (KafkaHeader) SerializerImpl.getFastJsonSerializer().deserialize(headerInBytes, KafkaHeader.class);
+            kafkaMessage.setHeader(kafkaHeader);
+            kafkaMessage.setHeaderInBytes(headerInBytes);
             //
             int keyLength = buffer.readInt();
             byte[] key = new byte[keyLength];
             buffer.readBytes(key, 0, keyLength);
-            message.setKey(key);
+            kafkaMessage.setKey(key);
             //
             int valueLength = buffer.readInt();
             byte[] value = new byte[valueLength];
             buffer.readBytes(value, 0, valueLength);
-            message.setValue(value);
+            kafkaMessage.setValue(value);
             //
-            messages.add(message);
+            kafkaMessages.add(kafkaMessage);
         }
-        return messages;
+        return kafkaMessages;
     }
 }

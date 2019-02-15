@@ -3,7 +3,7 @@ package com.owl.mq.server.pull.service;
 import com.owl.client.common.util.CollectionUtils;
 import com.owl.mq.client.transport.exceptions.ChannelInactiveException;
 import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.Packets;
+import com.owl.mq.client.util.KafkaPackets;
 import com.owl.mq.server.bo.ManyPullRequest;
 import com.owl.mq.server.bo.PullRequest;
 import com.owl.mq.server.pull.AbstractPullCenter;
@@ -92,7 +92,7 @@ public class PullRequestHoldService {
                 request.getConnection().send(result);
                 execute = true;
             } else if(System.currentTimeMillis() > (request.getSuspendTimestamp() + request.getTimeoutMs())){
-                final Packet packet = Packets.pullNoMsgResp(request.getPacket().getOpaque());
+                final Packet packet = KafkaPackets.pullNoMsgResp(request.getPacket().getOpaque());
                 request.getConnection().send(packet);
                 execute = true;
             }

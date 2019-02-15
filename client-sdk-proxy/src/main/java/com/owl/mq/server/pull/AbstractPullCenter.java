@@ -71,7 +71,7 @@ public abstract class AbstractPullCenter<T> {
 //        } else{
 //            ConsumerRecord<byte[], byte[]> record = pullQueue.poll();
 //            if(record != null){
-//                Header header = new Header(record.topic(), record.partition(), record.offset(),
+//                KafkaHeader header = new KafkaHeader(record.topic(), record.partition(), record.offset(),
 //                        IdService.I.getId(), PullStatus.FOUND.getStatus());
 //                byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(header);
 //

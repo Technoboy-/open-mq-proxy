@@ -3,7 +3,7 @@ package com.owl.kafka.proxy.server.pull;
 import com.owl.client.common.serializer.SerializerImpl;
 import com.owl.mq.client.service.IdService;
 import com.owl.mq.client.service.PullStatus;
-import com.owl.mq.client.transport.message.Header;
+import com.owl.mq.client.transport.message.KafkaHeader;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.server.pull.AbstractPullCenter;
 import io.netty.buffer.ByteBuf;
@@ -30,9 +30,9 @@ public class KafkaPullCenter extends AbstractPullCenter<ConsumerRecord<byte[], b
         } else{
             ConsumerRecord<byte[], byte[]> record = pullQueue.poll();
             if(record != null){
-                Header header = new Header(record.topic(), record.partition(), record.offset(),
+                KafkaHeader kafkaHeader = new KafkaHeader(record.topic(), record.partition(), record.offset(),
                         IdService.I.getId(), PullStatus.FOUND.getStatus());
-                byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(header);
+                byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
 
                 int capacity = 4 + headerInBytes.length + 4 + record.key().length + 4 + record.value().length;
                 ByteBuf buffer = bufferPool.allocate(capacity);

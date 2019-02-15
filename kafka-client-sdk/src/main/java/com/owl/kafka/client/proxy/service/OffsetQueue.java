@@ -1,7 +1,7 @@
 package com.owl.kafka.client.proxy.service;
 
 import com.owl.mq.client.service.TopicPartitionOffset;
-import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.message.KafkaMessage;
 
 import java.util.List;
 import java.util.TreeSet;
@@ -23,23 +23,23 @@ public class OffsetQueue {
 
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    public void put(List<Message> messages){
+    public void put(List<KafkaMessage> kafkaMessages){
         this.lock.writeLock().lock();
         try {
-            for(Message message : messages){
+            for(KafkaMessage kafkaMessage : kafkaMessages){
                 msgCount.incrementAndGet();
-                TreeSet<TopicPartitionOffset> offsetTreeSet = partitionMap.get(message.getHeader().getPartition());
+                TreeSet<TopicPartitionOffset> offsetTreeSet = partitionMap.get(kafkaMessage.getHeader().getPartition());
                 if(offsetTreeSet == null){
                     offsetTreeSet = new TreeSet<>();
-                    TreeSet<TopicPartitionOffset> old = partitionMap.putIfAbsent(message.getHeader().getPartition(), offsetTreeSet);
+                    TreeSet<TopicPartitionOffset> old = partitionMap.putIfAbsent(kafkaMessage.getHeader().getPartition(), offsetTreeSet);
                     if(old != null){
                         offsetTreeSet = old;
                     }
                 }
-                TopicPartitionOffset topicPartitionOffset = new TopicPartitionOffset(message.getHeader().getTopic(),
-                        message.getHeader().getPartition(), message.getHeader().getOffset(), message.getHeader().getMsgId());
+                TopicPartitionOffset topicPartitionOffset = new TopicPartitionOffset(kafkaMessage.getHeader().getTopic(),
+                        kafkaMessage.getHeader().getPartition(), kafkaMessage.getHeader().getOffset(), kafkaMessage.getHeader().getMsgId());
                 offsetTreeSet.add(topicPartitionOffset);
-                msgIdMap.put(message.getHeader().getMsgId(), topicPartitionOffset);
+                msgIdMap.put(kafkaMessage.getHeader().getMsgId(), topicPartitionOffset);
             }
         } finally {
             this.lock.writeLock().unlock();

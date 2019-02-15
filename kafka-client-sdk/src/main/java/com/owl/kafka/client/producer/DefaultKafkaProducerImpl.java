@@ -1,8 +1,8 @@
 package com.owl.kafka.client.producer;
 
+import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.serializer.Serializer;
 import com.owl.client.common.util.Preconditions;
-import com.owl.kafka.client.metric.MonitorImpl;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;

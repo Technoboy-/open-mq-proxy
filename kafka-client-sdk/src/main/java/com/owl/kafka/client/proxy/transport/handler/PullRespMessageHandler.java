@@ -3,7 +3,7 @@ package com.owl.kafka.client.proxy.transport.handler;
 import com.owl.mq.client.service.InvokerPromise;
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.message.KafkaMessage;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.client.util.ChannelUtils;
 import com.owl.mq.client.util.MessageCodec;
@@ -39,8 +39,8 @@ public class PullRespMessageHandler extends CommonMessageHandler {
                 invokerPromise.executeInvokeCallback();
             }
         }
-        List<Message> messages = MessageCodec.decodes(packet.getBody());
-        this.messageListenerService.onMessage(connection, messages);
+        List<KafkaMessage> kafkaMessages = MessageCodec.decodes(packet.getBody());
+        this.messageListenerService.onMessage(connection, kafkaMessages);
     }
 
 

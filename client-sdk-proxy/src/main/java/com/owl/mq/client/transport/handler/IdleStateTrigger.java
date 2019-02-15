@@ -1,6 +1,6 @@
 package com.owl.mq.client.transport.handler;
 
-import com.owl.mq.client.util.Packets;
+import com.owl.mq.client.util.KafkaPackets;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -18,7 +18,7 @@ public class IdleStateTrigger extends ChannelInboundHandlerAdapter {
         if(evt instanceof IdleStateEvent){
             IdleStateEvent event = (IdleStateEvent)evt;
             if(event.state() == IdleState.WRITER_IDLE){
-                ctx.writeAndFlush(Packets.pingContent());
+                ctx.writeAndFlush(KafkaPackets.pingContent());
             }
         } else {
             super.userEventTriggered(ctx, evt);

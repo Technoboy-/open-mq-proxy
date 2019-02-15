@@ -1,14 +1,14 @@
 package com.owl.kafka.proxy.server.transport.handler;
 
 
+import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.util.NamedThreadFactory;
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.message.Header;
-import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.message.KafkaHeader;
+import com.owl.mq.client.transport.message.KafkaMessage;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.client.util.MessageCodec;
-import com.owl.kafka.client.metric.MonitorImpl;
 
 import com.owl.kafka.proxy.server.consumer.ProxyConsumer;
 import com.owl.mq.server.bo.ServerConfigs;
@@ -49,41 +49,41 @@ public class AckMessageHandler extends CommonMessageHandler {
 
     @Override
     public void handle(Connection connection, Packet packet) throws Exception {
-        Message message = MessageCodec.decode(packet.getBody());
-        Header.Sign sign = Header.Sign.of(message.getHeader().getSign());
+        KafkaMessage kafkaMessage = MessageCodec.decode(packet.getBody());
+        KafkaHeader.Sign sign = KafkaHeader.Sign.of(kafkaMessage.getHeader().getSign());
         if(sign == null){
-            LOGGER.error("sign is empty, opaque : {}, message : {}", packet.getOpaque(),message);
+            LOGGER.error("sign is empty, opaque : {}, kafkaMessage : {}", packet.getOpaque(), kafkaMessage);
             return;
         }
         switch (sign){
             case PUSH:
-                LOGGER.debug("received push ack msg : {}", message);
-                acknowledge(message.getHeader());
-                boolean result = MessageHolder.fastRemove(message);
+                LOGGER.debug("received push ack msg : {}", kafkaMessage);
+                acknowledge(kafkaMessage.getHeader());
+                boolean result = MessageHolder.fastRemove(kafkaMessage);
                 if(!result){
                     LOGGER.warn("MessageHolder not found ack opaque : {}, just ignore", packet.getOpaque());
                 }
                 break;
             case PULL:
-                LOGGER.debug("received pull ack msg : {}", message);
-                acknowledge(message.getHeader());
+                LOGGER.debug("received pull ack msg : {}", kafkaMessage);
+                acknowledge(kafkaMessage.getHeader());
                 break;
 
         }
     }
 
-    protected void acknowledge(Header header){
+    protected void acknowledge(KafkaHeader kafkaHeader){
         if (messageCount.incrementAndGet() % batchSize == 0) {
             commitScheduler.execute(new CommitOffsetTask());
         }
-        toOffsetMap(header);
+        toOffsetMap(kafkaHeader);
     }
 
-    private void toOffsetMap(Header header){
-        TopicPartition topicPartition = new TopicPartition(header.getTopic(), header.getPartition());
+    private void toOffsetMap(KafkaHeader kafkaHeader){
+        TopicPartition topicPartition = new TopicPartition(kafkaHeader.getTopic(), kafkaHeader.getPartition());
         OffsetAndMetadata offsetAndMetadata = latestOffsetMap.get(topicPartition);
-        if (offsetAndMetadata == null || header.getOffset() > offsetAndMetadata.offset()) {
-            latestOffsetMap.put(topicPartition, new OffsetAndMetadata(header.getOffset()));
+        if (offsetAndMetadata == null || kafkaHeader.getOffset() > offsetAndMetadata.offset()) {
+            latestOffsetMap.put(topicPartition, new OffsetAndMetadata(kafkaHeader.getOffset()));
         }
     }
 

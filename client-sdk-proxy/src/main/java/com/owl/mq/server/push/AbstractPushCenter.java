@@ -140,8 +140,8 @@ public abstract class AbstractPushCenter<T> implements Runnable{
 //            packet.setCmd(Command.PUSH.getCmd());
 //            packet.setOpaque(IdService.I.getId());
 //
-//            Header header = new Header(record.topic(), record.partition(), record.offset(), IdService.I.getId());
-//            header.setSign(Header.Sign.PUSH.getSign());
+//            KafkaHeader header = new KafkaHeader(record.topic(), record.partition(), record.offset(), IdService.I.getId());
+//            header.setSign(KafkaHeader.Sign.PUSH.getSign());
 //            byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(header);
 //            //
 //            ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4 + record.key().length + 4 + record.value().length);

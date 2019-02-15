@@ -1,6 +1,6 @@
 package com.owl.mq.server.push.service;
 
-import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.message.KafkaMessage;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.client.util.MessageCodec;
 import com.owl.mq.server.bo.FastResendMessage;
@@ -43,10 +43,10 @@ public class MessageHolder {
         }
         lock.writeLock().lock();
         try {
-            Message message = MessageCodec.decode(packet.getBody());
-            MSG_QUEUE.put(new ResendPacket(message.getHeader().getMsgId()));
-            long size = message.getHeaderInBytes().length + message.getKey().length + message.getValue().length;
-            MSG_MAPPER.put(message.getHeader().getMsgId(), new FastResendMessage(message.getHeader().getMsgId(), message.getHeaderInBytes(), size));
+            KafkaMessage kafkaMessage = MessageCodec.decode(packet.getBody());
+            MSG_QUEUE.put(new ResendPacket(kafkaMessage.getHeader().getMsgId()));
+            long size = kafkaMessage.getHeaderInBytes().length + kafkaMessage.getKey().length + kafkaMessage.getValue().length;
+            MSG_MAPPER.put(kafkaMessage.getHeader().getMsgId(), new FastResendMessage(kafkaMessage.getHeader().getMsgId(), kafkaMessage.getHeaderInBytes(), size));
             COUNT.incrementAndGet();
             MEMORY_SIZE.addAndGet(size);
         } finally {
@@ -54,12 +54,12 @@ public class MessageHolder {
         }
     }
 
-    public static boolean fastRemove(Message message){
+    public static boolean fastRemove(KafkaMessage kafkaMessage){
         boolean result;
         lock.writeLock().lock();
         try {
-            result = MSG_QUEUE.remove(new ResendPacket(message.getHeader().getMsgId()));
-            FastResendMessage frm = MSG_MAPPER.remove(message.getHeader().getMsgId());
+            result = MSG_QUEUE.remove(new ResendPacket(kafkaMessage.getHeader().getMsgId()));
+            FastResendMessage frm = MSG_MAPPER.remove(kafkaMessage.getHeader().getMsgId());
             if(frm != null){
                 COUNT.decrementAndGet();
                 MEMORY_SIZE.addAndGet(frm.getSize()*(-1));

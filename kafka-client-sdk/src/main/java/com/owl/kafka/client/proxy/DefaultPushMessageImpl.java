@@ -9,10 +9,10 @@ import com.owl.mq.client.transport.Address;
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.ConnectionManager;
 import com.owl.mq.client.transport.NettyClient;
-import com.owl.mq.client.transport.message.Message;
+import com.owl.mq.client.transport.message.KafkaMessage;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.client.util.MessageCodec;
-import com.owl.mq.client.util.Packets;
+import com.owl.mq.client.util.KafkaPackets;
 import com.owl.mq.client.zookeeper.ZookeeperClient;
 import com.owl.kafka.client.consumer.Record;
 import com.owl.kafka.client.consumer.service.MessageListenerService;
@@ -74,13 +74,13 @@ public class DefaultPushMessageImpl {
                 Address address = Address.parse(child);
                 if(address != null){
                     Connection connection = nettyClient.getConnectionManager().getConnection(address);
-                    connection.send(Packets.viewReq(msgId));
+                    connection.send(KafkaPackets.viewReq(msgId));
                     InvokerPromise promise = new InvokerPromise(msgId, 5000);
                     Packet packet = promise.getResult();
                     if(packet != null && !packet.isBodyEmtpy()){
-                        Message message = MessageCodec.decode(packet.getBody());
-                        return new Record<>(message.getHeader().getMsgId(), message.getHeader().getTopic(),
-                                message.getHeader().getPartition(), message.getHeader().getOffset(), message.getKey(), message.getValue(), -1);
+                        KafkaMessage kafkaMessage = MessageCodec.decode(packet.getBody());
+                        return new Record<>(kafkaMessage.getHeader().getMsgId(), kafkaMessage.getHeader().getTopic(),
+                                kafkaMessage.getHeader().getPartition(), kafkaMessage.getHeader().getOffset(), kafkaMessage.getKey(), kafkaMessage.getValue(), -1);
                     }
                 }
             }

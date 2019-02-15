@@ -3,8 +3,8 @@ package com.owl.kafka.client.proxy.service;
 import com.owl.client.common.util.NamedThreadFactory;
 import com.owl.mq.client.service.TopicPartitionOffset;
 import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.message.Message;
-import com.owl.mq.client.util.Packets;
+import com.owl.mq.client.transport.message.KafkaMessage;
+import com.owl.mq.client.util.KafkaPackets;
 import org.apache.kafka.common.TopicPartition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +33,8 @@ public class OffsetStore {
 
     private Connection connection;
 
-    public void storeOffset(List<Message> messages){
-        offsetQueue.put(messages);
+    public void storeOffset(List<KafkaMessage> kafkaMessages){
+        offsetQueue.put(kafkaMessages);
     }
 
     public void updateOffset(Connection connection, long msgId){
@@ -60,7 +60,7 @@ public class OffsetStore {
                     return;
                 }
                 for(TopicPartitionOffset offset : pre.values()){
-                    connection.send(Packets.ackPullReq(offset));
+                    connection.send(KafkaPackets.ackPullReq(offset));
                 }
             } catch (Throwable ex) {
                 LOG.error("Commit consumer offset error.", ex);

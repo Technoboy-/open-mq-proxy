@@ -1,20 +1,20 @@
 package com.owl.kafka.client.consumer.service;
 
+import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.util.CollectionUtils;
 import com.owl.client.common.util.NamedThreadFactory;
 import com.owl.mq.client.bo.ClientConfigs;
 import com.owl.mq.client.service.PullStatus;
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.exceptions.ChannelInactiveException;
-import com.owl.mq.client.transport.message.Header;
-import com.owl.mq.client.transport.message.Message;
-import com.owl.mq.client.util.Packets;
+import com.owl.mq.client.transport.message.KafkaHeader;
+import com.owl.mq.client.transport.message.KafkaMessage;
+import com.owl.mq.client.util.KafkaPackets;
 import com.owl.kafka.client.consumer.DefaultKafkaConsumerImpl;
 import com.owl.kafka.client.consumer.Record;
 import com.owl.kafka.client.consumer.listener.AcknowledgeMessageListener;
 import com.owl.kafka.client.consumer.listener.MessageListener;
 
-import com.owl.kafka.client.metric.MonitorImpl;
 import com.owl.kafka.client.proxy.service.OffsetStore;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -60,27 +60,27 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
         //
     }
 
-    public void onMessage(Connection connection, List<Message> messages) {
+    public void onMessage(Connection connection, List<KafkaMessage> kafkaMessages) {
         this.connection = connection;
-        final List<Message> newMessages = filter(messages);
-        if(CollectionUtils.isEmpty(newMessages)){
+        final List<KafkaMessage> filteredKafkaMessages = filter(kafkaMessages);
+        if(CollectionUtils.isEmpty(filteredKafkaMessages)){
             LOG.debug("no new msg");
             return;
         }
-        offsetStore.storeOffset(newMessages);
-        if(newMessages.size() < consumeBatchSize){
-            ConsumeRequest consumeRequest = new ConsumeRequest(newMessages);
+        offsetStore.storeOffset(filteredKafkaMessages);
+        if(filteredKafkaMessages.size() < consumeBatchSize){
+            ConsumeRequest consumeRequest = new ConsumeRequest(filteredKafkaMessages);
             try {
                 this.consumeExecutor.submit(consumeRequest);
             } catch(RejectedExecutionException ex){
                 consumeLater(consumeRequest);
             }
         } else{
-            for(int total = 0; total < newMessages.size(); ){
-                List<Message> msgList = new ArrayList<>(consumeBatchSize);
+            for(int total = 0; total < filteredKafkaMessages.size(); ){
+                List<KafkaMessage> msgList = new ArrayList<>(consumeBatchSize);
                 for(int i = 0; i < consumeBatchSize; i++, total++){
-                    if(total < newMessages.size()){
-                        msgList.add(newMessages.get(total));
+                    if(total < filteredKafkaMessages.size()){
+                        msgList.add(filteredKafkaMessages.get(total));
                     } else{
                         break;
                     }
@@ -89,8 +89,8 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
                 try {
                     this.consumeExecutor.submit(consumeRequest);
                 } catch (RejectedExecutionException e) {
-                    for (; total < newMessages.size(); total++) {
-                        msgList.add(newMessages.get(total));
+                    for (; total < filteredKafkaMessages.size(); total++) {
+                        msgList.add(filteredKafkaMessages.get(total));
                     }
                     this.consumeLater(consumeRequest);
                 }
@@ -98,15 +98,15 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
         }
     }
 
-    private List<Message> filter(List<Message> messages){
-        List<Message> newMessages = new ArrayList<>(messages.size());
-        for(Message message : messages){
-            PullStatus pullStatus = PullStatus.of(message.getHeader().getPullStatus());
+    private List<KafkaMessage> filter(List<KafkaMessage> kafkaMessages){
+        List<KafkaMessage> newKafkaMessages = new ArrayList<>(kafkaMessages.size());
+        for(KafkaMessage kafkaMessage : kafkaMessages){
+            PullStatus pullStatus = PullStatus.of(kafkaMessage.getHeader().getPullStatus());
             if(PullStatus.FOUND == pullStatus){
-                newMessages.add(message);
+                newKafkaMessages.add(kafkaMessage);
             }
         }
-        return newMessages;
+        return newKafkaMessages;
     }
 
     private void consumeLater(ConsumeRequest request){
@@ -118,31 +118,31 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
         }, 5000, TimeUnit.MILLISECONDS);
     }
 
-    private void sendBack(Message message){
+    private void sendBack(KafkaMessage kafkaMessage){
         try {
-            connection.send(Packets.sendBackReq(message));
+            connection.send(KafkaPackets.sendBackReq(kafkaMessage));
         } catch (ChannelInactiveException e) {
-            consumeLater(new ConsumeRequest(Arrays.asList(message)));
+            consumeLater(new ConsumeRequest(Arrays.asList(kafkaMessage)));
         }
     }
 
     class ConsumeRequest implements Runnable{
 
-        private List<Message> messages;
+        private List<KafkaMessage> kafkaMessages;
 
-        public ConsumeRequest(List<Message> messages){
-            this.messages = messages;
+        public ConsumeRequest(List<KafkaMessage> kafkaMessages){
+            this.kafkaMessages = kafkaMessages;
         }
 
         @Override
         public void run() {
-            for(Message message : messages){
+            for(KafkaMessage kafkaMessage : kafkaMessages){
                 long now = System.currentTimeMillis();
                 try {
-                    Header header = message.getHeader();
-                    ConsumerRecord record = new ConsumerRecord(header.getTopic(), header.getPartition(), header.getOffset(), message.getKey(), message.getValue());
+                    KafkaHeader kafkaHeader = kafkaMessage.getHeader();
+                    ConsumerRecord record = new ConsumerRecord(kafkaHeader.getTopic(), kafkaHeader.getPartition(), kafkaHeader.getOffset(), kafkaMessage.getKey(), kafkaMessage.getValue());
                     final Record<K, V> r = consumer.toRecord(record);
-                    r.setMsgId(header.getMsgId());
+                    r.setMsgId(kafkaHeader.getMsgId());
                     messageListener.onMessage(r, new AcknowledgeMessageListener.Acknowledgment() {
                         @Override
                         public void acknowledge() {
@@ -152,7 +152,7 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
                 } catch (Throwable ex) {
                     MonitorImpl.getDefault().recordConsumeProcessErrorCount(1);
                     LOG.error("onMessage error", ex);
-                    sendBack(message);
+                    sendBack(kafkaMessage);
                 } finally {
                     MonitorImpl.getDefault().recordConsumeProcessCount(1);
                     MonitorImpl.getDefault().recordConsumeProcessTime(System.currentTimeMillis() - now);
