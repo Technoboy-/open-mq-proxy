@@ -6,6 +6,9 @@ import com.owl.client.common.util.Preconditions;
 import com.owl.rocketmq.client.consumer.listener.ConcurrentMessageListener;
 import com.owl.rocketmq.client.consumer.listener.MessageListener;
 import com.owl.rocketmq.client.consumer.listener.OrderlyMessageListener;
+import com.owl.rocketmq.client.consumer.service.MessageListenerService;
+import com.owl.rocketmq.client.consumer.service.PullMessageListenerService;
+import com.owl.rocketmq.client.proxy.DefaultPullMessageImpl;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.*;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -28,7 +31,13 @@ public class DefaultRocketMQConsumerImpl<V> {
     private final DefaultMQPushConsumer consumer;
     private final ConsumerConfig consumerConfig;
     private final Serializer serializer;
-    private com.owl.rocketmq.client.consumer.listener.MessageListener messageListener;
+    private MessageListener messageListener;
+
+    private MessageListenerService messageListenerService;
+
+    private DefaultPullMessageImpl defaultPullMessageImpl;
+
+
 
     public DefaultRocketMQConsumerImpl(ConsumerConfig consumerConfig){
         this.consumerConfig = consumerConfig;
@@ -55,8 +64,8 @@ public class DefaultRocketMQConsumerImpl<V> {
         if(start.compareAndSet(false, true)){
             try {
                 if(consumerConfig.isUseProxy()){
-
-
+                    this.defaultPullMessageImpl = new DefaultPullMessageImpl(messageListenerService);
+                    this.defaultPullMessageImpl.start();
                 } else{
                     if(messageListener instanceof ConcurrentMessageListener){
                         ConcurrentMessageListener concurrentMessageListener = (ConcurrentMessageListener)messageListener;
@@ -108,6 +117,9 @@ public class DefaultRocketMQConsumerImpl<V> {
         }
 
         this.messageListener = messageListener;
+        if(consumerConfig.isUseProxy()){
+            this.messageListenerService = new PullMessageListenerService(this.messageListener);
+        }
     }
 
     public void close() {
@@ -115,6 +127,9 @@ public class DefaultRocketMQConsumerImpl<V> {
             if(this.consumer != null) {
                 this.consumer.shutdown();
                 LOG.info("DefaultRocketMQConsumerImpl closed !");
+            }
+            if(this.defaultPullMessageImpl != null){
+                this.defaultPullMessageImpl.close();
             }
         }
     }

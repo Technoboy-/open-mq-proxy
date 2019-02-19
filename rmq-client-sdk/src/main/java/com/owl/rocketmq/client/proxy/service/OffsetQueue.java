@@ -1,7 +1,6 @@
 package com.owl.rocketmq.client.proxy.service;
 
-import com.owl.mq.client.service.TopicPartitionOffset;
-import com.owl.mq.client.transport.message.KafkaMessage;
+import com.owl.mq.client.bo.TopicPartitionOffset;
 import com.owl.mq.client.transport.message.RmqMessage;
 
 import java.util.List;

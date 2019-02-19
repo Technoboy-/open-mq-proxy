@@ -4,7 +4,7 @@ package com.owl.mq.client.util;
 import com.owl.client.common.serializer.SerializerImpl;
 import com.owl.mq.client.service.IdService;
 import com.owl.mq.client.service.PullStatus;
-import com.owl.mq.client.service.TopicPartitionOffset;
+import com.owl.mq.client.bo.TopicPartitionOffset;
 import com.owl.mq.client.transport.alloc.ByteBufferPool;
 import com.owl.mq.client.transport.message.KafkaHeader;
 import com.owl.mq.client.transport.message.KafkaMessage;

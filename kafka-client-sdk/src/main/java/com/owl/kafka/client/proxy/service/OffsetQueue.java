@@ -1,6 +1,6 @@
 package com.owl.kafka.client.proxy.service;
 
-import com.owl.mq.client.service.TopicPartitionOffset;
+import com.owl.mq.client.bo.TopicPartitionOffset;
 import com.owl.mq.client.transport.message.KafkaMessage;
 
 import java.util.List;

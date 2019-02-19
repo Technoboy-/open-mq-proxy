@@ -1,4 +1,4 @@
-package com.owl.mq.client.service;
+package com.owl.mq.client.bo;
 
 import java.io.Serializable;
 import java.util.Objects;
