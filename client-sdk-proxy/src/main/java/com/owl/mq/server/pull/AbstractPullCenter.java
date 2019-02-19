@@ -56,47 +56,9 @@ public abstract class AbstractPullCenter<T> {
         return result;
     }
 
-    public abstract boolean poll(Packet packet);
+    public abstract Packet pullNoMsgResp(long opaque);
 
-//    private boolean poll(Packet packet) {
-//        boolean polled = false;
-//        Packet one = retryQueue.peek();
-//        if(one != null){
-//            retryQueue.poll();
-//            CompositeByteBuf compositeByteBuf = bufferPool.compositeBuffer();
-//            compositeByteBuf.addComponent(true, packet.getBody());
-//            compositeByteBuf.addComponent(true, one.getBody());
-//            packet.setBody(compositeByteBuf);
-//            polled = true;
-//        } else{
-//            ConsumerRecord<byte[], byte[]> record = pullQueue.poll();
-//            if(record != null){
-//                KafkaHeader header = new KafkaHeader(record.topic(), record.partition(), record.offset(),
-//                        IdService.I.getId(), PullStatus.FOUND.getStatus());
-//                byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(header);
-//
-//                int capacity = 4 + headerInBytes.length + 4 + record.key().length + 4 + record.value().length;
-//                ByteBuf buffer = bufferPool.allocate(capacity);
-//                //
-//                buffer.writeBytes(packet.getBody());
-//                buffer.writeInt(headerInBytes.length);
-//                buffer.writeBytes(headerInBytes);
-//                buffer.writeInt(record.key().length);
-//                buffer.writeBytes(record.key());
-//                buffer.writeInt(record.value().length);
-//                buffer.writeBytes(record.value());
-//
-//                //
-//                CompositeByteBuf compositeByteBuf = bufferPool.compositeBuffer();
-//                compositeByteBuf.addComponent(true, packet.getBody());
-//                compositeByteBuf.addComponent(true, buffer);
-//                //
-//                packet.setBody(compositeByteBuf);
-//                polled = true;
-//            }
-//        }
-//        return polled;
-//    }
+    public abstract boolean poll(Packet packet);
 
     public void close(){
         this.pullRequestHoldService.close();

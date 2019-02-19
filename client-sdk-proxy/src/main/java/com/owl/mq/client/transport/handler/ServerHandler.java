@@ -1,8 +1,7 @@
-package com.owl.kafka.proxy.server.transport.handler;
+package com.owl.mq.client.transport.handler;
 
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.NettyConnection;
-import com.owl.mq.client.transport.handler.MessageDispatcher;
 import com.owl.mq.client.transport.protocol.Packet;
 import com.owl.mq.server.registry.RegistryCenter;
 import com.owl.mq.server.service.InstanceHolder;

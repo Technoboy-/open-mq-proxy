@@ -21,9 +21,13 @@ public class ServerConfigs extends ConfigLoader {
 
     static final String SERVER_TOPIC = "server.topic";
 
+    static final String SERVER_TAGS = "server.tags";
+
     static final String SERVER_GROUP_ID = "server.group.id";
 
     static final String SERVER_KAFKA_SERVER_LIST = "server.kafka.server.list";
+
+    static final String SERVER_NAMESRV_LIST = "server.namesrv.list";
 
     static final String SERVER_COMMIT_OFFSET_INTERVAL = "server.commit.offset.interval";
 
@@ -73,6 +77,10 @@ public class ServerConfigs extends ConfigLoader {
         return get(SERVER_GROUP_ID);
     }
 
+    public String getServerTags() {
+        return get(SERVER_TAGS);
+    }
+
     public String getServerTopic() {
         return get(SERVER_TOPIC);
     }
@@ -83,6 +91,10 @@ public class ServerConfigs extends ConfigLoader {
 
     public String getServerKafkaServerList() {
         return get(SERVER_KAFKA_SERVER_LIST);
+    }
+
+    public String getServerNamesrvList() {
+        return get(SERVER_NAMESRV_LIST);
     }
 
     public int getServerCommitOffsetInterval() {

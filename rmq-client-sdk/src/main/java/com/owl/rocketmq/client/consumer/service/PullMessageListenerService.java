@@ -96,11 +96,13 @@ public class PullMessageListenerService implements MessageListenerService{
         }, 5000, TimeUnit.MILLISECONDS);
     }
 
-    private void sendBack(RmqMessage rmqMessage){
+    private void sendBack(List<RmqMessage> messages){
         try {
-            connection.send(RmqPackets.sendBackReq(rmqMessage));
+            for(RmqMessage rmqMessage : messages){
+                connection.send(RmqPackets.sendBackReq(rmqMessage));
+            }
         } catch (ChannelInactiveException e) {
-            consumeLater(new ConsumeRequest(Arrays.asList(rmqMessage)));
+            consumeLater(new ConsumeRequest(messages));
         }
     }
 
@@ -114,24 +116,18 @@ public class PullMessageListenerService implements MessageListenerService{
 
         @Override
         public void run() {
-            List<RocketMQMessage<byte[]>> rocketMQMessages = new ArrayList<>(rmqMessages.size());
-            for(RmqMessage rmqMessages : rmqMessages){
-                long now = System.currentTimeMillis();
-                try {
-                    RmqHeader rmqHeader = rmqMessages.getHeader();
-                    byte[] values = rmqMessages.getValue();
-                    RocketMQMessage<byte[]> rocketMQMessage = new RocketMQMessage<>();
-                    rocketMQMessages.add(rocketMQMessage);
-                } catch (Throwable ex) {
-                    MonitorImpl.getDefault().recordConsumeProcessErrorCount(1);
-                    LOG.error("onMessage error", ex);
-                    sendBack(rmqMessages);
-                } finally {
-                    MonitorImpl.getDefault().recordConsumeProcessCount(1);
-                    MonitorImpl.getDefault().recordConsumeProcessTime(System.currentTimeMillis() - now);
-                }
+            List<RocketMQMessage<byte[]>> messages = convert(this.rmqMessages);
+            long now = System.currentTimeMillis();
+            try {
+                messageListener.onMessage(messages);
+            } catch (Throwable ex){
+                MonitorImpl.getDefault().recordConsumeProcessErrorCount(messages.size());
+                LOG.error("onMessage error", ex);
+                sendBack(rmqMessages);
+            } finally {
+                MonitorImpl.getDefault().recordConsumeProcessCount(messages.size());
+                MonitorImpl.getDefault().recordConsumeProcessTime(System.currentTimeMillis() - now);
             }
-            messageListener.onMessage(rocketMQMessages);
         }
     }
 
@@ -146,9 +142,22 @@ public class PullMessageListenerService implements MessageListenerService{
         return newRmqMessages;
     }
 
+    private List<RocketMQMessage<byte[]>> convert(List<RmqMessage> rmqMessages){
+        List<RocketMQMessage<byte[]>> rocketMQMessages = new ArrayList<>(rmqMessages.size());
+        for(RmqMessage rmqMessage : rmqMessages){
+            RocketMQMessage<byte[]> rocketMQMessage = new RocketMQMessage<>();
+            rocketMQMessage.setTopic(rmqMessage.getHeader().getTopic());
+            rocketMQMessage.setTags(rmqMessage.getHeader().getTags());
+            rocketMQMessage.setMqId(rmqMessage.getHeader().getMsgId());
+            rocketMQMessage.setBody(rmqMessage.getValue());
+            rocketMQMessages.add(rocketMQMessage);
+        }
+        return rocketMQMessages;
+    }
+
 
     @Override
-    public void onMessage(List<MessageExt> msgs) {
+    public boolean onMessage(List<MessageExt> msgs) {
         throw new UnsupportedOperationException("unsupport method");
     }
 

@@ -3,6 +3,7 @@ package com.owl.kafka.client.proxy.transport;
 import com.owl.client.common.util.Constants;
 import com.owl.mq.client.transport.NettyClient;
 import com.owl.mq.client.transport.handler.MessageDispatcher;
+import com.owl.mq.client.transport.handler.PongMessageHandler;
 import com.owl.mq.client.transport.protocol.Command;
 import com.owl.kafka.client.consumer.ConsumerConfig;
 import com.owl.kafka.client.consumer.service.MessageListenerService;

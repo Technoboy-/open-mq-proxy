@@ -1,26 +1,25 @@
-package com.owl.kafka.proxy.server.pull;
+package com.owl.rocketmq.proxy.server.pull;
 
 import com.owl.client.common.serializer.SerializerImpl;
-import com.owl.mq.client.service.IdService;
 import com.owl.mq.client.service.PullStatus;
-import com.owl.mq.client.transport.message.KafkaHeader;
+import com.owl.mq.client.transport.message.RmqHeader;
 import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.KafkaPackets;
+import com.owl.mq.client.util.RmqPackets;
 import com.owl.mq.server.pull.AbstractPullCenter;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.rocketmq.common.message.MessageExt;
 
 /**
  * @Author: Tboy
  */
-public class KafkaPullCenter extends AbstractPullCenter<ConsumerRecord<byte[], byte[]>> {
+public class RmqPullCenter extends AbstractPullCenter<MessageExt> {
 
-    public static KafkaPullCenter I = new KafkaPullCenter();
+    public static RmqPullCenter I = new RmqPullCenter();
 
     @Override
     public Packet pullNoMsgResp(long opaque) {
-        return KafkaPackets.pullNoMsgResp(opaque);
+        return RmqPackets.pullNoMsgResp(opaque);
     }
 
     public boolean poll(Packet packet) {
@@ -34,22 +33,20 @@ public class KafkaPullCenter extends AbstractPullCenter<ConsumerRecord<byte[], b
             packet.setBody(compositeByteBuf);
             polled = true;
         } else{
-            ConsumerRecord<byte[], byte[]> record = pullQueue.poll();
+            MessageExt record = pullQueue.poll();
             if(record != null){
-                KafkaHeader kafkaHeader = new KafkaHeader(record.topic(), record.partition(), record.offset(),
-                        IdService.I.getId(), PullStatus.FOUND.getStatus());
-                byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
+                RmqHeader rmqHeader = new RmqHeader(record.getTopic(), record.getTags(), record.getQueueId(), record.getQueueOffset(),
+                        record.getMsgId(), PullStatus.FOUND.getStatus());
+                byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(rmqHeader);
 
-                int capacity = packet.getBody().readableBytes() + headerInBytes.length + 4 + record.key().length + 4 + record.value().length;
+                int capacity = packet.getBody().readableBytes() + headerInBytes.length + 4 + record.getBody().length;
                 ByteBuf buffer = bufferPool.allocate(capacity);
                 //
                 buffer.writeBytes(packet.getBody());
                 buffer.writeInt(headerInBytes.length);
                 buffer.writeBytes(headerInBytes);
-                buffer.writeInt(record.key().length);
-                buffer.writeBytes(record.key());
-                buffer.writeInt(record.value().length);
-                buffer.writeBytes(record.value());
+                buffer.writeInt(record.getBody().length);
+                buffer.writeBytes(record.getBody());
 
                 //
                 CompositeByteBuf compositeByteBuf = bufferPool.compositeBuffer();

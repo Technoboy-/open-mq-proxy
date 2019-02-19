@@ -9,15 +9,15 @@ public class RmqHeader implements Serializable {
 
     private String topic;
 
+    private String tags;
+
     private int queue;
 
     private long offset;
 
-    private long msgId;
+    private String msgId;
 
     private byte repost;
-
-    private byte sign;
 
     private byte pullStatus;
 
@@ -28,11 +28,11 @@ public class RmqHeader implements Serializable {
         this.pullStatus = pullStatus;
     }
 
-    public RmqHeader(long msgId) {
+    public RmqHeader(String msgId) {
         this.msgId = msgId;
     }
 
-    public RmqHeader(String topic, int queue, long offset, long msgId) {
+    public RmqHeader(String topic, int queue, long offset, String msgId) {
         this.topic = topic;
         this.queue = queue;
         this.offset = offset;
@@ -40,8 +40,9 @@ public class RmqHeader implements Serializable {
         this.repost = (byte)1;
     }
 
-    public RmqHeader(String topic, int queue, long offset, long msgId, byte pullStatus) {
+    public RmqHeader(String topic, String tags, int queue, long offset, String msgId, byte pullStatus) {
         this.topic = topic;
+        this.tags = tags;
         this.queue = queue;
         this.offset = offset;
         this.msgId = msgId;
@@ -49,15 +50,15 @@ public class RmqHeader implements Serializable {
         this.pullStatus = pullStatus;
     }
 
-    public byte getSign() {
-        return sign;
+    public String getTags() {
+        return tags;
     }
 
-    public void setSign(byte sign) {
-        this.sign = sign;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
-    public long getMsgId() {
+    public String getMsgId() {
         return msgId;
     }
 
@@ -97,7 +98,7 @@ public class RmqHeader implements Serializable {
         this.offset = offset;
     }
 
-    public void setMsgId(long msgId) {
+    public void setMsgId(String msgId) {
         this.msgId = msgId;
     }
 
@@ -115,29 +116,5 @@ public class RmqHeader implements Serializable {
                 ", repost=" + repost +
                 ", pullStatus=" + pullStatus +
                 '}';
-    }
-
-    public enum Sign{
-        PUSH((byte)0),
-
-        PULL((byte)1);
-
-        private byte sign;
-        private Sign(byte sign){
-            this.sign = sign;
-        }
-
-        public byte getSign() {
-            return sign;
-        }
-
-        public static Sign of(byte sign){
-            for(Sign side : values()){
-                if(side.getSign() == sign){
-                    return side;
-                }
-            }
-            return null;
-        }
     }
 }

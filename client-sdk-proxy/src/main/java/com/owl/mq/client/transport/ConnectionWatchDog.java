@@ -1,6 +1,6 @@
 package com.owl.mq.client.transport;
 
-import com.owl.mq.client.util.KafkaPackets;
+import com.owl.mq.client.util.Packets;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
@@ -41,7 +41,7 @@ public abstract class ConnectionWatchDog extends ChannelInboundHandlerAdapter im
         LOGGER.info("connect to server : {} success", socketAddress);
         //do register
         connection = NettyConnection.attachChannel(ctx.channel());
-        ctx.writeAndFlush(KafkaPackets.registerContent());
+        ctx.writeAndFlush(Packets.registerContent());
         ctx.fireChannelActive();
     }
 

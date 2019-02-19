@@ -2,67 +2,20 @@ package com.owl.mq.client.util;
 
 
 import com.owl.client.common.serializer.SerializerImpl;
+import com.owl.mq.client.bo.TopicPartitionOffset;
 import com.owl.mq.client.service.IdService;
 import com.owl.mq.client.service.PullStatus;
-import com.owl.mq.client.bo.TopicPartitionOffset;
-import com.owl.mq.client.transport.alloc.ByteBufferPool;
 import com.owl.mq.client.transport.message.KafkaHeader;
+import com.owl.mq.client.transport.message.RmqHeader;
 import com.owl.mq.client.transport.message.RmqMessage;
 import com.owl.mq.client.transport.protocol.Command;
 import com.owl.mq.client.transport.protocol.Packet;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 
 /**
  * @Author: Tboy
  */
-public class RmqPackets {
-
-    private static final ByteBufferPool bufferPool = ByteBufferPool.DEFAULT;
-
-    private static ByteBuf EMPTY_BODY = Unpooled.EMPTY_BUFFER;
-
-    private static ByteBuf EMPTY_KEY = Unpooled.EMPTY_BUFFER;
-
-    private static ByteBuf EMPTY_VALUE = Unpooled.EMPTY_BUFFER;
-
-    private static final ByteBuf PING_BUF;
-
-    static {
-        ByteBuf ping = Unpooled.buffer();
-        ping.writeByte(Packet.MAGIC);
-        ping.writeByte(Packet.VERSION);
-        ping.writeByte(Command.PING.getCmd());
-        ping.writeLong(0);
-        ping.writeInt(0);
-        ping.writeBytes(EMPTY_BODY);
-        PING_BUF = Unpooled.unreleasableBuffer(ping).asReadOnly();
-
-    }
-
-    public static ByteBuf pingContent(){
-        return PING_BUF.duplicate();
-    }
-
-    public static ByteBuf registerContent(){
-        return PING_BUF.duplicate();
-    }
-
-    public static Packet pong(){
-        Packet pong = new Packet();
-        pong.setOpaque(0);
-        pong.setCmd(Command.PONG.getCmd());
-        pong.setBody(EMPTY_BODY);
-        return pong;
-    }
-
-    public static Packet unregister(){
-        Packet unregister = new Packet();
-        unregister.setOpaque(0);
-        unregister.setCmd(Command.UNREGISTER.getCmd());
-        unregister.setBody(EMPTY_BODY);
-        return unregister;
-    }
+public class RmqPackets extends Packets{
 
     public static Packet ackPushReq(long msgId){
         Packet packet = new Packet();
@@ -73,13 +26,11 @@ public class RmqPackets {
         kafkaHeader.setSign(KafkaHeader.Sign.PUSH.getSign());
         byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
         //
-        ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4 + 4);
+        ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4);
         buffer.writeInt(headerInBytes.length);
         buffer.writeBytes(headerInBytes);
         buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_KEY);
-        buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_VALUE);
+        buffer.writeBytes(EMPTY_BODY);
         //
         packet.setBody(buffer);
 
@@ -95,13 +46,11 @@ public class RmqPackets {
         kafkaHeader.setSign(KafkaHeader.Sign.PULL.getSign());
         byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
         //
-        ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4 + 4);
+        ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4);
         buffer.writeInt(headerInBytes.length);
         buffer.writeBytes(headerInBytes);
         buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_KEY);
-        buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_VALUE);
+        buffer.writeBytes(EMPTY_BODY);
         //
         packet.setBody(buffer);
 
@@ -116,13 +65,11 @@ public class RmqPackets {
         KafkaHeader kafkaHeader = new KafkaHeader(msgId);
         byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
         //
-        ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4 + 4);
+        ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4);
         buffer.writeInt(headerInBytes.length);
         buffer.writeBytes(headerInBytes);
         buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_KEY);
-        buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_VALUE);
+        buffer.writeBytes(EMPTY_BODY);
         //
         packet.setBody(buffer);
 
@@ -143,24 +90,15 @@ public class RmqPackets {
         back.setCmd(Command.SEND_BACK.getCmd());
         back.setOpaque(IdService.I.getId());
         //
-        ByteBuf buffer = bufferPool.allocate(rmqMessage.getHeaderInBytes().length + 4 + 4);
+        ByteBuf buffer = bufferPool.allocate(rmqMessage.getHeaderInBytes().length + 4);
         buffer.writeInt(rmqMessage.getHeaderInBytes().length);
         buffer.writeBytes(rmqMessage.getHeaderInBytes());
         buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_VALUE);
+        buffer.writeBytes(EMPTY_BODY);
         //
         back.setBody(buffer);
 
         return back;
-    }
-
-    public static Packet pullReq(long opaque){
-        Packet pull = new Packet();
-        pull.setCmd(Command.PULL_REQ.getCmd());
-        pull.setOpaque(opaque);
-        pull.setBody(EMPTY_BODY);
-
-        return pull;
     }
 
     public static Packet pullNoMsgResp(long opaque){
@@ -168,15 +106,13 @@ public class RmqPackets {
         packet.setOpaque(opaque);
         packet.setCmd(Command.PULL_RESP.getCmd());
         //
-        KafkaHeader kafkaHeader = new KafkaHeader(PullStatus.NO_NEW_MSG.getStatus());
-        byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
-        ByteBuf buffer = bufferPool.allocate(headerInBytes.length + 4 + 4 + 4);
+        RmqHeader rmqHeader = new RmqHeader(PullStatus.NO_NEW_MSG.getStatus());
+        byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(rmqHeader);
+        ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4);
         buffer.writeInt(headerInBytes.length);
         buffer.writeBytes(headerInBytes);
         buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_KEY);
-        buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_VALUE);
+        buffer.writeBytes(EMPTY_BODY);
         //
         packet.setBody(buffer);
 

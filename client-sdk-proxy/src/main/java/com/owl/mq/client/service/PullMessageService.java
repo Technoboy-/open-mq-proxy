@@ -3,13 +3,12 @@ package com.owl.mq.client.service;
 
 import com.owl.client.common.util.NamedThreadFactory;
 import com.owl.mq.client.bo.ClientConfigs;
-import com.owl.mq.client.DefaultPullMessageImpl;
 import com.owl.mq.client.transport.Address;
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.NettyClient;
 import com.owl.mq.client.transport.exceptions.ChannelInactiveException;
 import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.KafkaPackets;
+import com.owl.mq.client.util.Packets;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import org.slf4j.Logger;
@@ -22,7 +21,7 @@ import java.util.concurrent.*;
  */
 public abstract class PullMessageService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPullMessageImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PullMessageService.class);
 
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("scheduled-pull-message-service"));
 
@@ -85,7 +84,7 @@ public abstract class PullMessageService {
             }
         };
         try {
-            connection.send(KafkaPackets.pullReq(opaque), new ChannelFutureListener() {
+            connection.send(Packets.pullReq(opaque), new ChannelFutureListener() {
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
                     Throwable ex = future.cause();

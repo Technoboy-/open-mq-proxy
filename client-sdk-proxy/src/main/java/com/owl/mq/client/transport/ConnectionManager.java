@@ -2,7 +2,7 @@ package com.owl.mq.client.transport;
 
 
 import com.owl.mq.client.transport.exceptions.ChannelInactiveException;
-import com.owl.mq.client.util.KafkaPackets;
+import com.owl.mq.client.util.Packets;
 
 import java.util.Map;
 import java.util.Set;
@@ -37,7 +37,7 @@ public class ConnectionManager {
             ConnectionWatchDog connectionWatchDog = entry.getValue();
             connectionWatchDog.setReconnect(false);
             try {
-                entry.getValue().getConnection().send(KafkaPackets.unregister());
+                entry.getValue().getConnection().send(Packets.unregister());
             } catch (ChannelInactiveException e) {
                 //Ignore
             }
