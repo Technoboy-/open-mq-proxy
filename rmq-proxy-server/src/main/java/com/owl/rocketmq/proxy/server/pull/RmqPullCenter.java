@@ -39,10 +39,9 @@ public class RmqPullCenter extends AbstractPullCenter<MessageExt> {
                         record.getMsgId(), PullStatus.FOUND.getStatus());
                 byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(rmqHeader);
 
-                int capacity = packet.getBody().readableBytes() + headerInBytes.length + 4 + record.getBody().length;
+                int capacity = 4 + headerInBytes.length + 4 + record.getBody().length;
                 ByteBuf buffer = bufferPool.allocate(capacity);
                 //
-                buffer.writeBytes(packet.getBody());
                 buffer.writeInt(headerInBytes.length);
                 buffer.writeBytes(headerInBytes);
                 buffer.writeInt(record.getBody().length);
