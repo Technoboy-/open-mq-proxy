@@ -1,6 +1,7 @@
 package com.owl.rocketmq.proxy.server.consumer;
 
 
+import com.owl.rocketmq.client.consumer.listener.MessageListener;
 import com.owl.rocketmq.client.consumer.service.MessageListenerService;
 import com.owl.rocketmq.proxy.server.pull.RmqPullCenter;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -11,6 +12,12 @@ import java.util.List;
  * @Author: Tboy
  */
 public class AcknowledgeMessageListenerService implements MessageListenerService {
+
+    private final MessageListener messageListener;
+
+    public AcknowledgeMessageListenerService(MessageListener messageListener){
+        this.messageListener = messageListener;
+    }
 
     @Override
     public void onMessage(List<MessageExt> msgs) {

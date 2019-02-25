@@ -11,7 +11,11 @@ import com.owl.rocketmq.client.consumer.listener.OrderlyMessageListener;
 import com.owl.rocketmq.client.consumer.service.MessageListenerService;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.*;
+import org.apache.rocketmq.client.exception.MQBrokerException;
+import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.common.message.MessageQueue;
+import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +67,7 @@ public class ProxyConsumer<V> {
                         public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                                         ConsumeConcurrentlyContext context) {
                             try {
+                                context.getMessageQueue();
                                 messageListenerService.onMessage(msgs);
                             } catch (Throwable ex){
                                 return ConsumeConcurrentlyStatus.RECONSUME_LATER;
@@ -76,6 +81,8 @@ public class ProxyConsumer<V> {
                         @Override
                         public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
                             try {
+                                //TODO
+                                context.getMessageQueue();
                                 messageListenerService.onMessage(msgs);
                             } catch (Throwable ex){
                                 return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
@@ -84,6 +91,8 @@ public class ProxyConsumer<V> {
                         }
                     });
                 }
+                //turn off auto commmit offset in RMQ client
+                consumer.setPersistConsumerOffsetInterval(-1);
                 consumer.start();
 
                 Runtime.getRuntime().addShutdownHook(new Thread(() -> close()));
@@ -107,8 +116,19 @@ public class ProxyConsumer<V> {
         return messages;
     }
 
-    public void setMessageListenerService(MessageListenerService messageListenerService){
-        this.messageListenerService = messageListenerService;
+    public void commit(){
+        this.consumer.getDefaultMQPushConsumerImpl().updateConsumeOffset(new MessageQueue(), 1);
+        try {
+            this.consumer.getDefaultMQPushConsumerImpl().getOffsetStore().updateConsumeOffsetToBroker(new MessageQueue(), 1, true);
+        } catch (RemotingException | MQBrokerException | MQClientException | InterruptedException ex)  {
+            //LOG
+        }
+    }
+
+    public void setMessageListener(MessageListener messageListener){
+        this.messageListener = messageListener;
+        this.messageListenerService = new AcknowledgeMessageListenerService(messageListener);
+
     }
 
     public void close() {
