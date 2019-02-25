@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface OrderlyMessageListener<V> extends MessageListener{
 
-    boolean onMessage(List<RocketMQMessage<V>> msgs);
+    void onMessage(List<RocketMQMessage<V>> msgs);
 
 }

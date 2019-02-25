@@ -72,8 +72,12 @@ public class DefaultRocketMQConsumerImpl<V> {
                         consumer.registerMessageListener(new MessageListenerConcurrently() {
                             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                                             ConsumeConcurrentlyContext context) {
-                                boolean ret = concurrentMessageListener.onMessage(convert(msgs));
-                                return ret ? ConsumeConcurrentlyStatus.CONSUME_SUCCESS : ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                                try {
+                                    concurrentMessageListener.onMessage(convert(msgs));
+                                } catch (Throwable ex){
+                                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                                }
+                                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
                             }
                         });
                     } else if(messageListener instanceof OrderlyMessageListener){
@@ -82,8 +86,12 @@ public class DefaultRocketMQConsumerImpl<V> {
 
                             @Override
                             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
-                                boolean ret = orderlyMessageListener.onMessage(convert(msgs));
-                                return ret ? ConsumeOrderlyStatus.SUCCESS : ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+                                try {
+                                    orderlyMessageListener.onMessage(convert(msgs));
+                                } catch (Throwable ex){
+                                    return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+                                }
+                                return ConsumeOrderlyStatus.SUCCESS;
                             }
                         });
                     }

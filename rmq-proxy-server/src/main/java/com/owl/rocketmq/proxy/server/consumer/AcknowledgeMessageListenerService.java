@@ -13,7 +13,7 @@ import java.util.List;
 public class AcknowledgeMessageListenerService implements MessageListenerService {
 
     @Override
-    public boolean onMessage(List<MessageExt> msgs) {
+    public void onMessage(List<MessageExt> msgs) {
         try {
             for(MessageExt msg : msgs){
                 RmqPullCenter.I.putMessage(msg);
@@ -21,7 +21,6 @@ public class AcknowledgeMessageListenerService implements MessageListenerService
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-        return true;
     }
 
     @Override

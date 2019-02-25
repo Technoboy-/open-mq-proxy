@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface MessageListenerService {
 
-    boolean onMessage(List<MessageExt> msgs);
+    void onMessage(List<MessageExt> msgs);
 
     void close();
 }

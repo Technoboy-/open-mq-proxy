@@ -62,8 +62,12 @@ public class ProxyConsumer<V> {
                     consumer.registerMessageListener(new MessageListenerConcurrently() {
                         public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                                         ConsumeConcurrentlyContext context) {
-                            boolean ret = messageListenerService.onMessage(msgs);
-                            return ret ? ConsumeConcurrentlyStatus.CONSUME_SUCCESS : ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                            try {
+                                messageListenerService.onMessage(msgs);
+                            } catch (Throwable ex){
+                                return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                            }
+                            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
                         }
                     });
                 } else if(messageListener instanceof OrderlyMessageListener){
@@ -71,8 +75,12 @@ public class ProxyConsumer<V> {
 
                         @Override
                         public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
-                            boolean ret = messageListenerService.onMessage(msgs);
-                            return ret ? ConsumeOrderlyStatus.SUCCESS : ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+                            try {
+                                messageListenerService.onMessage(msgs);
+                            } catch (Throwable ex){
+                                return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+                            }
+                            return ConsumeOrderlyStatus.SUCCESS;
                         }
                     });
                 }

@@ -157,7 +157,7 @@ public class PullMessageListenerService implements MessageListenerService{
 
 
     @Override
-    public boolean onMessage(List<MessageExt> msgs) {
+    public void onMessage(List<MessageExt> msgs) {
         throw new UnsupportedOperationException("unsupport method");
     }
 

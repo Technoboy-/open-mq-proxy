@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface ConcurrentMessageListener<V> extends MessageListener{
 
-    boolean onMessage(List<RocketMQMessage<V>> msgs);
+    void onMessage(List<RocketMQMessage<V>> msgs);
 
 }
