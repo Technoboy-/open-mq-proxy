@@ -98,13 +98,13 @@ public class KafkaPackets extends Packets{
         back.setCmd(Command.SEND_BACK.getCmd());
         back.setOpaque(IdService.I.getId());
         //
-        ByteBuf buffer = bufferPool.allocate(4 + kafkaMessage.getHeaderInBytes().length + 4 + 4);
+        ByteBuf buffer = bufferPool.allocate(4 + kafkaMessage.getHeaderInBytes().length + 4 + kafkaMessage.getKey().length + 4 + kafkaMessage.getValue().length);
         buffer.writeInt(kafkaMessage.getHeaderInBytes().length);
         buffer.writeBytes(kafkaMessage.getHeaderInBytes());
-        buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_KEY);
-        buffer.writeInt(0);
-        buffer.writeBytes(EMPTY_BODY);
+        buffer.writeInt(kafkaMessage.getKey().length);
+        buffer.writeBytes(kafkaMessage.getKey());
+        buffer.writeInt(kafkaMessage.getValue().length);
+        buffer.writeBytes(kafkaMessage.getValue());
         //
         back.setBody(buffer);
 

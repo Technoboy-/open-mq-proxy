@@ -35,7 +35,8 @@ public class RmqPullCenter extends AbstractPullCenter<MessageExt> {
         } else{
             MessageExt record = pullQueue.poll();
             if(record != null){
-                RmqHeader rmqHeader = new RmqHeader(record.getTopic(), record.getTags(), record.getQueueId(), record.getQueueOffset(),
+                String brokerName = record.getProperty("brokerName");
+                RmqHeader rmqHeader = new RmqHeader(brokerName, record.getTopic(), record.getTags(), record.getQueueId(), record.getQueueOffset(),
                         record.getMsgId(), PullStatus.FOUND.getStatus());
                 byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(rmqHeader);
 

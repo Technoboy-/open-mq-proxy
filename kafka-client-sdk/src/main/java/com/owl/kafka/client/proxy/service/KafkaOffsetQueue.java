@@ -13,7 +13,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /**
  * @Author: Tboy
  */
-public class OffsetQueue {
+public class KafkaOffsetQueue {
 
     private final ConcurrentHashMap<Long/* msgId */, TopicPartitionOffset> msgIdMap = new ConcurrentHashMap<>();
 

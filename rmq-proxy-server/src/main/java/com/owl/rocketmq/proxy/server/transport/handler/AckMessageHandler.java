@@ -3,18 +3,17 @@ package com.owl.rocketmq.proxy.server.transport.handler;
 
 import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.util.NamedThreadFactory;
+import com.owl.mq.client.bo.BrokerNameOffset;
+import com.owl.mq.client.bo.TopicQueue;
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.message.KafkaHeader;
-import com.owl.mq.client.transport.message.KafkaMessage;
 import com.owl.mq.client.transport.message.RmqHeader;
 import com.owl.mq.client.transport.message.RmqMessage;
 import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.MessageCodec;
 import com.owl.mq.client.util.RmqMessageCodec;
 import com.owl.mq.server.bo.ServerConfigs;
-import com.owl.mq.server.push.service.MessageHolder;
 import com.owl.rocketmq.proxy.server.consumer.ProxyConsumer;
+import org.apache.rocketmq.common.message.MessageQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,17 +28,17 @@ public class AckMessageHandler extends CommonMessageHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AckMessageHandler.class);
 
-//    private volatile ConcurrentMap<TopicPartition, OffsetAndMetadata> latestOffsetMap = new ConcurrentHashMap<>();
+    private volatile ConcurrentMap<TopicQueue, BrokerNameOffset> latestOffsetMap = new ConcurrentHashMap<>();
+
+    private final int interval = ServerConfigs.I.getServerCommitOffsetInterval();
+
+    private final int batchSize = ServerConfigs.I.getServerCommitOffsetBatchSize();
 
     private final AtomicLong messageCount = new AtomicLong(1);
 
     private final ProxyConsumer consumer;
 
     private final ScheduledExecutorService commitScheduler;
-
-    private final int interval = ServerConfigs.I.getServerCommitOffsetInterval();
-
-    private final int batchSize = ServerConfigs.I.getServerCommitOffsetBatchSize();
 
     public AckMessageHandler(ProxyConsumer consumer){
         this.consumer = consumer;
@@ -62,11 +61,11 @@ public class AckMessageHandler extends CommonMessageHandler {
     }
 
     private void toOffsetMap(RmqHeader rmqHeader){
-//        TopicPartition topicPartition = new TopicPartition(kafkaHeader.getTopic(), kafkaHeader.getPartition());
-//        OffsetAndMetadata offsetAndMetadata = latestOffsetMap.get(topicPartition);
-//        if (offsetAndMetadata == null || kafkaHeader.getOffset() > offsetAndMetadata.offset()) {
-//            latestOffsetMap.put(topicPartition, new OffsetAndMetadata(kafkaHeader.getOffset()));
-//        }
+        TopicQueue topicPartition = new TopicQueue(rmqHeader.getTopic(), rmqHeader.getQueue());
+        BrokerNameOffset brokerNameOffset = latestOffsetMap.get(topicPartition);
+        if (brokerNameOffset == null || rmqHeader.getOffset() > brokerNameOffset.getOffset()) {
+            latestOffsetMap.put(topicPartition, new BrokerNameOffset(rmqHeader.getBrokerName(), rmqHeader.getOffset()));
+        }
     }
 
     class CommitOffsetTask implements Runnable {
@@ -75,12 +74,16 @@ public class AckMessageHandler extends CommonMessageHandler {
         public void run() {
             long now = System.currentTimeMillis();
             try {
-//                final Map<TopicPartition, OffsetAndMetadata> pre = latestOffsetMap;
-//                latestOffsetMap = new ConcurrentHashMap<>();
-//                if (pre.isEmpty()) {
-//                    return;
-//                }
-//                consumer
+                final Map<TopicQueue, BrokerNameOffset> pre = latestOffsetMap;
+                latestOffsetMap = new ConcurrentHashMap<>();
+                if (pre.isEmpty()) {
+                    return;
+                }
+                for(Map.Entry<TopicQueue, BrokerNameOffset> entry : pre.entrySet()){
+                    TopicQueue topicQueue = entry.getKey();
+                    BrokerNameOffset brokerNameOffset = entry.getValue();
+                    consumer.commit(new MessageQueue(topicQueue.getTopic(), brokerNameOffset.getBrokerName(), topicQueue.getQueue()), brokerNameOffset.getOffset());
+                }
             } catch (Throwable ex) {
                 LOGGER.error("Commit consumer offset error.", ex);
             } finally {

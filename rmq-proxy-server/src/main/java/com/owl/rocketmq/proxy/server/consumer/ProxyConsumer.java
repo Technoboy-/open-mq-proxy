@@ -5,12 +5,11 @@ import com.owl.client.common.serializer.Serializer;
 import com.owl.client.common.util.Preconditions;
 import com.owl.rocketmq.client.consumer.ConsumerConfig;
 import com.owl.rocketmq.client.consumer.RocketMQMessage;
-import com.owl.rocketmq.client.consumer.listener.ConcurrentMessageListener;
-import com.owl.rocketmq.client.consumer.listener.MessageListener;
-import com.owl.rocketmq.client.consumer.listener.OrderlyMessageListener;
 import com.owl.rocketmq.client.consumer.service.MessageListenerService;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.*;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -35,7 +34,6 @@ public class ProxyConsumer<V> {
     private final DefaultMQPushConsumer consumer;
     private final Serializer serializer;
     private final ConsumerConfig consumerConfig;
-    private MessageListener messageListener;
     private MessageListenerService messageListenerService;
 
     public ProxyConsumer(ConsumerConfig consumerConfig){
@@ -57,40 +55,22 @@ public class ProxyConsumer<V> {
 
     public void start() {
 
-        Preconditions.checkArgument(messageListener != null, "messageListener should not be null");
+        Preconditions.checkArgument(messageListenerService != null, "messageListenerService should not be null");
         Preconditions.checkArgument(serializer != null, "serializer should not be null");
 
         if(start.compareAndSet(false, true)){
             try {
-                if(messageListener instanceof ConcurrentMessageListener){
-                    consumer.registerMessageListener(new MessageListenerConcurrently() {
-                        public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                                                                        ConsumeConcurrentlyContext context) {
-                            try {
-                                context.getMessageQueue();
-                                messageListenerService.onMessage(msgs);
-                            } catch (Throwable ex){
-                                return ConsumeConcurrentlyStatus.RECONSUME_LATER;
-                            }
-                            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                consumer.registerMessageListener(new MessageListenerConcurrently() {
+                    public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
+                                                                    ConsumeConcurrentlyContext context) {
+                        try {
+                            messageListenerService.onMessage(context.getMessageQueue(), msgs);
+                        } catch (Throwable ex){
+                            return ConsumeConcurrentlyStatus.RECONSUME_LATER;
                         }
-                    });
-                } else if(messageListener instanceof OrderlyMessageListener){
-                    consumer.registerMessageListener(new MessageListenerOrderly() {
-
-                        @Override
-                        public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
-                            try {
-                                //TODO
-                                context.getMessageQueue();
-                                messageListenerService.onMessage(msgs);
-                            } catch (Throwable ex){
-                                return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
-                            }
-                            return ConsumeOrderlyStatus.SUCCESS;
-                        }
-                    });
-                }
+                        return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                    }
+                });
                 //turn off auto commmit offset in RMQ client
                 consumer.setPersistConsumerOffsetInterval(-1);
                 consumer.start();
@@ -116,19 +96,17 @@ public class ProxyConsumer<V> {
         return messages;
     }
 
-    public void commit(){
-        this.consumer.getDefaultMQPushConsumerImpl().updateConsumeOffset(new MessageQueue(), 1);
+    public void commit(MessageQueue messageQueue, long offset){
+        this.consumer.getDefaultMQPushConsumerImpl().updateConsumeOffset(messageQueue, offset);
         try {
-            this.consumer.getDefaultMQPushConsumerImpl().getOffsetStore().updateConsumeOffsetToBroker(new MessageQueue(), 1, true);
+            this.consumer.getDefaultMQPushConsumerImpl().getOffsetStore().updateConsumeOffsetToBroker(messageQueue, offset, true);
         } catch (RemotingException | MQBrokerException | MQClientException | InterruptedException ex)  {
             //LOG
         }
     }
 
-    public void setMessageListener(MessageListener messageListener){
-        this.messageListener = messageListener;
-        this.messageListenerService = new AcknowledgeMessageListenerService(messageListener);
-
+    public void setMessageListenerService(MessageListenerService messageListenerService){
+        this.messageListenerService = messageListenerService;
     }
 
     public void close() {

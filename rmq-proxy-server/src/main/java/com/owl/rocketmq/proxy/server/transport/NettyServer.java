@@ -11,7 +11,9 @@ import com.owl.mq.server.transport.NettyTcpServer;
 import com.owl.mq.server.transport.handler.PingMessageHandler;
 import com.owl.mq.server.transport.handler.UnregisterMessageHandler;
 import com.owl.rocketmq.proxy.server.consumer.ProxyConsumer;
+import com.owl.rocketmq.proxy.server.transport.handler.AckMessageHandler;
 import com.owl.rocketmq.proxy.server.transport.handler.PullReqMessageHandler;
+import com.owl.rocketmq.proxy.server.transport.handler.SendBackMessageHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
@@ -35,10 +37,9 @@ public class NettyServer extends NettyTcpServer {
         MessageDispatcher dispatcher = new MessageDispatcher();
         dispatcher.register(Command.PING, new PingMessageHandler());
         dispatcher.register(Command.UNREGISTER, new UnregisterMessageHandler());
-//        dispatcher.register(Command.ACK, new AckMessageHandler(consumer));
-//        dispatcher.register(Command.VIEW_REQ, new ViewReqMessageHandler());
+        dispatcher.register(Command.ACK, new AckMessageHandler(consumer));
         dispatcher.register(Command.PULL_REQ, new PullReqMessageHandler());
-//        dispatcher.register(Command.SEND_BACK, new SendBackMessageHandler());
+        dispatcher.register(Command.SEND_BACK, new SendBackMessageHandler());
         return dispatcher;
     }
 

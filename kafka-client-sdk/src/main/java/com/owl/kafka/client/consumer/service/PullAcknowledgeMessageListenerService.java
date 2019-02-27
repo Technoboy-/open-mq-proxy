@@ -15,7 +15,7 @@ import com.owl.kafka.client.consumer.Record;
 import com.owl.kafka.client.consumer.listener.AcknowledgeMessageListener;
 import com.owl.kafka.client.consumer.listener.MessageListener;
 
-import com.owl.kafka.client.proxy.service.OffsetStore;
+import com.owl.kafka.client.proxy.service.KafkaOffsetStore;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -47,7 +47,7 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
 
     private Connection connection;
 
-    private final OffsetStore offsetStore = OffsetStore.I;
+    private final KafkaOffsetStore kafkaOffsetStore = KafkaOffsetStore.I;
 
     public PullAcknowledgeMessageListenerService(DefaultKafkaConsumerImpl<K, V> consumer, MessageListener<K, V> messageListener) {
         this.consumer = consumer;
@@ -67,7 +67,7 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
             LOG.debug("no new msg");
             return;
         }
-        offsetStore.storeOffset(filteredKafkaMessages);
+        kafkaOffsetStore.storeOffset(filteredKafkaMessages);
         if(filteredKafkaMessages.size() < consumeBatchSize){
             ConsumeRequest consumeRequest = new ConsumeRequest(filteredKafkaMessages);
             try {
@@ -162,11 +162,12 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
     }
 
     private void processConsumeResult(final Record<K, V> record){
-        offsetStore.updateOffset(connection, record.getMsgId());
+        kafkaOffsetStore.updateOffset(connection, record.getMsgId());
     }
 
     @Override
     public void close() {
         scheduledExecutorService.shutdown();
+        consumeExecutor.shutdown();
     }
 }

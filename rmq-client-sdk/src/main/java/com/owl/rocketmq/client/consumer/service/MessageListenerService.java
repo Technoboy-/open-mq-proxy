@@ -1,6 +1,7 @@
 package com.owl.rocketmq.client.consumer.service;
 
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.common.message.MessageQueue;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface MessageListenerService {
 
-    void onMessage(List<MessageExt> msgs);
+    void onMessage(MessageQueue messageQueue, List<MessageExt> msgs);
 
     void close();
 }

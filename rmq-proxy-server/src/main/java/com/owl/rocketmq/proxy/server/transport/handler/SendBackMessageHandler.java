@@ -30,7 +30,8 @@ public class SendBackMessageHandler extends CommonMessageHandler {
             LOGGER.debug("received sendback rmqMessage : {}, from : {}", rmqHeader, ChannelUtils.getRemoteAddress(connection.getChannel()));
         }
         if(rmqHeader.getRepost() >= repostCount){
-            //TODO
+            //just ignore
+            LOGGER.warn("msg : {} repost more than {}", rmqMessage, repostCount);
         } else{
             rmqHeader.setRepost((byte)(rmqHeader.getRepost() + 1));
             ByteBuf buffer = RmqMessageCodec.encode(rmqMessage);

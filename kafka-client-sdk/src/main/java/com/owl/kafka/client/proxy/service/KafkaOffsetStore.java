@@ -11,35 +11,36 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.*;
 
 /**
  * @Author: Tboy
  */
-public class OffsetStore {
+public class KafkaOffsetStore {
 
-    private static final Logger LOG = LoggerFactory.getLogger(OffsetStore.class);
+    private static final Logger LOG = LoggerFactory.getLogger(KafkaOffsetStore.class);
 
-    public static OffsetStore I = new OffsetStore();
+    public static KafkaOffsetStore I = new KafkaOffsetStore();
 
-    protected final ScheduledExecutorService commitScheduler = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("commit-scheduler"));
+    private final ScheduledExecutorService commitScheduler = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("commit-scheduler"));
 
-    protected volatile ConcurrentMap<TopicPartition, TopicPartitionOffset> latestOffsetMap = new ConcurrentHashMap<>();
+    private final KafkaOffsetQueue kafkaOffsetQueue = new KafkaOffsetQueue();
 
-    private final OffsetQueue offsetQueue = new OffsetQueue();
+    private volatile ConcurrentMap<TopicPartition, TopicPartitionOffset> latestOffsetMap = new ConcurrentHashMap<>();
 
     private Connection connection;
 
+    public KafkaOffsetStore(){
+        commitScheduler.scheduleAtFixedRate(new ScheduledCommitOffsetTask(), 5, 5, TimeUnit.MINUTES);
+    }
+
     public void storeOffset(List<KafkaMessage> kafkaMessages){
-        offsetQueue.put(kafkaMessages);
+        kafkaOffsetQueue.put(kafkaMessages);
     }
 
     public void updateOffset(Connection connection, long msgId){
         this.connection = connection;
-        TopicPartitionOffset offset = offsetQueue.remove(msgId);
+        TopicPartitionOffset offset = kafkaOffsetQueue.remove(msgId);
         if(offset != null){
             TopicPartition topicPartition = new TopicPartition(offset.getTopic(), offset.getPartition());
             TopicPartitionOffset exist = latestOffsetMap.get(topicPartition);
@@ -69,9 +70,8 @@ public class OffsetStore {
     }
 
     public long getCount() {
-        return offsetQueue.getMessageCount();
+        return kafkaOffsetQueue.getMessageCount();
     }
-
 
     public void close(){
         this.commitScheduler.shutdown();

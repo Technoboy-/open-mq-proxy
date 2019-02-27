@@ -7,20 +7,18 @@ import com.owl.mq.client.bo.ClientConfigs;
 import com.owl.mq.client.service.PullStatus;
 import com.owl.mq.client.transport.Connection;
 import com.owl.mq.client.transport.exceptions.ChannelInactiveException;
-import com.owl.mq.client.transport.message.KafkaMessage;
-import com.owl.mq.client.transport.message.RmqHeader;
 import com.owl.mq.client.transport.message.RmqMessage;
 import com.owl.mq.client.util.RmqPackets;
 import com.owl.rocketmq.client.consumer.RocketMQMessage;
 import com.owl.rocketmq.client.consumer.listener.ConcurrentMessageListener;
 import com.owl.rocketmq.client.consumer.listener.MessageListener;
-import com.owl.rocketmq.client.proxy.service.OffsetStore;
+import com.owl.rocketmq.client.proxy.service.RmqOffsetStore;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.common.message.MessageQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -31,7 +29,7 @@ public class PullMessageListenerService implements MessageListenerService{
 
     private static final Logger LOG = LoggerFactory.getLogger(PullMessageListenerService.class);
 
-    private final OffsetStore offsetStore = OffsetStore.I;
+    private final RmqOffsetStore rmqOffsetStore = RmqOffsetStore.I;
 
     private final int parallelism = ClientConfigs.I.getParallelismNum();
 
@@ -56,7 +54,7 @@ public class PullMessageListenerService implements MessageListenerService{
             LOG.debug("no new msg");
             return;
         }
-        offsetStore.storeOffset(filteredRmqMessages);
+        rmqOffsetStore.storeOffset(filteredRmqMessages);
         if(filteredRmqMessages.size() < consumeBatchSize){
             ConsumeRequest consumeRequest = new ConsumeRequest(filteredRmqMessages);
             try {
@@ -120,6 +118,7 @@ public class PullMessageListenerService implements MessageListenerService{
             long now = System.currentTimeMillis();
             try {
                 messageListener.onMessage(messages);
+                processConsumeResult(rmqMessages);
             } catch (Throwable ex){
                 MonitorImpl.getDefault().recordConsumeProcessErrorCount(messages.size());
                 LOG.error("onMessage error", ex);
@@ -129,6 +128,10 @@ public class PullMessageListenerService implements MessageListenerService{
                 MonitorImpl.getDefault().recordConsumeProcessTime(System.currentTimeMillis() - now);
             }
         }
+    }
+
+    private void processConsumeResult(final List<RmqMessage> messages){
+        rmqOffsetStore.updateOffset(connection, messages);
     }
 
     private List<RmqMessage> filter(List<RmqMessage> rmqMessages){
@@ -157,12 +160,13 @@ public class PullMessageListenerService implements MessageListenerService{
 
 
     @Override
-    public void onMessage(List<MessageExt> msgs) {
+    public void onMessage(MessageQueue messageQueue, List<MessageExt> msgs) {
         throw new UnsupportedOperationException("unsupport method");
     }
 
     @Override
     public void close() {
-
+        scheduledExecutorService.shutdown();
+        consumeExecutor.shutdown();
     }
 }

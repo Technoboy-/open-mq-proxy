@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 public class RmqHeader implements Serializable {
 
+    private String brokerName;
+
     private String topic;
 
     private String tags;
@@ -32,7 +34,8 @@ public class RmqHeader implements Serializable {
         this.msgId = msgId;
     }
 
-    public RmqHeader(String topic, int queue, long offset, String msgId) {
+    public RmqHeader(String brokerName, String topic, int queue, long offset, String msgId) {
+        this.brokerName = brokerName;
         this.topic = topic;
         this.queue = queue;
         this.offset = offset;
@@ -40,7 +43,8 @@ public class RmqHeader implements Serializable {
         this.repost = (byte)1;
     }
 
-    public RmqHeader(String topic, String tags, int queue, long offset, String msgId, byte pullStatus) {
+    public RmqHeader(String brokerName, String topic, String tags, int queue, long offset, String msgId, byte pullStatus) {
+        this.brokerName = brokerName;
         this.topic = topic;
         this.tags = tags;
         this.queue = queue;
@@ -48,6 +52,14 @@ public class RmqHeader implements Serializable {
         this.msgId = msgId;
         this.repost = (byte)1;
         this.pullStatus = pullStatus;
+    }
+
+    public String getBrokerName() {
+        return brokerName;
+    }
+
+    public void setBrokerName(String brokerName) {
+        this.brokerName = brokerName;
     }
 
     public String getTags() {

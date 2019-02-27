@@ -14,7 +14,7 @@ public class RmqPullMessageService extends PullMessageService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RmqPullMessageService.class);
 
-    public static OffsetStore offsetStore = new OffsetStore();
+    public static RmqOffsetStore rmqOffsetStore = new RmqOffsetStore();
 
     private final int processQueueSize = ClientConfigs.I.getProcessQueueSize();
 
@@ -24,9 +24,9 @@ public class RmqPullMessageService extends PullMessageService {
 
     @Override
     public boolean checkIfPullImmediately(Address address) {
-        if(offsetStore.getCount() > processQueueSize){
+        if(rmqOffsetStore.getCount() > processQueueSize){
             LOGGER.warn("flow control, pull later : {} for process queue count : {} , more than config  : {}",
-                    new Object[]{address, offsetStore.getCount(), processQueueSize});
+                    new Object[]{address, rmqOffsetStore.getCount(), processQueueSize});
             return false;
         }
         return true;
