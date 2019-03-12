@@ -1,16 +1,16 @@
 package com.owl.kafka.proxy.server.transport;
 
-import com.owl.mq.client.transport.codec.PacketDecoder;
-import com.owl.mq.client.transport.codec.PacketEncoder;
-import com.owl.mq.client.transport.handler.MessageDispatcher;
-import com.owl.mq.client.transport.handler.ServerHandler;
-import com.owl.mq.client.transport.protocol.Command;
+import com.owl.mq.proxy.transport.codec.PacketDecoder;
+import com.owl.mq.proxy.transport.codec.PacketEncoder;
+import com.owl.mq.proxy.transport.handler.MessageDispatcher;
+import com.owl.mq.proxy.transport.handler.ServerHandler;
+import com.owl.mq.proxy.transport.protocol.Command;
 import com.owl.kafka.proxy.server.consumer.ProxyConsumer;
 import com.owl.kafka.proxy.server.transport.handler.*;
 import com.owl.mq.server.registry.RegistryCenter;
 import com.owl.mq.server.service.InstanceHolder;
-import com.owl.mq.server.transport.NettyTcpServer;
-import com.owl.mq.server.transport.handler.PingMessageHandler;
+import com.owl.mq.proxy.transport.NettyTcpServer;
+import com.owl.mq.proxy.transport.handler.PingMessageHandler;
 import com.owl.mq.server.transport.handler.UnregisterMessageHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;

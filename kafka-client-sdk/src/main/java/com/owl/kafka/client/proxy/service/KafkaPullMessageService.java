@@ -1,9 +1,9 @@
 package com.owl.kafka.client.proxy.service;
 
-import com.owl.mq.client.bo.ClientConfigs;
-import com.owl.mq.client.service.PullMessageService;
-import com.owl.mq.client.transport.Address;
-import com.owl.mq.client.transport.NettyClient;
+import com.owl.mq.proxy.bo.ClientConfigs;
+import com.owl.mq.proxy.service.PullMessageService;
+import com.owl.mq.proxy.transport.Address;
+import com.owl.mq.proxy.transport.NettyClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,9 +1,8 @@
 package com.owl.rocketmq.client.proxy.service;
 
-import com.owl.mq.client.bo.ClientConfigs;
-import com.owl.mq.client.service.PullMessageService;
-import com.owl.mq.client.transport.Address;
-import com.owl.mq.client.transport.NettyClient;
+import com.owl.mq.proxy.service.PullMessageService;
+import com.owl.mq.proxy.transport.Address;
+import com.owl.mq.proxy.transport.NettyClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ public class RmqPullMessageService extends PullMessageService {
 
     public static RmqOffsetStore rmqOffsetStore = new RmqOffsetStore();
 
-    private final int processQueueSize = ClientConfigs.I.getProcessQueueSize();
+    private final int processQueueSize = RmqClientConfigs.I.getProcessQueueSize();
 
     public RmqPullMessageService(NettyClient nettyClient) {
         super(nettyClient);

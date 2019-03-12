@@ -1,13 +1,13 @@
 package com.owl.rocketmq.proxy.server.transport.handler;
 
 
-import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.exceptions.ChannelInactiveException;
-import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.protocol.Command;
-import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.ChannelUtils;
-import com.owl.mq.server.bo.PullRequest;
+import com.owl.mq.proxy.transport.Connection;
+import com.owl.mq.proxy.transport.exceptions.ChannelInactiveException;
+import com.owl.mq.proxy.transport.handler.CommonMessageHandler;
+import com.owl.mq.proxy.transport.protocol.Command;
+import com.owl.mq.proxy.transport.protocol.Packet;
+import com.owl.mq.proxy.util.ChannelUtils;
+import com.owl.mq.proxy.bo.PullRequest;
 import com.owl.rocketmq.proxy.server.pull.RmqPullCenter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

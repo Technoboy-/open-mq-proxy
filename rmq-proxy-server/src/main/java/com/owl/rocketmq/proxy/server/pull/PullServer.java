@@ -3,7 +3,7 @@ package com.owl.rocketmq.proxy.server.pull;
 import com.owl.mq.server.bo.ServerConfigs;
 import com.owl.mq.server.registry.RegistryCenter;
 import com.owl.rocketmq.client.consumer.ConsumerConfig;
-import com.owl.rocketmq.client.consumer.service.MessageListenerService;
+import com.owl.rocketmq.client.proxy.service.MessageListenerService;
 import com.owl.rocketmq.proxy.server.consumer.AcknowledgeMessageListenerService;
 import com.owl.rocketmq.proxy.server.consumer.ProxyConsumer;
 import com.owl.rocketmq.proxy.server.transport.NettyServer;

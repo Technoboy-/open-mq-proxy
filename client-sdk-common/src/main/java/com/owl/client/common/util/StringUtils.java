@@ -5,8 +5,12 @@ package com.owl.client.common.util;
  */
 public class StringUtils {
 
-    public static boolean isBlank(String str){
+    public static boolean isEmpty(String str){
         return str == null || str.isEmpty();
+    }
+
+    public static boolean isNotEmpty(String str){
+        return !isEmpty(str);
     }
 
     public static byte[] getBytes(String str){

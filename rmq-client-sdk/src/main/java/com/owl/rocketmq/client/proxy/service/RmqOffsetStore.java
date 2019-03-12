@@ -1,11 +1,11 @@
 package com.owl.rocketmq.client.proxy.service;
 
 import com.owl.client.common.util.NamedThreadFactory;
-import com.owl.mq.client.bo.TopicQueue;
-import com.owl.mq.client.bo.TopicQueueOffset;
-import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.message.RmqMessage;
-import com.owl.mq.client.util.RmqPackets;
+import com.owl.mq.proxy.bo.TopicQueue;
+import com.owl.mq.proxy.bo.TopicQueueOffset;
+import com.owl.mq.proxy.transport.Connection;
+import com.owl.mq.proxy.transport.message.RmqMessage;
+import com.owl.mq.proxy.util.RmqPackets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

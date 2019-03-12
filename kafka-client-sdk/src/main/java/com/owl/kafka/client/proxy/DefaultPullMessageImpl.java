@@ -1,19 +1,19 @@
 package com.owl.kafka.client.proxy;
 
-import com.owl.mq.client.bo.ClientConfigs;
-import com.owl.mq.client.bo.ConfigLoader;
-import com.owl.mq.client.service.InvokerPromise;
-import com.owl.mq.client.service.PullMessageService;
-import com.owl.mq.client.registry.RegistryListener;
-import com.owl.mq.client.registry.RegistryService;
-import com.owl.mq.client.transport.Address;
-import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.NettyClient;
-import com.owl.mq.client.transport.message.KafkaMessage;
-import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.MessageCodec;
-import com.owl.mq.client.util.KafkaPackets;
-import com.owl.mq.client.zookeeper.ZookeeperClient;
+import com.owl.mq.proxy.bo.ClientConfigs;
+import com.owl.mq.common.ClassPathPropertyLoader;
+import com.owl.mq.proxy.service.InvokerPromise;
+import com.owl.mq.proxy.service.PullMessageService;
+import com.owl.mq.proxy.registry.RegistryListener;
+import com.owl.mq.proxy.registry.RegistryService;
+import com.owl.mq.proxy.transport.Address;
+import com.owl.mq.proxy.transport.Connection;
+import com.owl.mq.proxy.transport.NettyClient;
+import com.owl.mq.proxy.transport.message.KafkaMessage;
+import com.owl.mq.proxy.transport.protocol.Packet;
+import com.owl.mq.proxy.util.MessageCodec;
+import com.owl.mq.proxy.util.KafkaPackets;
+import com.owl.mq.proxy.zookeeper.ZookeeperClient;
 import com.owl.kafka.client.consumer.Record;
 import com.owl.kafka.client.consumer.service.MessageListenerService;
 import com.owl.kafka.client.proxy.service.KafkaPullMessageService;
@@ -75,7 +75,7 @@ public class DefaultPullMessageImpl {
     public Record<byte[], byte[]> view(long msgId){
         Record result = Record.EMPTY;
         try {
-            List<String> children = zookeeperClient.getChildren(String.format(ConfigLoader.ZOOKEEPER_CONSUMERS, ClientConfigs.I.getTopic() + "-dlq"));
+            List<String> children = zookeeperClient.getChildren(String.format(ClassPathPropertyLoader.ZOOKEEPER_CONSUMERS, ClientConfigs.I.getTopic() + "-dlq"));
             for(String child : children){
                 Address address = Address.parse(child);
                 if(address != null){

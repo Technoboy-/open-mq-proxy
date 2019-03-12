@@ -28,7 +28,7 @@ public abstract class SPILoader<T> {
 	protected final Map<String, Object> extensionClasses = new HashMap<>();
 	
 	public T getExtension(String name) {
-		if (StringUtils.isBlank(name))
+		if (StringUtils.isEmpty(name))
 		    throw new IllegalArgumentException("Extension name is null");
 		return (T) extensionClasses.get(name);
 	}

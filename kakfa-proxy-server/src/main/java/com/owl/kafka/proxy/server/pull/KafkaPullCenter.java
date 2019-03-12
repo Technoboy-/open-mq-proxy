@@ -1,12 +1,12 @@
 package com.owl.kafka.proxy.server.pull;
 
 import com.owl.client.common.serializer.SerializerImpl;
-import com.owl.mq.client.service.IdService;
-import com.owl.mq.client.service.PullStatus;
-import com.owl.mq.client.transport.message.KafkaHeader;
-import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.KafkaPackets;
-import com.owl.mq.server.pull.AbstractPullCenter;
+import com.owl.mq.proxy.service.IdService;
+import com.owl.mq.proxy.service.PullStatus;
+import com.owl.mq.proxy.transport.message.KafkaHeader;
+import com.owl.mq.proxy.transport.protocol.Packet;
+import com.owl.mq.proxy.util.KafkaPackets;
+import com.owl.mq.proxy.pull.AbstractPullCenter;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

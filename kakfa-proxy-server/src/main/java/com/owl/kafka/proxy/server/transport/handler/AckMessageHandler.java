@@ -3,12 +3,12 @@ package com.owl.kafka.proxy.server.transport.handler;
 
 import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.util.NamedThreadFactory;
-import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.message.KafkaHeader;
-import com.owl.mq.client.transport.message.KafkaMessage;
-import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.MessageCodec;
+import com.owl.mq.proxy.transport.Connection;
+import com.owl.mq.proxy.transport.handler.CommonMessageHandler;
+import com.owl.mq.proxy.transport.message.KafkaHeader;
+import com.owl.mq.proxy.transport.message.KafkaMessage;
+import com.owl.mq.proxy.transport.protocol.Packet;
+import com.owl.mq.proxy.util.MessageCodec;
 
 import com.owl.kafka.proxy.server.consumer.ProxyConsumer;
 import com.owl.mq.server.bo.ServerConfigs;

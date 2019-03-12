@@ -1,10 +1,10 @@
 package com.owl.kafka.client.proxy.transport.handler;
 
 
-import com.owl.mq.client.service.InvokerPromise;
-import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.protocol.Packet;
+import com.owl.mq.proxy.service.InvokerPromise;
+import com.owl.mq.proxy.transport.Connection;
+import com.owl.mq.proxy.transport.handler.CommonMessageHandler;
+import com.owl.mq.proxy.transport.protocol.Packet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -3,7 +3,6 @@ package com.owl.kafka.client.consumer;
 import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.serializer.Serializer;
 import com.owl.client.common.util.CollectionUtils;
-import com.owl.client.common.util.Constants;
 import com.owl.client.common.util.Preconditions;
 import com.owl.client.common.util.StringUtils;
 import com.owl.kafka.client.consumer.exceptions.TopicNotExistException;
@@ -15,7 +14,6 @@ import com.owl.kafka.client.consumer.service.BatchAcknowledgeMessageListenerServ
 import com.owl.kafka.client.consumer.service.MessageListenerService;
 import com.owl.kafka.client.consumer.service.MessageListenerServiceRegistry;
 import com.owl.kafka.client.proxy.DefaultPullMessageImpl;
-import com.owl.kafka.client.proxy.DefaultPushMessageImpl;
 import com.owl.kafka.client.proxy.zookeeper.KafkaZookeeperConfig;
 
 import org.apache.kafka.clients.consumer.*;
@@ -53,8 +51,6 @@ public class DefaultKafkaConsumerImpl<K, V> implements Runnable, com.owl.kafka.c
 
     private MessageListenerServiceRegistry serviceRegistry;
 
-    private DefaultPushMessageImpl defaultPushMessageImpl;
-
     private DefaultPullMessageImpl defaultPullMessageImpl;
 
     public DefaultKafkaConsumerImpl(com.owl.kafka.client.consumer.ConsumerConfig configs) {
@@ -65,10 +61,10 @@ public class DefaultKafkaConsumerImpl<K, V> implements Runnable, com.owl.kafka.c
         if(!this.configs.isUseProxy()){
             // KAFKA 0.11 later version.
             if(configs.get("partition.assignment.strategy") == null){
-                configs.put("partition.assignment.strategy", "com.owl.kafka.client.consumer.assignor.CheckTopicStickyAssignor");
+                configs.put("partition.assignment.strategy", "com.owl.kafka.proxy.consumer.assignor.CheckTopicStickyAssignor");
             }
             String bootstrapServers = configs.getKafkaServers();
-            if(StringUtils.isBlank(bootstrapServers)){
+            if(StringUtils.isEmpty(bootstrapServers)){
                 bootstrapServers = KafkaZookeeperConfig.getBrokerIds(configs.getZookeeperServers(), configs.getZookeeperNamespace());
             }
 
@@ -96,13 +92,8 @@ public class DefaultKafkaConsumerImpl<K, V> implements Runnable, com.owl.kafka.c
         if (start.compareAndSet(false, true)) {
             if(useProxy){
                 Preconditions.checkArgument(messageListener instanceof AcknowledgeMessageListener, "using proxy, MessageListener must be AcknowledgeMessageListener");
-                if(ConsumerConfig.ProxyModel.PULL == configs.getProxyModel()){
-                    defaultPullMessageImpl = new DefaultPullMessageImpl(messageListenerService);
-                    defaultPullMessageImpl.start();
-                } else{
-                    defaultPushMessageImpl = new DefaultPushMessageImpl(messageListenerService);
-                    defaultPushMessageImpl.start();
-                }
+                defaultPullMessageImpl = new DefaultPullMessageImpl(messageListenerService);
+                defaultPullMessageImpl.start();
             } else{
                 boolean isAssignTopicPartition = !CollectionUtils.isEmpty(configs.getTopicPartitions());
                 if(isAssignTopicPartition){
@@ -168,7 +159,6 @@ public class DefaultKafkaConsumerImpl<K, V> implements Runnable, com.owl.kafka.c
             throw new IllegalArgumentException("AutoCommitMessageListener must be auto commit");
         }
 
-        System.setProperty(Constants.PROXY_MODEL, configs.getProxyModel().name());
         //
         this.serviceRegistry = new MessageListenerServiceRegistry(this, messageListener);
         this.messageListenerService = this.serviceRegistry.getMessageListenerService(false);
@@ -274,9 +264,6 @@ public class DefaultKafkaConsumerImpl<K, V> implements Runnable, com.owl.kafka.c
                     consumer.close();
                 }
             }
-            if(defaultPushMessageImpl != null){
-                defaultPushMessageImpl.close();
-            }
             if(defaultPullMessageImpl != null){
                 defaultPullMessageImpl.close();
             }
@@ -291,7 +278,7 @@ public class DefaultKafkaConsumerImpl<K, V> implements Runnable, com.owl.kafka.c
     private String startupInfo(){
         boolean isAssignTopicPartition = !CollectionUtils.isEmpty(configs.getTopicPartitions());
         StringBuilder builder = new StringBuilder(200);
-        builder.append("bootstrap.servers : ").append(StringUtils.isBlank(configs.getKafkaServers()) ? configs.getZookeeperServers() : configs.getKafkaServers()).append(" , ");
+        builder.append("bootstrap.servers : ").append(StringUtils.isEmpty(configs.getKafkaServers()) ? configs.getZookeeperServers() : configs.getKafkaServers()).append(" , ");
         builder.append("group.id : ").append(configs.getGroupId()).append(" , ");
         builder.append("in ").append(isAssignTopicPartition ? "[assign] : " + configs.getTopicPartitions(): "[subscribe] : " + configs.getTopic()).append(" , ");
         builder.append("with : " + (configs.isUseProxy() ?  "proxy model " : " direct connect ")).append(" , ");

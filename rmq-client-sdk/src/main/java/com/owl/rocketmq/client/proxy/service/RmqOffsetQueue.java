@@ -1,7 +1,7 @@
 package com.owl.rocketmq.client.proxy.service;
 
-import com.owl.mq.client.bo.TopicQueueOffset;
-import com.owl.mq.client.transport.message.RmqMessage;
+import com.owl.mq.proxy.bo.TopicQueueOffset;
+import com.owl.mq.proxy.transport.message.RmqMessage;
 
 import java.util.List;
 import java.util.TreeSet;

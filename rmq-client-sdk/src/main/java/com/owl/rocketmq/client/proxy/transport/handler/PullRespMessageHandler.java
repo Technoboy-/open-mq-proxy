@@ -1,14 +1,14 @@
 package com.owl.rocketmq.client.proxy.transport.handler;
 
-import com.owl.mq.client.service.InvokerPromise;
-import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.message.RmqMessage;
-import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.ChannelUtils;
-import com.owl.mq.client.util.RmqMessageCodec;
-import com.owl.rocketmq.client.consumer.service.MessageListenerService;
-import com.owl.rocketmq.client.consumer.service.PullMessageListenerService;
+import com.owl.mq.proxy.service.InvokerPromise;
+import com.owl.mq.proxy.transport.Connection;
+import com.owl.mq.proxy.transport.handler.CommonMessageHandler;
+import com.owl.mq.proxy.transport.message.RmqMessage;
+import com.owl.mq.proxy.transport.protocol.Packet;
+import com.owl.mq.proxy.util.ChannelUtils;
+import com.owl.mq.proxy.util.RmqMessageCodec;
+import com.owl.rocketmq.client.proxy.service.MessageListenerService;
+import com.owl.rocketmq.client.proxy.service.PullMessageListenerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

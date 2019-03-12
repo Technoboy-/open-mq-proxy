@@ -1,12 +1,12 @@
 package com.owl.rocketmq.proxy.server.transport.handler;
 
-import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.handler.CommonMessageHandler;
-import com.owl.mq.client.transport.message.RmqHeader;
-import com.owl.mq.client.transport.message.RmqMessage;
-import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.ChannelUtils;
-import com.owl.mq.client.util.RmqMessageCodec;
+import com.owl.mq.proxy.transport.Connection;
+import com.owl.mq.proxy.transport.handler.CommonMessageHandler;
+import com.owl.mq.proxy.transport.message.RmqHeader;
+import com.owl.mq.proxy.transport.message.RmqMessage;
+import com.owl.mq.proxy.transport.protocol.Packet;
+import com.owl.mq.proxy.util.ChannelUtils;
+import com.owl.mq.proxy.util.RmqMessageCodec;
 import com.owl.mq.server.bo.ServerConfigs;
 import com.owl.rocketmq.proxy.server.pull.RmqPullCenter;
 import io.netty.buffer.ByteBuf;

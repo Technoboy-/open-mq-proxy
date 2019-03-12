@@ -42,7 +42,7 @@ public class ProxyConsumer<K, V> implements Runnable{
 
         // KAFKA 0.11 later version.
         if(configs.get("partition.assignment.strategy") == null){
-            configs.put("partition.assignment.strategy", "com.owl.kafka.client.consumer.assignor.CheckTopicStickyAssignor");
+            configs.put("partition.assignment.strategy", "com.owl.kafka.proxy.consumer.assignor.CheckTopicStickyAssignor");
         }
         String bootstrapServers = configs.getKafkaServers();
         if(StringUtils.isBlank(bootstrapServers)){

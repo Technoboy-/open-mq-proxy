@@ -5,7 +5,7 @@ import com.owl.client.common.serializer.Serializer;
 import com.owl.client.common.util.Preconditions;
 import com.owl.rocketmq.client.consumer.ConsumerConfig;
 import com.owl.rocketmq.client.consumer.RocketMQMessage;
-import com.owl.rocketmq.client.consumer.service.MessageListenerService;
+import com.owl.rocketmq.client.proxy.service.MessageListenerService;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -71,7 +71,7 @@ public class ProxyConsumer<V> {
                         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
                     }
                 });
-                //turn off auto commmit offset in RMQ client
+                //turn off auto commmit offset in RMQ proxy
                 consumer.setPersistConsumerOffsetInterval(-1);
                 consumer.start();
 

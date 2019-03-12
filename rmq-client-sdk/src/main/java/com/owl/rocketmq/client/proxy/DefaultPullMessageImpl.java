@@ -1,27 +1,18 @@
 package com.owl.rocketmq.client.proxy;
 
 
-import com.owl.mq.client.bo.ClientConfigs;
-import com.owl.mq.client.bo.ConfigLoader;
-import com.owl.mq.client.registry.RegistryListener;
-import com.owl.mq.client.registry.RegistryService;
-import com.owl.mq.client.service.InvokerPromise;
-import com.owl.mq.client.service.PullMessageService;
-import com.owl.mq.client.transport.Address;
-import com.owl.mq.client.transport.Connection;
-import com.owl.mq.client.transport.NettyClient;
-import com.owl.mq.client.transport.message.KafkaMessage;
-import com.owl.mq.client.transport.protocol.Packet;
-import com.owl.mq.client.util.MessageCodec;
-import com.owl.mq.client.util.KafkaPackets;
-import com.owl.mq.client.zookeeper.ZookeeperClient;
-import com.owl.rocketmq.client.consumer.service.MessageListenerService;
+import com.owl.client.common.util.ZookeeperConstants;
+import com.owl.mq.proxy.registry.RegistryListener;
+import com.owl.mq.proxy.registry.RegistryService;
+import com.owl.mq.proxy.service.PullMessageService;
+import com.owl.mq.proxy.transport.Address;
+import com.owl.mq.proxy.transport.NettyClient;
+import com.owl.mq.proxy.zookeeper.ZookeeperClient;
+import com.owl.rocketmq.client.proxy.service.MessageListenerService;
 import com.owl.rocketmq.client.proxy.service.RmqPullMessageService;
 import com.owl.rocketmq.client.proxy.transport.RmqNettyClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * @Author: Tboy
@@ -38,11 +29,12 @@ public class DefaultPullMessageImpl {
 
     private final PullMessageService pullMessageService;
 
-    private final String serverList = ClientConfigs.I.getZookeeperServerList();
+    //RMQ 从哪里获取注册的列表。
+    private final String serverList = "";
 
-    private final int sessionTimeoutMs = ClientConfigs.I.getZookeeperSessionTimeoutMs();
+    private final int sessionTimeoutMs = 0;
 
-    private final int connectionTimeoutMs = ClientConfigs.I.getZookeeperConnectionTimeoutMs();
+    private final int connectionTimeoutMs = 0;
 
     public DefaultPullMessageImpl(MessageListenerService messageListenerService){
         this.nettyClient = new RmqNettyClient(messageListenerService);
@@ -64,7 +56,8 @@ public class DefaultPullMessageImpl {
                 }
             }
         });
-        this.registryService.subscribe(String.format(ClientConfigs.I.ZOOKEEPER_PROVIDERS, ClientConfigs.I.getTopic()));
+        //todo rmq的topic获取
+        this.registryService.subscribe(String.format(ZookeeperConstants.ZOOKEEPER_PROVIDERS, ""));
     }
 
     public void start(){

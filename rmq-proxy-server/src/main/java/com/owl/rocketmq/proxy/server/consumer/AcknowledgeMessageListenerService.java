@@ -1,7 +1,7 @@
 package com.owl.rocketmq.proxy.server.consumer;
 
 
-import com.owl.rocketmq.client.consumer.service.MessageListenerService;
+import com.owl.rocketmq.client.proxy.service.MessageListenerService;
 import com.owl.rocketmq.proxy.server.pull.RmqPullCenter;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;

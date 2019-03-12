@@ -1,11 +1,11 @@
 package com.owl.rocketmq.client.proxy.transport;
 
-import com.owl.mq.client.transport.NettyClient;
-import com.owl.mq.client.transport.handler.MessageDispatcher;
-import com.owl.mq.client.transport.handler.PongMessageHandler;
-import com.owl.mq.client.transport.handler.ViewMessageHandler;
-import com.owl.mq.client.transport.protocol.Command;
-import com.owl.rocketmq.client.consumer.service.MessageListenerService;
+import com.owl.mq.proxy.transport.NettyClient;
+import com.owl.mq.proxy.transport.handler.MessageDispatcher;
+import com.owl.mq.proxy.transport.handler.PongMessageHandler;
+import com.owl.mq.proxy.transport.handler.ViewMessageHandler;
+import com.owl.mq.proxy.transport.protocol.Command;
+import com.owl.rocketmq.client.proxy.service.MessageListenerService;
 import com.owl.rocketmq.client.proxy.transport.handler.PullRespMessageHandler;
 
 /**

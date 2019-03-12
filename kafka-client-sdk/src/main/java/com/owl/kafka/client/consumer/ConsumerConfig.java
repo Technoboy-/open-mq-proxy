@@ -160,16 +160,6 @@ public class ConsumerConfig extends HashMap<String, Object> {
 
     private boolean useProxy = false;
 
-    private ProxyModel proxyModel = ProxyModel.PULL;
-
-    public ProxyModel getProxyModel() {
-        return proxyModel;
-    }
-
-    public void setProxyModel(ProxyModel proxyModel) {
-        this.proxyModel = proxyModel;
-    }
-
     public String getZookeeperServers() {
         return zookeeperServers;
     }
@@ -308,10 +298,5 @@ public class ConsumerConfig extends HashMap<String, Object> {
     public void setAutoCommitInterval(int autoCommitInterval) {
         this.autoCommitInterval = autoCommitInterval;
         put("auto.commit.interval.ms", autoCommitInterval);
-    }
-
-    public enum ProxyModel{
-        PUSH,
-        PULL;
     }
 }
