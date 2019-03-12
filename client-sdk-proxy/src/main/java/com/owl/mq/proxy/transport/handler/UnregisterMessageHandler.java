@@ -1,11 +1,10 @@
-package com.owl.kafka.proxy.server.transport.handler;
+package com.owl.mq.proxy.transport.handler;
 
-import com.owl.kafka.proxy.server.registry.RegistryCenter;
+import com.owl.mq.proxy.registry.RegistryManager;
+import com.owl.mq.proxy.service.InstanceHolder;
 import com.owl.mq.proxy.transport.Connection;
-import com.owl.mq.proxy.transport.handler.CommonMessageHandler;
 import com.owl.mq.proxy.transport.protocol.Packet;
 import com.owl.mq.proxy.util.ChannelUtils;
-import com.owl.mq.server.service.InstanceHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +20,6 @@ public class UnregisterMessageHandler extends CommonMessageHandler {
         if(LOGGER.isDebugEnabled()){
             LOGGER.debug("received unregister message : {}, from : {}", packet, ChannelUtils.getRemoteAddress(connection.getChannel()));
         }
-        InstanceHolder.I.get(RegistryCenter.class).getClientRegistry().unregister(connection);
+        InstanceHolder.I.get(RegistryManager.class).getClientRegistry().unregister(connection);
     }
 }

@@ -28,8 +28,6 @@ public abstract class PullMessageService {
 
     private final int pullTimeoutMs = 30 * 1000;
 
-    private final int processQueueSize = ClientConfigs.KAFKA.getProcessQueueSize();
-
     private final CopyOnWriteArraySet<Address> addresses = new CopyOnWriteArraySet<>();
 
     public PullMessageService(NettyClient nettyClient){

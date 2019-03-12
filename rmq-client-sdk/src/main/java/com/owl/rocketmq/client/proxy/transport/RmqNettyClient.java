@@ -5,6 +5,7 @@ import com.owl.mq.proxy.transport.handler.MessageDispatcher;
 import com.owl.mq.proxy.transport.handler.PongMessageHandler;
 import com.owl.mq.proxy.transport.handler.ViewMessageHandler;
 import com.owl.mq.proxy.transport.protocol.Command;
+import com.owl.rocketmq.client.proxy.config.RmqClientConfigs;
 import com.owl.rocketmq.client.proxy.service.MessageListenerService;
 import com.owl.rocketmq.client.proxy.transport.handler.PullRespMessageHandler;
 
@@ -13,9 +14,12 @@ import com.owl.rocketmq.client.proxy.transport.handler.PullRespMessageHandler;
  */
 public class RmqNettyClient extends NettyClient {
 
+    private static final int workNum = RmqClientConfigs.I.getWorkerNum();
+
     private final MessageListenerService messageListenerService;
 
     public RmqNettyClient(MessageListenerService messageListenerService){
+        super(workNum);
         this.messageListenerService = messageListenerService;
     }
 

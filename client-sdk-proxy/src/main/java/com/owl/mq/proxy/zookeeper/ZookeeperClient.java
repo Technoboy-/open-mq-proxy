@@ -1,6 +1,7 @@
 package com.owl.mq.proxy.zookeeper;
 
 import com.owl.client.common.util.StringUtils;
+import com.owl.client.common.util.ZookeeperConstants;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.CuratorEvent;
@@ -19,11 +20,13 @@ public class ZookeeperClient {
 
     private final CuratorFramework client;
 
-    public static final String PUSH_SERVER_NAMESPACE = "push_server";
+    private static final int sessionTimeoutMs = 30000;
 
-    public ZookeeperClient(String serverList, int sessionTimeoutMs, int connectionTimeoutMs){
+    private static final int connectionTimeoutMs = 15000;
+
+    public ZookeeperClient(String serverList){
         this.client = CuratorFrameworkFactory.builder()
-                .namespace(PUSH_SERVER_NAMESPACE)
+                .namespace(ZookeeperConstants.PUSH_SERVER_NAMESPACE)
                 .connectString(serverList)
                 .retryPolicy(new ExponentialBackoffRetry(1000, 3))
                 .sessionTimeoutMs(sessionTimeoutMs)
@@ -31,7 +34,7 @@ public class ZookeeperClient {
                 .build();
     }
 
-    public ZookeeperClient(String serverList, String namespace, int sessionTimeoutMs, int connectionTimeoutMs){
+    public ZookeeperClient(String serverList, String namespace){
         CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder();
         if(!StringUtils.isEmpty(namespace)){
             builder.namespace(namespace);

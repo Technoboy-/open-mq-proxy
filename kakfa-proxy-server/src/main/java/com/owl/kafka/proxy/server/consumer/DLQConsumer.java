@@ -1,13 +1,13 @@
 package com.owl.kafka.proxy.server.consumer;
 
 import com.owl.client.common.util.NetUtils;
+import com.owl.client.common.util.ZookeeperConstants;
+import com.owl.kafka.proxy.server.registry.RegistryCenter;
+import com.owl.kafka.proxy.server.service.InstanceHolder;
 import com.owl.kafka.proxy.server.service.LeaderElectionService;
 import com.owl.mq.proxy.registry.RegisterMetadata;
 import com.owl.mq.proxy.transport.Address;
 import com.owl.mq.proxy.zookeeper.ZookeeperClient;
-import com.owl.mq.server.bo.ServerConfigs;
-import com.owl.mq.server.registry.RegistryCenter;
-import com.owl.mq.server.service.InstanceHolder;
 import org.apache.curator.framework.recipes.leader.LeaderLatchListener;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -62,7 +62,7 @@ public class DLQConsumer implements LeaderLatchListener, Runnable {
     public void isLeader() {
         RegisterMetadata metadata = new RegisterMetadata();
         Address address = new Address(NetUtils.getLocalIp(), ServerConfigs.I.getServerPort());
-        metadata.setPath(String.format(ServerConfigs.I.ZOOKEEPER_CONSUMERS, this.topic));
+        metadata.setPath(String.format(ZookeeperConstants.ZOOKEEPER_CONSUMERS, this.topic));
         metadata.setAddress(address);
         InstanceHolder.I.get(RegistryCenter.class).getServerRegistry().register(metadata);
         //
@@ -102,7 +102,7 @@ public class DLQConsumer implements LeaderLatchListener, Runnable {
     public void notLeader() {
         RegisterMetadata metadata = new RegisterMetadata();
         Address address = new Address(NetUtils.getLocalIp(), ServerConfigs.I.getServerPort());
-        metadata.setPath(String.format(ServerConfigs.I.ZOOKEEPER_CONSUMERS, this.topic));
+        metadata.setPath(String.format(ZookeeperConstants.ZOOKEEPER_CONSUMERS, this.topic));
         metadata.setAddress(address);
         InstanceHolder.I.get(RegistryCenter.class).getServerRegistry().unregister(metadata);
         //

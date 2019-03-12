@@ -1,10 +1,8 @@
-package com.owl.kafka.proxy.server.registry;
+package com.owl.mq.proxy.registry;
 
 import com.owl.client.common.util.NetUtils;
 import com.owl.client.common.util.ZookeeperConstants;
 import com.owl.kafka.proxy.server.consumer.ServerConfigs;
-import com.owl.mq.proxy.registry.RegisterMetadata;
-import com.owl.mq.proxy.registry.RegistryService;
 import com.owl.mq.proxy.transport.Address;
 
 

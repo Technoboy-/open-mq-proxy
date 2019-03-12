@@ -1,15 +1,11 @@
-package com.owl.kafka.proxy.server.registry;
+package com.owl.mq.proxy.registry;
 
-import com.owl.kafka.proxy.server.consumer.ServerConfigs;
-import com.owl.mq.proxy.registry.RegistryService;
 import com.owl.mq.proxy.zookeeper.ZookeeperClient;
-import com.owl.mq.server.registry.ClientRegistry;
-import com.owl.mq.server.service.InstanceHolder;
 
 /**
  * @Author: Tboy
  */
-public class RegistryCenter {
+public class RegistryManager {
 
     private final ServerRegistry serverRegistry;
 
@@ -19,18 +15,14 @@ public class RegistryCenter {
 
     private final RegistryService registryService;
 
-    public RegistryCenter(){
-        this.zookeeperClient = new ZookeeperClient(ServerConfigs.I.getZookeeperServerList(),
-                ZookeeperClient.PUSH_SERVER_NAMESPACE, ServerConfigs.I.getZookeeperSessionTimeoutMs(),
-                ServerConfigs.I.getZookeeperConnectionTimeoutMs());
+    public RegistryManager(){
+        this.zookeeperClient = new ZookeeperClient(ServerConfigs.I.getZookeeperServerList());
         this.registryService = new RegistryService(this.zookeeperClient);
         //
         this.serverRegistry = new ServerRegistry(registryService);
         this.clientRegistry = new ClientRegistry(registryService);
 
         //
-        InstanceHolder.I.set(this.zookeeperClient);
-        InstanceHolder.I.set(this);
     }
 
     public ServerRegistry getServerRegistry() {

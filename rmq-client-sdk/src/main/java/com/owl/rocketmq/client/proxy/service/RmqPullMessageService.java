@@ -3,6 +3,7 @@ package com.owl.rocketmq.client.proxy.service;
 import com.owl.mq.proxy.service.PullMessageService;
 import com.owl.mq.proxy.transport.Address;
 import com.owl.mq.proxy.transport.NettyClient;
+import com.owl.rocketmq.client.proxy.config.RmqClientConfigs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

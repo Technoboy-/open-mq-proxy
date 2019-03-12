@@ -11,6 +11,7 @@ import com.owl.mq.proxy.util.RmqPackets;
 import com.owl.rocketmq.client.consumer.RocketMQMessage;
 import com.owl.rocketmq.client.consumer.listener.ConcurrentMessageListener;
 import com.owl.rocketmq.client.consumer.listener.MessageListener;
+import com.owl.rocketmq.client.proxy.config.RmqClientConfigs;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.slf4j.Logger;

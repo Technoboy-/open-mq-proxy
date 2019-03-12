@@ -1,4 +1,4 @@
-package com.owl.rocketmq.client.proxy.service;
+package com.owl.rocketmq.client.proxy.config;
 
 
 import com.owl.client.common.util.ClassPathPropertyLoader;

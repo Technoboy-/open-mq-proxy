@@ -7,7 +7,6 @@ import com.owl.mq.proxy.transport.message.RmqMessage;
 import com.owl.mq.proxy.transport.protocol.Packet;
 import com.owl.mq.proxy.util.ChannelUtils;
 import com.owl.mq.proxy.util.RmqMessageCodec;
-import com.owl.mq.server.bo.ServerConfigs;
 import com.owl.rocketmq.proxy.server.pull.RmqPullCenter;
 import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;

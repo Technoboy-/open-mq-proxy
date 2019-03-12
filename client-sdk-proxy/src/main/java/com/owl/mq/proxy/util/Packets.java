@@ -1,6 +1,8 @@
 package com.owl.mq.proxy.util;
 
 
+import com.owl.client.common.serializer.SerializerImpl;
+import com.owl.mq.proxy.bo.RegisterContent;
 import com.owl.mq.proxy.transport.alloc.ByteBufferPool;
 import com.owl.mq.proxy.transport.protocol.Command;
 import com.owl.mq.proxy.transport.protocol.Packet;
@@ -34,12 +36,16 @@ public class Packets {
         return PING_BUF.duplicate();
     }
 
-    //TODO 需要注册信息。将客户端监听的topic等信息传给服务器.
-    public static Packet register(String topic){
+    public static Packet register(RegisterContent registerContent){
         Packet register = new Packet();
         register.setOpaque(0);
-        register.setCmd(Command.UNREGISTER.getCmd());
-        register.setBody(EMPTY_BODY);
+        register.setCmd(Command.REGISTER.getCmd());
+
+        byte[] body = SerializerImpl.getFastJsonSerializer().serialize(registerContent);
+        ByteBuf buffer = bufferPool.allocate(4 + body.length);
+        buffer.writeInt(body.length);
+        buffer.writeBytes(body);
+        register.setBody(buffer);
         return register;
     }
 

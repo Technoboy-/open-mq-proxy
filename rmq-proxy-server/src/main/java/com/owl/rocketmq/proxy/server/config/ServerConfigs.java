@@ -1,4 +1,4 @@
-package com.owl.kafka.proxy.server.consumer;
+package com.owl.rocketmq.proxy.server.config;
 
 
 import com.owl.client.common.util.*;

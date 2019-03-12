@@ -6,6 +6,8 @@ package com.owl.client.common.util;
 public class ZookeeperConstants {
 
     //zookeeper
+    public static final String PUSH_SERVER_NAMESPACE = "push_server";
+
     public static String ZOOKEEPER_SERVER_LIST = "zookeeper.server.list";
 
     public static String ZOOKEEPER_NAMESPACE = "zookeeper.namespace";

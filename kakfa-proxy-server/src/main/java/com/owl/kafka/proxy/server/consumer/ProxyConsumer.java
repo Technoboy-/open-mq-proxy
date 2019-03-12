@@ -45,7 +45,7 @@ public class ProxyConsumer<K, V> implements Runnable{
             configs.put("partition.assignment.strategy", "com.owl.kafka.proxy.consumer.assignor.CheckTopicStickyAssignor");
         }
         String bootstrapServers = configs.getKafkaServers();
-        if(StringUtils.isBlank(bootstrapServers)){
+        if(StringUtils.isEmpty(bootstrapServers)){
             bootstrapServers = KafkaZookeeperConfig.getBrokerIds(configs.getZookeeperServers(), configs.getZookeeperNamespace());
         }
         configs.put("bootstrap.servers", bootstrapServers);
@@ -171,7 +171,7 @@ public class ProxyConsumer<K, V> implements Runnable{
     private String startupInfo(){
         boolean isAssignTopicPartition = !CollectionUtils.isEmpty(configs.getTopicPartitions());
         StringBuilder builder = new StringBuilder(200);
-        builder.append("bootstrap.servers : ").append(StringUtils.isBlank(configs.getKafkaServers()) ? configs.getZookeeperServers() : configs.getKafkaServers()).append(" , ");
+        builder.append("bootstrap.servers : ").append(StringUtils.isEmpty(configs.getKafkaServers()) ? configs.getZookeeperServers() : configs.getKafkaServers()).append(" , ");
         builder.append("group.id : ").append(configs.getGroupId()).append(" , ");
         builder.append("in ").append(isAssignTopicPartition ? "[assign] : " + configs.getTopicPartitions(): "[subscribe] : " + configs.getTopic()).append(" , ");
         builder.append("with listener service : " + messageListenerService.getClass().getSimpleName()).append(" ");

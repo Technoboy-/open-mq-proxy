@@ -11,7 +11,7 @@ import com.owl.mq.proxy.transport.message.RmqHeader;
 import com.owl.mq.proxy.transport.message.RmqMessage;
 import com.owl.mq.proxy.transport.protocol.Packet;
 import com.owl.mq.proxy.util.RmqMessageCodec;
-import com.owl.mq.server.bo.ServerConfigs;
+import com.owl.rocketmq.proxy.server.config.ServerConfigs;
 import com.owl.rocketmq.proxy.server.consumer.ProxyConsumer;
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.slf4j.Logger;

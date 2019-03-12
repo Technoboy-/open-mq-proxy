@@ -1,6 +1,6 @@
 package com.owl.kafka.client.proxy.service;
 
-import com.owl.mq.proxy.bo.ClientConfigs;
+import com.owl.kafka.client.proxy.config.KafkaClientConfigs;
 import com.owl.mq.proxy.service.PullMessageService;
 import com.owl.mq.proxy.transport.Address;
 import com.owl.mq.proxy.transport.NettyClient;
@@ -16,7 +16,7 @@ public class KafkaPullMessageService extends PullMessageService {
 
     private final KafkaOffsetStore kafkaOffsetStore = KafkaOffsetStore.I;
 
-    private final int processQueueSize = ClientConfigs.I.getProcessQueueSize();
+    private final int processQueueSize = KafkaClientConfigs.I.getProcessQueueSize();
 
     public KafkaPullMessageService(NettyClient nettyClient) {
         super(nettyClient);

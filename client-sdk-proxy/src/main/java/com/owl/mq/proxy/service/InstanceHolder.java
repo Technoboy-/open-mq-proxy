@@ -1,4 +1,4 @@
-package com.owl.kafka.proxy.server.service;
+package com.owl.mq.proxy.service;
 
 import java.util.concurrent.ConcurrentHashMap;
 

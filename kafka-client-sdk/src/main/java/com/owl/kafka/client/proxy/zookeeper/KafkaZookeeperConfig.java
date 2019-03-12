@@ -14,11 +14,11 @@ import java.util.Map;
 public class KafkaZookeeperConfig {
 
     public static String getBrokerIds(String zookeeperServers, String namespace){
-        if(StringUtils.isBlank(zookeeperServers)){
+        if(StringUtils.isEmpty(zookeeperServers)){
             throw new IllegalArgumentException("ZookeeperServers should not be empty");
         }
         StringBuilder builder = new StringBuilder();
-        ZookeeperClient zookeeperClient = new ZookeeperClient(zookeeperServers, namespace, 30000, 15000);
+        ZookeeperClient zookeeperClient = new ZookeeperClient(zookeeperServers, namespace);
         try {
             zookeeperClient.start();
             final String brokerIds = "/brokers/ids";
@@ -29,7 +29,7 @@ public class KafkaZookeeperConfig {
                 builder.append(brokerId.getHost() + ":" + brokerId.getPort()).append(",");
             }
             String serverList = builder.toString();
-            if(!StringUtils.isBlank(serverList)){
+            if(!StringUtils.isEmpty(serverList)){
                 return serverList.substring(0, serverList.lastIndexOf(","));
             } else{
                 throw new IllegalArgumentException("parse kafka broker list, but empty");

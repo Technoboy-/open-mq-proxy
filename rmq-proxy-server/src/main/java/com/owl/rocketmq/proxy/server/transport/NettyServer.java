@@ -1,19 +1,14 @@
 package com.owl.rocketmq.proxy.server.transport;
 
+import com.owl.mq.proxy.transport.NettyTcpServer;
 import com.owl.mq.proxy.transport.codec.PacketDecoder;
 import com.owl.mq.proxy.transport.codec.PacketEncoder;
 import com.owl.mq.proxy.transport.handler.MessageDispatcher;
-import com.owl.mq.proxy.transport.handler.ServerHandler;
-import com.owl.mq.proxy.transport.protocol.Command;
-import com.owl.mq.server.registry.RegistryCenter;
-import com.owl.mq.server.service.InstanceHolder;
-import com.owl.mq.proxy.transport.NettyTcpServer;
 import com.owl.mq.proxy.transport.handler.PingMessageHandler;
-import com.owl.mq.server.transport.handler.UnregisterMessageHandler;
+import com.owl.mq.proxy.transport.protocol.Command;
+import com.owl.rocketmq.proxy.server.config.ServerConfigs;
 import com.owl.rocketmq.proxy.server.consumer.ProxyConsumer;
-import com.owl.rocketmq.proxy.server.transport.handler.AckMessageHandler;
-import com.owl.rocketmq.proxy.server.transport.handler.PullReqMessageHandler;
-import com.owl.rocketmq.proxy.server.transport.handler.SendBackMessageHandler;
+import com.owl.rocketmq.proxy.server.transport.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
@@ -27,9 +22,17 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
  */
 public class NettyServer extends NettyTcpServer {
 
+
+    private static final int port = ServerConfigs.I.getServerPort();
+
+    private static final int bossNum = ServerConfigs.I.getServerBossNum();
+
+    private static final int workerNum = ServerConfigs.I.getServerWorkerNum();
+
     private final ChannelHandler handler;
 
     public NettyServer(ProxyConsumer consumer) {
+        super(port, bossNum, workerNum);
         this.handler = new ServerHandler(newDispatcher(consumer));
     }
 
