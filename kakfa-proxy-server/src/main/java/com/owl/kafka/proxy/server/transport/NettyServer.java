@@ -1,17 +1,21 @@
 package com.owl.kafka.proxy.server.transport;
 
+import com.owl.client.common.util.NetUtils;
+import com.owl.client.common.util.ZookeeperConstants;
+import com.owl.kafka.proxy.server.config.KafkaServerConfigs;
+import com.owl.mq.proxy.registry.RegisterMetadata;
+import com.owl.mq.proxy.registry.RegistryManager;
+import com.owl.mq.proxy.service.InstanceHolder;
+import com.owl.mq.proxy.transport.Address;
 import com.owl.mq.proxy.transport.codec.PacketDecoder;
 import com.owl.mq.proxy.transport.codec.PacketEncoder;
 import com.owl.mq.proxy.transport.handler.MessageDispatcher;
-import com.owl.mq.proxy.transport.handler.ServerHandler;
+import com.owl.mq.proxy.transport.handler.UnregisterMessageHandler;
 import com.owl.mq.proxy.transport.protocol.Command;
 import com.owl.kafka.proxy.server.consumer.ProxyConsumer;
 import com.owl.kafka.proxy.server.transport.handler.*;
-import com.owl.mq.server.registry.RegistryCenter;
-import com.owl.mq.server.service.InstanceHolder;
 import com.owl.mq.proxy.transport.NettyTcpServer;
 import com.owl.mq.proxy.transport.handler.PingMessageHandler;
-import com.owl.mq.server.transport.handler.UnregisterMessageHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
@@ -25,9 +29,16 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
  */
 public class NettyServer extends NettyTcpServer {
 
+    private static final int port = KafkaServerConfigs.I.getServerPort();
+
+    private static final int bossNum = KafkaServerConfigs.I.getServerBossNum();
+
+    private static final int workerNum = KafkaServerConfigs.I.getServerWorkerNum();
+
     private final ChannelHandler handler;
 
     public NettyServer(ProxyConsumer consumer) {
+        super(port, bossNum, workerNum);
         this.handler = new ServerHandler(newDispatcher(consumer));
     }
 
@@ -51,7 +62,12 @@ public class NettyServer extends NettyTcpServer {
 
     @Override
     protected void afterStart() {
-        InstanceHolder.I.get(RegistryCenter.class).getServerRegistry().register();
+        Address address = new Address(NetUtils.getLocalIp(), port);
+        RegisterMetadata registerMetadata = new RegisterMetadata();
+        registerMetadata.setPath(String.format(ZookeeperConstants.ZOOKEEPER_PROVIDERS, KafkaServerConfigs.I.getServerTopic()));
+        registerMetadata.setAddress(address);
+
+        InstanceHolder.I.get(RegistryManager.class).getServerRegistry().register(registerMetadata);
     }
 
     protected void initNettyChannel(NioSocketChannel ch) throws Exception{

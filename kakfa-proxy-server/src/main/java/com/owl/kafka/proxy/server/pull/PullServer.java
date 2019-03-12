@@ -4,13 +4,12 @@ import com.owl.client.common.util.StringUtils;
 import com.owl.kafka.client.consumer.ConsumerConfig;
 import com.owl.kafka.client.consumer.service.MessageListenerService;
 import com.owl.kafka.client.proxy.zookeeper.KafkaZookeeperConfig;
+import com.owl.kafka.proxy.server.config.KafkaServerConfigs;
 import com.owl.kafka.proxy.server.service.DLQService;
 import com.owl.kafka.proxy.server.transport.NettyServer;
 import com.owl.kafka.proxy.server.consumer.AcknowledgeMessageListenerPullService;
 import com.owl.kafka.proxy.server.consumer.ProxyConsumer;
-import com.owl.mq.server.bo.ServerConfigs;
-import com.owl.mq.server.registry.RegistryCenter;
-
+import com.owl.mq.proxy.registry.RegistryManager;
 
 /**
  * @Author: Tboy
@@ -25,16 +24,16 @@ public class PullServer {
 
     private final DLQService dlqService;
 
-    private final RegistryCenter registryCenter;
+    private final RegistryManager registryManager;
 
     public PullServer(){
-        String kafkaServerList = ServerConfigs.I.getServerKafkaServerList();
-        if(StringUtils.isBlank(kafkaServerList)){
-            kafkaServerList = KafkaZookeeperConfig.getBrokerIds(ServerConfigs.I.getZookeeperServerList(), ServerConfigs.I.getZookeeperNamespace());
+        String kafkaServerList = KafkaServerConfigs.I.getServerKafkaServerList();
+        if(StringUtils.isEmpty(kafkaServerList)){
+            kafkaServerList = KafkaZookeeperConfig.getBrokerIds(KafkaServerConfigs.I.getZookeeperServerList(), KafkaServerConfigs.I.getZookeeperNamespace());
         }
-        this.registryCenter = new RegistryCenter();
+        this.registryManager = new RegistryManager(KafkaServerConfigs.I);
         //
-        ConsumerConfig consumerConfigs = new ConsumerConfig(kafkaServerList, ServerConfigs.I.getServerTopic(), ServerConfigs.I.getServerGroupId());
+        ConsumerConfig consumerConfigs = new ConsumerConfig(kafkaServerList, KafkaServerConfigs.I.getServerTopic(), KafkaServerConfigs.I.getServerGroupId());
         consumerConfigs.setAutoCommit(false);
         this.consumer = new ProxyConsumer(consumerConfigs);
         this.nettyServer = new NettyServer(consumer);
@@ -42,7 +41,7 @@ public class PullServer {
         this.messageListenerService = new AcknowledgeMessageListenerPullService();
         this.consumer.setMessageListenerService(messageListenerService);
 
-        this.dlqService = new DLQService(kafkaServerList, ServerConfigs.I.getServerTopic(), ServerConfigs.I.getServerGroupId());
+        this.dlqService = new DLQService(kafkaServerList, KafkaServerConfigs.I.getServerTopic(), KafkaServerConfigs.I.getServerGroupId());
     }
 
     public void start(){
@@ -54,6 +53,6 @@ public class PullServer {
         this.consumer.close();
         this.nettyServer.close();
         this.dlqService.close();
-        this.registryCenter.close();
+        this.registryManager.close();
     }
 }

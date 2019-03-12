@@ -1,4 +1,4 @@
-package com.owl.rocketmq.proxy.server.config;
+package com.owl.mq.proxy.bo;
 
 
 import com.owl.client.common.util.*;
@@ -6,7 +6,7 @@ import com.owl.client.common.util.*;
 /**
  * @Author: Tboy
  */
-public class ServerConfigs extends ClassPathPropertyLoader {
+public abstract class ServerConfigs extends ClassPathPropertyLoader{
 
     static final String SERVER_PORT = "server.port";
 
@@ -34,29 +34,14 @@ public class ServerConfigs extends ClassPathPropertyLoader {
 
     static final String SERVER_MESSAGE_REPOST_INTERVAL = "server.message.repost.interval";
 
-    static final String SERVER_PUSH_FLOW_CONTROL_MESSAGE_COUNT = "server.push.flow.control.message.count";
-
-    static final String SERVER_PUSH_FLOW_CONTROL_MESSAGE_SIZE = "server.push.flow.control.message.size";
-
     static final String SERVER_PULL_MESSAGE_COUNT = "server.pull.message.count";
 
     static final String SERVER_PULL_MESSAGE_SIZE = "server.pull.message.size";
 
     static final String SERVER_REPOST_COUNT = "server.repost.count";
 
-
-    static final  String SERVER_CONFIG_FILE = "kafka_server.properties";
-
-    public static ServerConfigs I = new ServerConfigs(SERVER_CONFIG_FILE);
-
     public ServerConfigs(String fileName){
         super(fileName);
-    }
-
-    protected void afterLoad(){
-        Preconditions.checkArgument(!StringUtils.isEmpty(getServerTopic()), "topic should not be empty");
-        //
-        Preconditions.checkArgument(!StringUtils.isEmpty(getServerGroupId()), "groupId should not be empty");
     }
 
     public String getZookeeperNamespace(){
@@ -126,14 +111,6 @@ public class ServerConfigs extends ClassPathPropertyLoader {
 
     public int getServerMessageRepostInterval() {
         return getInt(SERVER_MESSAGE_REPOST_INTERVAL, 3);
-    }
-
-    public int getServerFlowControlMessageCount() {
-        return getInt(SERVER_PUSH_FLOW_CONTROL_MESSAGE_COUNT, 10000);
-    }
-
-    public int getServerFlowControlMessageSize() {
-        return getInt(SERVER_PUSH_FLOW_CONTROL_MESSAGE_SIZE, 64);
     }
 
     public int getServerPullMessageCount(){

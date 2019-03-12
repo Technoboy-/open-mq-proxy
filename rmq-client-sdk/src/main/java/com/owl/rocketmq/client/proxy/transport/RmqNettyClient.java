@@ -19,7 +19,7 @@ public class RmqNettyClient extends NettyClient {
     private final MessageListenerService messageListenerService;
 
     public RmqNettyClient(MessageListenerService messageListenerService){
-        super(workNum);
+        super(RmqClientConfigs.I);
         this.messageListenerService = messageListenerService;
     }
 

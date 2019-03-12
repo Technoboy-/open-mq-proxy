@@ -49,12 +49,7 @@ public class MessageListenerServiceRegistry<K, V> {
         int parallel = configs.getParallelism();
         if (messageListener instanceof AcknowledgeMessageListener) {
             if(useProxy){
-                String proxyModel = System.getProperty(Constants.PROXY_MODEL);
-                if(ConsumerConfig.ProxyModel.PUSH == ConsumerConfig.ProxyModel.PUSH.valueOf(proxyModel)){
-                    this.messageListenerService = new PushAcknowledgeMessageListenerService(this.consumer, messageListener);
-                } else{
-                    this.messageListenerService = new PullAcknowledgeMessageListenerService(this.consumer, messageListener);
-                }
+                this.messageListenerService = new PullAcknowledgeMessageListenerService(this.consumer, messageListener);
             } else if (partitionOrderly && isAssignTopicPartition) {
                 this.messageListenerService = new AssignPartitionOrderlyAcknowledgeMessageListenerService(this.consumer, messageListener);
             } else if(partitionOrderly){

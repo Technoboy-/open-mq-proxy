@@ -8,6 +8,7 @@ import com.owl.mq.proxy.service.PullMessageService;
 import com.owl.mq.proxy.transport.Address;
 import com.owl.mq.proxy.transport.NettyClient;
 import com.owl.mq.proxy.zookeeper.ZookeeperClient;
+import com.owl.rocketmq.client.proxy.config.RmqClientConfigs;
 import com.owl.rocketmq.client.proxy.service.MessageListenerService;
 import com.owl.rocketmq.client.proxy.service.RmqPullMessageService;
 import com.owl.rocketmq.client.proxy.transport.RmqNettyClient;
@@ -32,14 +33,10 @@ public class DefaultPullMessageImpl {
     //RMQ 从哪里获取注册的列表。
     private final String serverList = "";
 
-    private final int sessionTimeoutMs = 0;
-
-    private final int connectionTimeoutMs = 0;
-
     public DefaultPullMessageImpl(MessageListenerService messageListenerService){
         this.nettyClient = new RmqNettyClient(messageListenerService);
         this.pullMessageService = new RmqPullMessageService(nettyClient);
-        this.zookeeperClient = new ZookeeperClient(serverList, sessionTimeoutMs, connectionTimeoutMs);
+        this.zookeeperClient = new ZookeeperClient(serverList);
         this.registryService = new RegistryService(zookeeperClient);
         this.registryService.addListener(new RegistryListener() {
             @Override

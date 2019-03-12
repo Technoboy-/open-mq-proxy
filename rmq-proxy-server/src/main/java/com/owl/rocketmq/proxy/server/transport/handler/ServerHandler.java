@@ -1,11 +1,11 @@
 package com.owl.rocketmq.proxy.server.transport.handler;
 
-import com.owl.kafka.proxy.server.registry.RegistryCenter;
+import com.owl.mq.proxy.registry.RegistryManager;
+import com.owl.mq.proxy.service.InstanceHolder;
 import com.owl.mq.proxy.transport.Connection;
 import com.owl.mq.proxy.transport.NettyConnection;
 import com.owl.mq.proxy.transport.handler.MessageDispatcher;
 import com.owl.mq.proxy.transport.protocol.Packet;
-import com.owl.mq.server.service.InstanceHolder;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -33,7 +33,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Connection connnection = NettyConnection.attachChannel(ctx.channel());
-        InstanceHolder.I.get(RegistryCenter.class).getClientRegistry().unregister(connnection);
+        InstanceHolder.I.get(RegistryManager.class).getClientRegistry().unregister(connnection);
         connnection.close();
     }
 

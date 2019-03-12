@@ -4,13 +4,13 @@ import com.owl.client.common.util.Preconditions;
 import com.owl.kafka.client.consumer.Record;
 import com.owl.kafka.proxy.server.consumer.DLQConsumer;
 import com.owl.kafka.proxy.server.consumer.ProxyConsumer;
-import com.owl.kafka.proxy.server.consumer.ServerConfigs;
+import com.owl.kafka.proxy.server.config.KafkaServerConfigs;
+import com.owl.mq.proxy.service.InstanceHolder;
 import com.owl.mq.proxy.transport.message.KafkaMessage;
 import com.owl.mq.proxy.transport.protocol.Packet;
 import com.owl.mq.proxy.util.MessageCodec;
 import com.owl.mq.proxy.zookeeper.ZookeeperClient;
 import com.owl.mq.proxy.bo.ResendPacket;
-import com.owl.mq.server.service.InstanceHolder;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.Producer;
@@ -76,7 +76,7 @@ public class DLQService {
     }
 
     public void write(ResendPacket resendPacket){
-        Preconditions.checkArgument(resendPacket.getRepost() >= ServerConfigs.I.getServerMessageRepostTimes(), "resendPacket must repost more than " + ServerConfigs.I.getServerMessageRepostTimes() + " times");
+        Preconditions.checkArgument(resendPacket.getRepost() >= KafkaServerConfigs.I.getServerMessageRepostTimes(), "resendPacket must repost more than " + KafkaServerConfigs.I.getServerMessageRepostTimes() + " times");
         try {
             Packet packet = resendPacket.getPacket();
             KafkaMessage kafkaMessage = MessageCodec.decode(packet.getBody());

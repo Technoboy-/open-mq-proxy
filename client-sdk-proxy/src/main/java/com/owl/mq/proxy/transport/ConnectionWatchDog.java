@@ -1,5 +1,6 @@
 package com.owl.mq.proxy.transport;
 
+import com.owl.mq.proxy.bo.RegisterContent;
 import com.owl.mq.proxy.util.Packets;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -42,7 +43,8 @@ public abstract class ConnectionWatchDog extends ChannelInboundHandlerAdapter im
         LOGGER.info("connect to server : {} success", socketAddress);
         //do register
         connection = NettyConnection.attachChannel(ctx.channel());
-        ctx.writeAndFlush(Packets.register(""));
+
+        ctx.writeAndFlush(Packets.register(getRegisterContent()));
         ctx.fireChannelActive();
     }
 
@@ -89,4 +91,6 @@ public abstract class ConnectionWatchDog extends ChannelInboundHandlerAdapter im
     }
 
     public abstract ChannelHandler[] handlers();
+
+    public abstract RegisterContent getRegisterContent();
 }

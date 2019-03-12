@@ -3,6 +3,7 @@ package com.owl.kafka.proxy.server.transport.handler;
 
 import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.util.NamedThreadFactory;
+import com.owl.kafka.proxy.server.config.KafkaServerConfigs;
 import com.owl.mq.proxy.transport.Connection;
 import com.owl.mq.proxy.transport.handler.CommonMessageHandler;
 import com.owl.mq.proxy.transport.message.KafkaHeader;
@@ -11,8 +12,6 @@ import com.owl.mq.proxy.transport.protocol.Packet;
 import com.owl.mq.proxy.util.MessageCodec;
 
 import com.owl.kafka.proxy.server.consumer.ProxyConsumer;
-import com.owl.mq.server.bo.ServerConfigs;
-import com.owl.mq.server.push.service.MessageHolder;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
 import org.slf4j.Logger;
@@ -37,9 +36,9 @@ public class AckMessageHandler extends CommonMessageHandler {
 
     private final ScheduledExecutorService commitScheduler;
 
-    private final int interval = ServerConfigs.I.getServerCommitOffsetInterval();
+    private final int interval = KafkaServerConfigs.I.getServerCommitOffsetInterval();
 
-    private final int batchSize = ServerConfigs.I.getServerCommitOffsetBatchSize();
+    private final int batchSize = KafkaServerConfigs.I.getServerCommitOffsetBatchSize();
 
     public AckMessageHandler(ProxyConsumer consumer){
         this.consumer = consumer;
@@ -50,26 +49,8 @@ public class AckMessageHandler extends CommonMessageHandler {
     @Override
     public void handle(Connection connection, Packet packet) throws Exception {
         KafkaMessage kafkaMessage = MessageCodec.decode(packet.getBody());
-        KafkaHeader.Sign sign = KafkaHeader.Sign.of(kafkaMessage.getHeader().getSign());
-        if(sign == null){
-            LOGGER.error("sign is empty, opaque : {}, kafkaMessage : {}", packet.getOpaque(), kafkaMessage);
-            return;
-        }
-        switch (sign){
-            case PUSH:
-                LOGGER.debug("received push ack msg : {}", kafkaMessage);
-                acknowledge(kafkaMessage.getHeader());
-                boolean result = MessageHolder.fastRemove(kafkaMessage);
-                if(!result){
-                    LOGGER.warn("MessageHolder not found ack opaque : {}, just ignore", packet.getOpaque());
-                }
-                break;
-            case PULL:
-                LOGGER.debug("received pull ack msg : {}", kafkaMessage);
-                acknowledge(kafkaMessage.getHeader());
-                break;
-
-        }
+        LOGGER.debug("received pull ack msg : {}", kafkaMessage);
+        acknowledge(kafkaMessage.getHeader());
     }
 
     protected void acknowledge(KafkaHeader kafkaHeader){

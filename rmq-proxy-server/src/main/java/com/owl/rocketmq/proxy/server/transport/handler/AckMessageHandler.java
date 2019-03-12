@@ -11,7 +11,7 @@ import com.owl.mq.proxy.transport.message.RmqHeader;
 import com.owl.mq.proxy.transport.message.RmqMessage;
 import com.owl.mq.proxy.transport.protocol.Packet;
 import com.owl.mq.proxy.util.RmqMessageCodec;
-import com.owl.rocketmq.proxy.server.config.ServerConfigs;
+import com.owl.rocketmq.proxy.server.config.RmqServerConfigs;
 import com.owl.rocketmq.proxy.server.consumer.ProxyConsumer;
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.slf4j.Logger;
@@ -30,9 +30,9 @@ public class AckMessageHandler extends CommonMessageHandler {
 
     private volatile ConcurrentMap<TopicQueue, BrokerNameOffset> latestOffsetMap = new ConcurrentHashMap<>();
 
-    private final int interval = ServerConfigs.I.getServerCommitOffsetInterval();
+    private final int interval = RmqServerConfigs.I.getServerCommitOffsetInterval();
 
-    private final int batchSize = ServerConfigs.I.getServerCommitOffsetBatchSize();
+    private final int batchSize = RmqServerConfigs.I.getServerCommitOffsetBatchSize();
 
     private final AtomicLong messageCount = new AtomicLong(1);
 

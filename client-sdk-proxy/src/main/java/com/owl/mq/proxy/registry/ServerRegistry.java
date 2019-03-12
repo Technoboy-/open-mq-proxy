@@ -1,11 +1,5 @@
 package com.owl.mq.proxy.registry;
 
-import com.owl.client.common.util.NetUtils;
-import com.owl.client.common.util.ZookeeperConstants;
-import com.owl.kafka.proxy.server.consumer.ServerConfigs;
-import com.owl.mq.proxy.transport.Address;
-
-
 /**
  * @Author: Tboy
  */
@@ -13,28 +7,19 @@ public class ServerRegistry {
 
     private final RegistryService registryService;
 
+    private RegisterMetadata localRegisterMetadata;
+
     public ServerRegistry(RegistryService registryService){
         this.registryService = registryService;
     }
 
-    public void register(){
-        Address address = new Address(NetUtils.getLocalIp(), ServerConfigs.I.getServerPort());
-        RegisterMetadata registerMetadata = new RegisterMetadata();
-        registerMetadata.setPath(String.format(ZookeeperConstants.ZOOKEEPER_PROVIDERS, ServerConfigs.I.getServerTopic()));
-        registerMetadata.setAddress(address);
-        this.register(registerMetadata);
-    }
-
     public void register(RegisterMetadata registerMetadata){
+        this.localRegisterMetadata = registerMetadata;
         this.registryService.register(registerMetadata);
     }
 
     public void unregister(){
-        Address address = new Address(NetUtils.getLocalIp(), ServerConfigs.I.getServerPort());
-        RegisterMetadata registerMetadata = new RegisterMetadata();
-        registerMetadata.setPath(String.format(ZookeeperConstants.ZOOKEEPER_PROVIDERS, ServerConfigs.I.getServerTopic()));
-        registerMetadata.setAddress(address);
-        this.unregister(registerMetadata);
+        this.unregister(localRegisterMetadata);
     }
 
     public void unregister(RegisterMetadata registerMetadata){

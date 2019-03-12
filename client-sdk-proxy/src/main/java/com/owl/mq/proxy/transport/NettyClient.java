@@ -1,6 +1,8 @@
 package com.owl.mq.proxy.transport;
 
 import com.owl.client.common.util.NamedThreadFactory;
+import com.owl.mq.proxy.bo.ClientConfigs;
+import com.owl.mq.proxy.bo.RegisterContent;
 import com.owl.mq.proxy.transport.codec.PacketDecoder;
 import com.owl.mq.proxy.transport.codec.PacketEncoder;
 import com.owl.mq.proxy.transport.handler.ClientHandler;
@@ -43,8 +45,11 @@ public abstract class NettyClient {
 
     private ClientHandler handler;
 
-    public NettyClient(int workNum){
-        this.workGroup = new NioEventLoopGroup(workNum);
+    private final ClientConfigs clientConfigs;
+
+    public NettyClient(ClientConfigs clientConfigs){
+        this.clientConfigs = clientConfigs;
+        this.workGroup = new NioEventLoopGroup(clientConfigs.getWorkerNum());
         this.bootstrap.
                 option(ChannelOption.SO_KEEPALIVE, true).
                 option(ChannelOption.TCP_NODELAY, true).
@@ -67,6 +72,14 @@ public abstract class NettyClient {
                         new IdleStateHandler(0, 30, 0),
                         idleStateTrigger, new PacketDecoder(), handler, encoder};
             }
+
+            @Override
+            public RegisterContent getRegisterContent() {
+                RegisterContent registerContent = new RegisterContent(clientConfigs.getTopic(), clientConfigs.getGroupId());
+                return registerContent;
+            }
+
+
         };
         try {
             ChannelFuture future;

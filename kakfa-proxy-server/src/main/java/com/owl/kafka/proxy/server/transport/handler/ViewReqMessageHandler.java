@@ -2,6 +2,7 @@ package com.owl.kafka.proxy.server.transport.handler;
 
 import com.owl.client.common.serializer.SerializerImpl;
 import com.owl.kafka.proxy.server.service.DLQService;
+import com.owl.mq.proxy.service.InstanceHolder;
 import com.owl.mq.proxy.transport.Connection;
 import com.owl.mq.proxy.transport.alloc.ByteBufferPool;
 import com.owl.mq.proxy.transport.handler.CommonMessageHandler;
@@ -13,7 +14,6 @@ import com.owl.mq.proxy.util.MessageCodec;
 import com.owl.mq.proxy.util.KafkaPackets;
 import com.owl.kafka.client.consumer.Record;
 
-import com.owl.mq.server.service.InstanceHolder;
 import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

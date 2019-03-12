@@ -17,8 +17,6 @@ public class KafkaHeader implements Serializable {
 
     private byte repost;
 
-    private byte sign;
-
     private byte pullStatus;
 
     public KafkaHeader() {
@@ -47,14 +45,6 @@ public class KafkaHeader implements Serializable {
         this.msgId = msgId;
         this.repost = (byte)1;
         this.pullStatus = pullStatus;
-    }
-
-    public byte getSign() {
-        return sign;
-    }
-
-    public void setSign(byte sign) {
-        this.sign = sign;
     }
 
     public long getMsgId() {
@@ -115,29 +105,5 @@ public class KafkaHeader implements Serializable {
                 ", repost=" + repost +
                 ", pullStatus=" + pullStatus +
                 '}';
-    }
-
-    public enum Sign{
-        PUSH((byte)0),
-
-        PULL((byte)1);
-
-        private byte sign;
-        private Sign(byte sign){
-            this.sign = sign;
-        }
-
-        public byte getSign() {
-            return sign;
-        }
-
-        public static Sign of(byte sign){
-            for(Sign side : values()){
-                if(side.getSign() == sign){
-                    return side;
-                }
-            }
-            return null;
-        }
     }
 }

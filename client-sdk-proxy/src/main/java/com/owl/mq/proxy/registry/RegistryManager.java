@@ -1,5 +1,7 @@
 package com.owl.mq.proxy.registry;
 
+import com.owl.mq.proxy.bo.ServerConfigs;
+import com.owl.mq.proxy.service.InstanceHolder;
 import com.owl.mq.proxy.zookeeper.ZookeeperClient;
 
 /**
@@ -15,14 +17,16 @@ public class RegistryManager {
 
     private final RegistryService registryService;
 
-    public RegistryManager(){
-        this.zookeeperClient = new ZookeeperClient(ServerConfigs.I.getZookeeperServerList());
+    public RegistryManager(ServerConfigs serverConfigs){
+        this.zookeeperClient = new ZookeeperClient(serverConfigs.getZookeeperServerList());
         this.registryService = new RegistryService(this.zookeeperClient);
         //
         this.serverRegistry = new ServerRegistry(registryService);
         this.clientRegistry = new ClientRegistry(registryService);
 
-        //
+        InstanceHolder.I.set(this);
+        InstanceHolder.I.set(this.zookeeperClient);
+
     }
 
     public ServerRegistry getServerRegistry() {

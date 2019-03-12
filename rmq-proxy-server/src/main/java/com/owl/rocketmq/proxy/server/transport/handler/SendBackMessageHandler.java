@@ -7,6 +7,7 @@ import com.owl.mq.proxy.transport.message.RmqMessage;
 import com.owl.mq.proxy.transport.protocol.Packet;
 import com.owl.mq.proxy.util.ChannelUtils;
 import com.owl.mq.proxy.util.RmqMessageCodec;
+import com.owl.rocketmq.proxy.server.config.RmqServerConfigs;
 import com.owl.rocketmq.proxy.server.pull.RmqPullCenter;
 import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class SendBackMessageHandler extends CommonMessageHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SendBackMessageHandler.class);
 
-    private final int repostCount = ServerConfigs.I.getServerRepostCount();
+    private final int repostCount = RmqServerConfigs.I.getServerRepostCount();
 
     @Override
     public void handle(Connection connection, Packet packet) throws Exception {

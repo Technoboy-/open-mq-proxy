@@ -1,23 +1,23 @@
 package com.owl.kafka.client.proxy;
 
-import com.owl.mq.proxy.bo.ClientConfigs;
-import com.owl.mq.common.ClassPathPropertyLoader;
-import com.owl.mq.proxy.service.InvokerPromise;
-import com.owl.mq.proxy.service.PullMessageService;
+import com.owl.client.common.util.ZookeeperConstants;
+import com.owl.kafka.client.consumer.Record;
+import com.owl.kafka.client.consumer.service.MessageListenerService;
+import com.owl.kafka.client.proxy.config.KafkaClientConfigs;
+import com.owl.kafka.client.proxy.service.KafkaPullMessageService;
+import com.owl.kafka.client.proxy.transport.KafkaNettyClient;
 import com.owl.mq.proxy.registry.RegistryListener;
 import com.owl.mq.proxy.registry.RegistryService;
+import com.owl.mq.proxy.service.InvokerPromise;
+import com.owl.mq.proxy.service.PullMessageService;
 import com.owl.mq.proxy.transport.Address;
 import com.owl.mq.proxy.transport.Connection;
 import com.owl.mq.proxy.transport.NettyClient;
 import com.owl.mq.proxy.transport.message.KafkaMessage;
 import com.owl.mq.proxy.transport.protocol.Packet;
-import com.owl.mq.proxy.util.MessageCodec;
 import com.owl.mq.proxy.util.KafkaPackets;
+import com.owl.mq.proxy.util.MessageCodec;
 import com.owl.mq.proxy.zookeeper.ZookeeperClient;
-import com.owl.kafka.client.consumer.Record;
-import com.owl.kafka.client.consumer.service.MessageListenerService;
-import com.owl.kafka.client.proxy.service.KafkaPullMessageService;
-import com.owl.kafka.client.proxy.transport.KafkaNettyClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,16 +38,12 @@ public class DefaultPullMessageImpl {
 
     private final PullMessageService pullMessageService;
 
-    private final String serverList = ClientConfigs.I.getZookeeperServerList();
-
-    private final int sessionTimeoutMs = ClientConfigs.I.getZookeeperSessionTimeoutMs();
-
-    private final int connectionTimeoutMs = ClientConfigs.I.getZookeeperConnectionTimeoutMs();
+    private final String serverList = KafkaClientConfigs.I.getZookeeperServerList();
 
     public DefaultPullMessageImpl(MessageListenerService messageListenerService){
         this.nettyClient = new KafkaNettyClient(messageListenerService);
         this.pullMessageService = new KafkaPullMessageService(nettyClient);
-        this.zookeeperClient = new ZookeeperClient(serverList, sessionTimeoutMs, connectionTimeoutMs);
+        this.zookeeperClient = new ZookeeperClient(serverList);
         this.registryService = new RegistryService(zookeeperClient);
         this.registryService.addListener(new RegistryListener() {
             @Override
@@ -64,7 +60,7 @@ public class DefaultPullMessageImpl {
                 }
             }
         });
-        this.registryService.subscribe(String.format(ClientConfigs.I.ZOOKEEPER_PROVIDERS, ClientConfigs.I.getTopic()));
+        this.registryService.subscribe(String.format(ZookeeperConstants.ZOOKEEPER_PROVIDERS, KafkaClientConfigs.I.getTopic()));
     }
 
     public void start(){
@@ -75,7 +71,7 @@ public class DefaultPullMessageImpl {
     public Record<byte[], byte[]> view(long msgId){
         Record result = Record.EMPTY;
         try {
-            List<String> children = zookeeperClient.getChildren(String.format(ClassPathPropertyLoader.ZOOKEEPER_CONSUMERS, ClientConfigs.I.getTopic() + "-dlq"));
+            List<String> children = zookeeperClient.getChildren(String.format(ZookeeperConstants.ZOOKEEPER_CONSUMERS, KafkaClientConfigs.I.getTopic() + "-dlq"));
             for(String child : children){
                 Address address = Address.parse(child);
                 if(address != null){

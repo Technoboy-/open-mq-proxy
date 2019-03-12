@@ -25,7 +25,6 @@ public class KafkaPackets extends Packets{
         packet.setOpaque(IdService.I.getId());
 
         KafkaHeader kafkaHeader = new KafkaHeader(msgId);
-        kafkaHeader.setSign(KafkaHeader.Sign.PUSH.getSign());
         byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
         //
         ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4 + 4);
@@ -47,7 +46,6 @@ public class KafkaPackets extends Packets{
         packet.setOpaque(IdService.I.getId());
 
         KafkaHeader kafkaHeader = new KafkaHeader(topicPartitionOffset.getTopic(), topicPartitionOffset.getPartition(), topicPartitionOffset.getOffset(), topicPartitionOffset.getMsgId());
-        kafkaHeader.setSign(KafkaHeader.Sign.PULL.getSign());
         byte[] headerInBytes = SerializerImpl.getFastJsonSerializer().serialize(kafkaHeader);
         //
         ByteBuf buffer = bufferPool.allocate(4 + headerInBytes.length + 4 + 4);

@@ -1,9 +1,9 @@
 package com.owl.rocketmq.proxy.server.pull;
 
-import com.owl.mq.server.registry.RegistryCenter;
+import com.owl.mq.proxy.registry.RegistryManager;
 import com.owl.rocketmq.client.consumer.ConsumerConfig;
 import com.owl.rocketmq.client.proxy.service.MessageListenerService;
-import com.owl.rocketmq.proxy.server.config.ServerConfigs;
+import com.owl.rocketmq.proxy.server.config.RmqServerConfigs;
 import com.owl.rocketmq.proxy.server.consumer.AcknowledgeMessageListenerService;
 import com.owl.rocketmq.proxy.server.consumer.ProxyConsumer;
 import com.owl.rocketmq.proxy.server.transport.NettyServer;
@@ -20,14 +20,14 @@ public class PullServer {
 
     private final NettyServer nettyServer;
 
-    private final RegistryCenter registryCenter;
+    private final RegistryManager registryManager;
 
     public PullServer(){
 
-        this.registryCenter = new RegistryCenter();
+        this.registryManager = new RegistryManager(RmqServerConfigs.I);
         //
-        ConsumerConfig consumerConfigs = new ConsumerConfig(ServerConfigs.I.getServerNamesrvList(), ServerConfigs.I.getServerTopic(),
-                ServerConfigs.I.getServerTags(), ServerConfigs.I.getServerGroupId());
+        ConsumerConfig consumerConfigs = new ConsumerConfig(RmqServerConfigs.I.getServerNamesrvList(), RmqServerConfigs.I.getServerTopic(),
+                RmqServerConfigs.I.getServerTags(), RmqServerConfigs.I.getServerGroupId());
         this.consumer = new ProxyConsumer(consumerConfigs);
         this.nettyServer = new NettyServer(consumer);
 
@@ -43,6 +43,6 @@ public class PullServer {
     public void close(){
         this.consumer.close();
         this.nettyServer.close();
-        this.registryCenter.close();
+        this.registryManager.close();
     }
 }

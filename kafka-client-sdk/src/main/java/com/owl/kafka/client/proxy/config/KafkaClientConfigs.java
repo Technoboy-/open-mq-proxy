@@ -1,25 +1,14 @@
 package com.owl.kafka.client.proxy.config;
 
 
-import com.owl.client.common.util.ClassPathPropertyLoader;
-import com.owl.client.common.util.Constants;
 import com.owl.client.common.util.Preconditions;
 import com.owl.client.common.util.StringUtils;
+import com.owl.mq.proxy.bo.ClientConfigs;
 
 /**
  * @Author: Tboy
  */
-public class KafkaClientConfigs extends ClassPathPropertyLoader {
-
-    static final String CLIENT_TOPIC = "client.topic";
-
-    static final String CLIENT_WORKER_NUM = "proxy.worker.num";
-
-    static final String CLIENT_PARALLELISM_NUM = "proxy.parallelism.num";
-
-    static final String CLIENT_PROCESS_QUEUE_SIZE = "proxy.process.queue.size";
-
-    static final String CLIENT_CONSUME_BATCH_SIZE = "proxy.consume.batch.size";
+public class KafkaClientConfigs extends ClientConfigs {
 
     static final  String CLIENT_CONFIG_FILE = "kafka_client.properties";
 
@@ -30,27 +19,7 @@ public class KafkaClientConfigs extends ClassPathPropertyLoader {
     }
 
     protected void afterLoad(){
-        Preconditions.checkArgument(!StringUtils.isEmpty(getTopic()), "topic should not be empty");
-    }
-
-    public String getTopic(){
-        return get(CLIENT_TOPIC);
-    }
-
-    public int getWorkerNum(){
-        return getInt(CLIENT_WORKER_NUM, Constants.CPU_SIZE);
-    }
-
-    public int getParallelismNum(){
-        return getInt(CLIENT_PARALLELISM_NUM, 1);
-    }
-
-    public int getConsumeBatchSize(){
-        return getInt(CLIENT_CONSUME_BATCH_SIZE, 2);
-    }
-
-    public int getProcessQueueSize(){
-        return getInt(CLIENT_PROCESS_QUEUE_SIZE, 1000);
+        Preconditions.checkArgument(StringUtils.isNotEmpty(getTopic()), "topic should not be empty");
     }
 
 }

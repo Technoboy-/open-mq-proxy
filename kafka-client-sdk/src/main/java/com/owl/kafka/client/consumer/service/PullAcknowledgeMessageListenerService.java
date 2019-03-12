@@ -3,6 +3,7 @@ package com.owl.kafka.client.consumer.service;
 import com.owl.client.common.metric.MonitorImpl;
 import com.owl.client.common.util.CollectionUtils;
 import com.owl.client.common.util.NamedThreadFactory;
+import com.owl.kafka.client.proxy.config.KafkaClientConfigs;
 import com.owl.mq.proxy.bo.ClientConfigs;
 import com.owl.mq.proxy.service.PullStatus;
 import com.owl.mq.proxy.transport.Connection;
@@ -35,9 +36,9 @@ public class PullAcknowledgeMessageListenerService<K, V> implements MessageListe
 
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("PullAcknowledgeMessageListenerService-thread"));
 
-    private final int parallelism = ClientConfigs.I.getParallelismNum();
+    private final int parallelism = KafkaClientConfigs.I.getParallelismNum();
 
-    private final int consumeBatchSize = ClientConfigs.I.getConsumeBatchSize();
+    private final int consumeBatchSize = KafkaClientConfigs.I.getConsumeBatchSize();
 
     private final ThreadPoolExecutor consumeExecutor = new ThreadPoolExecutor(parallelism, parallelism, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 

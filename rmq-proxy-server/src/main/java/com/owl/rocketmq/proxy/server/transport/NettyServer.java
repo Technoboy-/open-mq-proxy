@@ -1,14 +1,24 @@
 package com.owl.rocketmq.proxy.server.transport;
 
+import com.owl.client.common.util.NetUtils;
+import com.owl.client.common.util.ZookeeperConstants;
+import com.owl.mq.proxy.registry.RegisterMetadata;
+import com.owl.mq.proxy.registry.RegistryManager;
+import com.owl.mq.proxy.service.InstanceHolder;
+import com.owl.mq.proxy.transport.Address;
 import com.owl.mq.proxy.transport.NettyTcpServer;
 import com.owl.mq.proxy.transport.codec.PacketDecoder;
 import com.owl.mq.proxy.transport.codec.PacketEncoder;
 import com.owl.mq.proxy.transport.handler.MessageDispatcher;
 import com.owl.mq.proxy.transport.handler.PingMessageHandler;
+import com.owl.mq.proxy.transport.handler.UnregisterMessageHandler;
 import com.owl.mq.proxy.transport.protocol.Command;
-import com.owl.rocketmq.proxy.server.config.ServerConfigs;
+import com.owl.rocketmq.proxy.server.config.RmqServerConfigs;
 import com.owl.rocketmq.proxy.server.consumer.ProxyConsumer;
-import com.owl.rocketmq.proxy.server.transport.handler.*;
+import com.owl.rocketmq.proxy.server.transport.handler.AckMessageHandler;
+import com.owl.rocketmq.proxy.server.transport.handler.PullReqMessageHandler;
+import com.owl.rocketmq.proxy.server.transport.handler.SendBackMessageHandler;
+import com.owl.rocketmq.proxy.server.transport.handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelOption;
@@ -22,12 +32,11 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
  */
 public class NettyServer extends NettyTcpServer {
 
+    private static final int port = RmqServerConfigs.I.getServerPort();
 
-    private static final int port = ServerConfigs.I.getServerPort();
+    private static final int bossNum = RmqServerConfigs.I.getServerBossNum();
 
-    private static final int bossNum = ServerConfigs.I.getServerBossNum();
-
-    private static final int workerNum = ServerConfigs.I.getServerWorkerNum();
+    private static final int workerNum = RmqServerConfigs.I.getServerWorkerNum();
 
     private final ChannelHandler handler;
 
@@ -55,7 +64,12 @@ public class NettyServer extends NettyTcpServer {
 
     @Override
     protected void afterStart() {
-        InstanceHolder.I.get(RegistryCenter.class).getServerRegistry().register();
+        Address address = new Address(NetUtils.getLocalIp(), port);
+        RegisterMetadata registerMetadata = new RegisterMetadata();
+        registerMetadata.setPath(String.format(ZookeeperConstants.ZOOKEEPER_PROVIDERS, RmqServerConfigs.I.getServerTopic()));
+        registerMetadata.setAddress(address);
+
+        InstanceHolder.I.get(RegistryManager.class).getServerRegistry().register(registerMetadata);
     }
 
     protected void initNettyChannel(NioSocketChannel ch) throws Exception{
