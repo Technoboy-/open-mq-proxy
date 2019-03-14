@@ -13,6 +13,9 @@ public class HessianSerializer<T> implements Serializer<T> {
 
     @Override
     public byte[] serialize(T obj) {
+        if(obj == null){
+            return null;
+        }
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             HessianOutput hessianOutput = new HessianOutput(bos);

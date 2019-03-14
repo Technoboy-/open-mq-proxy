@@ -13,6 +13,9 @@ public class FastJsonSerializer<T> implements Serializer<T> {
 
 	@Override
 	public byte[] serialize(T obj)  {
+		if(obj == null){
+			return null;
+		}
 		String json = JSON.toJSONString(obj);
 		return json.getBytes(Constants.UTF8);
 	}

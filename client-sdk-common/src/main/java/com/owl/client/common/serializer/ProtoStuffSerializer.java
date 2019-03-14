@@ -25,6 +25,9 @@ public class ProtoStuffSerializer<T> implements Serializer<T> {
 
 	@Override
 	public byte[] serialize(T obj)  {
+		if(obj == null){
+			return null;
+		}
 		Schema<T> schema = getSchema((Class<T>) obj.getClass());
 		LinkedBuffer buf = bufThreadLocal.get();
 		try {

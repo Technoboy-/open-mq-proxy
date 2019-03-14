@@ -14,8 +14,6 @@ import com.owl.rocketmq.client.proxy.transport.handler.PullRespMessageHandler;
  */
 public class RmqNettyClient extends NettyClient {
 
-    private static final int workNum = RmqClientConfigs.I.getWorkerNum();
-
     private final MessageListenerService messageListenerService;
 
     public RmqNettyClient(MessageListenerService messageListenerService){

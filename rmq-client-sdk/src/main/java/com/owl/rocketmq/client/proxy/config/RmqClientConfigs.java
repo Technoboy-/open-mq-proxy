@@ -19,7 +19,7 @@ public class RmqClientConfigs extends ClientConfigs {
     }
 
     protected void afterLoad(){
-        Preconditions.checkArgument(!StringUtils.isEmpty(getTopic()), "topic should not be empty");
+        Preconditions.checkArgument(StringUtils.isNotEmpty(getTopic()), "topic should not be empty");
     }
 
 }

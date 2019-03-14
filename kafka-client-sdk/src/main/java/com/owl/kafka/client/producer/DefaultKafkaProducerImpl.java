@@ -91,7 +91,7 @@ public class DefaultKafkaProducerImpl<K, V> implements KafkaProducer<K, V> {
         }
     }
 
-    private Future<SendResult> doSend(String topic, Integer partition, K key, V value, Callback callback) {
+    private Future<SendResult> doSend(final String topic, final Integer partition, final K key, final V value, final Callback callback) {
         if(!start.get()){
             throw new RuntimeException("kafka producer has closed !");
         }
@@ -99,62 +99,74 @@ public class DefaultKafkaProducerImpl<K, V> implements KafkaProducer<K, V> {
         byte[] keyBytes = keySerializer.serialize(key);
         byte[] valueBytes = valueSerializer.serialize(value);
 
-        ProducerRecord<byte[], byte[]> record;
-
-        // mark partition invalid.
-        if(partition == null) {
-            partition = -1;
-        }
-        if (partition == -1 && null == key) {
-            record = new ProducerRecord<>(topic, valueBytes);
-        } else if (partition == -1) {
-            record = new ProducerRecord<>(topic, keyBytes, valueBytes);
-        } else {
-            record = new ProducerRecord<>(topic, partition, keyBytes, valueBytes);
-        }
+        ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(topic, partition, keyBytes, valueBytes);
 
         final Future<RecordMetadata> future = producer.send(record, new org.apache.kafka.clients.producer.Callback() {
 
             @Override
             public void onCompletion(RecordMetadata metadata, Exception exception) {
                 if (callback != null) {
-                    SendResult sendResult = SendResult.ERROR_RESULT;
+                    SendResult sendResult = new SendResult(topic, partition, -1, -1, key, value);
                     if(metadata != null){
-                        sendResult = new SendResult(metadata.partition(), metadata.offset());
+                        sendResult.setPartition(metadata.partition());
                     }
                     callback.onCompletion(sendResult, exception);
                 }
             }
         });
 
-        return new Future<SendResult>(){
-            @Override
-            public boolean cancel(boolean mayInterruptIfRunning) {
-                return future.cancel(mayInterruptIfRunning);
-            }
+        return new FutureResult(topic, future, key, value);
+    }
 
-            @Override
-            public boolean isCancelled() {
-                return future.isCancelled();
-            }
+    static class FutureResult<K, V> implements Future<SendResult>{
 
-            @Override
-            public boolean isDone() {
-                return future.isDone();
-            }
+        private String topic;
 
-            @Override
-            public SendResult get() throws InterruptedException, ExecutionException {
-                RecordMetadata recordMetadata = future.get();
-                return new SendResult(recordMetadata.partition(), recordMetadata.offset());
-            }
+        private Future<RecordMetadata> future;
 
-            @Override
-            public SendResult get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-                RecordMetadata recordMetadata = future.get(timeout, unit);
-                return new SendResult(recordMetadata.partition(), recordMetadata.offset());
+        private K key;
+
+        private V value;
+
+        public FutureResult(String topic, Future<RecordMetadata> future, K key, V value){
+            this.topic = topic;
+            this.future = future;
+            this.key = key;
+            this.value = value;
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            requireNotNull();
+            return future.cancel(mayInterruptIfRunning);
+        }
+
+        public boolean isCancelled() {
+            requireNotNull();
+            return future.isCancelled();
+        }
+
+        public boolean isDone() {
+            requireNotNull();
+            return future.isDone();
+        }
+
+        public SendResult get() throws InterruptedException, ExecutionException {
+            requireNotNull();
+            RecordMetadata metadata = future.get();
+            return new SendResult(topic, metadata.partition(), metadata.offset(), metadata.timestamp(), key, value);
+        }
+
+        public SendResult get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+            requireNotNull();
+            RecordMetadata metadata = future.get(timeout, unit);
+            return new SendResult(topic, metadata.partition(), metadata.offset(), metadata.timestamp(), key, value);
+        }
+
+        private void requireNotNull(){
+            if(future == null){
+                throw new UnsupportedOperationException("Future is null due to AsyncSendRejectException");
             }
-        };
+        }
     }
 
     @Override

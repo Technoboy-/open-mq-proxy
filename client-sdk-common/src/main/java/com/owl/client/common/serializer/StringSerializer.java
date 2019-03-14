@@ -1,6 +1,8 @@
 package com.owl.client.common.serializer;
 
 
+import com.owl.client.common.util.StringUtils;
+
 import java.nio.charset.Charset;
 
 /**
@@ -12,6 +14,9 @@ public class StringSerializer implements Serializer<String> {
 
     @Override
     public byte[] serialize(String obj) {
+        if(StringUtils.isEmpty(obj)){
+            return null;
+        }
         return obj.getBytes(UTF8);
     }
 
