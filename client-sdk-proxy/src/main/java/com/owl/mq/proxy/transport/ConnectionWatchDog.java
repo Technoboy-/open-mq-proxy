@@ -44,7 +44,8 @@ public abstract class ConnectionWatchDog extends ChannelInboundHandlerAdapter im
         //do register
         connection = NettyConnection.attachChannel(ctx.channel());
 
-        ctx.writeAndFlush(Packets.register(getRegisterContent()));
+        //ctx.writeAndFlush(Packets.register(getRegisterContent()));
+        this.fireRegister();
         ctx.fireChannelActive();
     }
 
@@ -92,5 +93,5 @@ public abstract class ConnectionWatchDog extends ChannelInboundHandlerAdapter im
 
     public abstract ChannelHandler[] handlers();
 
-    public abstract RegisterContent getRegisterContent();
+    public abstract void fireRegister();
 }

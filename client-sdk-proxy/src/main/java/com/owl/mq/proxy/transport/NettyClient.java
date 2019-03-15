@@ -8,6 +8,7 @@ import com.owl.mq.proxy.transport.codec.PacketEncoder;
 import com.owl.mq.proxy.transport.handler.ClientHandler;
 import com.owl.mq.proxy.transport.handler.IdleStateTrigger;
 import com.owl.mq.proxy.transport.handler.MessageDispatcher;
+import com.owl.mq.proxy.util.Packets;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
@@ -17,17 +18,20 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.HashedWheelTimer;
+import io.netty.util.Timeout;
+import io.netty.util.TimerTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: Tboy
  */
 public abstract class NettyClient {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NettyClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NettyClient.class);
 
     private final IdleStateTrigger idleStateTrigger = new IdleStateTrigger();
 
@@ -74,9 +78,21 @@ public abstract class NettyClient {
             }
 
             @Override
-            public RegisterContent getRegisterContent() {
+            public void fireRegister() {
                 RegisterContent registerContent = new RegisterContent(clientConfigs.getTopic(), clientConfigs.getGroupId());
-                return registerContent;
+                try {
+                    getConnection().send(Packets.register(registerContent));
+                } catch (Exception ex){
+                    LOG.error("register fail, will retry laster", ex);
+                    timer.newTimeout(new TimerTask(){
+
+                        @Override
+                        public void run(Timeout timeout) throws Exception {
+                            getConnection().send(Packets.register(registerContent));
+                        }
+                    }, 100, TimeUnit.MILLISECONDS);
+
+                }
             }
 
 
@@ -108,7 +124,7 @@ public abstract class NettyClient {
         try {
             connectionManager.disconnect(address);
         } catch (Throwable ex){
-            LOGGER.error("disconnect error", ex);
+            LOG.error("disconnect error", ex);
         }
     }
 
