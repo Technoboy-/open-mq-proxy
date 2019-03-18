@@ -1,6 +1,7 @@
 package com.owl.kafka.client.consumer.assignor;
 
 import com.owl.kafka.client.consumer.exceptions.TopicNotExistException;
+import org.apache.kafka.clients.consumer.RangeAssignor;
 import org.apache.kafka.clients.consumer.StickyAssignor;
 import org.apache.kafka.common.TopicPartition;
 
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * @Author: Tboy
  */
-public class CheckTopicStickyAssignor extends StickyAssignor {
+public class CheckTopicStickyAssignor extends RangeAssignor {
 
     @Override
     public Map<String, List<TopicPartition>> assign(Map<String, Integer> partitionsPerTopic,
